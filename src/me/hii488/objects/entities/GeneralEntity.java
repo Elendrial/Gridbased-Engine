@@ -21,8 +21,16 @@ public class GeneralEntity {
 	public BufferedImage textureImage;
 	public String textureName = "";
 	public Vector queuedMovement = new Vector(0, 0);
-	public boolean alive = true;
+	public boolean notDestroyed = true;
 
+	public GeneralEntity(){}
+	
+	protected GeneralEntity(GeneralEntity toCopy){
+		this.setup();
+		position = toCopy.position;
+		notDestroyed = toCopy.notDestroyed;
+	}
+	
 	public void setup() {
 		try {
 			textureImage = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\" + textureName));
@@ -69,7 +77,11 @@ public class GeneralEntity {
 	
 	public void destroy(){
 		World.getCurrentWorldContainer().entities.remove(this);
-		alive = false;
+		notDestroyed = false;
 	}
-
+	
+	public GeneralEntity clone(){
+		return new GeneralEntity(this);
+	}
+	
 }
