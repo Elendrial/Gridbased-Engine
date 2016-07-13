@@ -6,10 +6,12 @@ import java.util.Random;
 import me.hii488.gameWindow.Window;
 import me.hii488.gameWorld.Initialisation.WorldInitialisation;
 import me.hii488.gameWorld.baseTypes.GeneralWorldContainer;
+import me.hii488.gameWorld.tickControl.TickController;
 import me.hii488.objects.entities.Player;
 
 public class World {
 
+	public static boolean isRunning = true;
 	public static Window mainWindow;
 	public static Player player;
 	
@@ -33,6 +35,10 @@ public class World {
 		mainWindow.start();
 	}
 	
+	public static void closeGame(){
+		TickController.isRunning = false;
+		mainWindow.isRunning = false;
+	}
 	
 	
 	public static int currentWorldContainerID = 0;
@@ -94,6 +100,7 @@ public class World {
 			return false;
 		}
 
+		/*
 		public static void updateContainersOnTick() {
 			for (int i = 0; i < worldContainers.size(); i++) {
 				if (containerExists(i)) {
@@ -113,7 +120,7 @@ public class World {
 				}
 			}
 		}
-
+		 */
 	}
 	
 	public static GeneralWorldContainer getCurrentWorldContainer(){

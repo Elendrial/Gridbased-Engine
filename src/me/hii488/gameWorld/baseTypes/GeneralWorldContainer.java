@@ -4,13 +4,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import me.hii488.gameWorld.World;
-import me.hii488.gameWorld.World.Containers;
+import me.hii488.gameWorld.tickControl.ITickable;
 import me.hii488.general.Position;
 import me.hii488.objects.entities.GeneralEntity;
 
-public class GeneralWorldContainer {
+public class GeneralWorldContainer implements ITickable{
 
-	public boolean alwaysUpdate;
 	public int ID;
 	public Grid grid = new Grid();
 	public boolean loaded = false;
@@ -72,5 +71,17 @@ public class GeneralWorldContainer {
 		entities.add(e);
 		e.onLoad();
 	}
+
+	protected boolean alwaysTicks = false;
+	protected float randTickChance = 0f;
+	
+	@Override
+	public void updateOnRandTick() {}
+
+	@Override
+	public boolean alwaysTicks() {return this.alwaysTicks;}
+
+	@Override
+	public float randTickChance() {return randTickChance;}
 	
 }

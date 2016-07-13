@@ -9,7 +9,6 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import me.hii488.gameWorld.World;
-import me.hii488.general.Settings;
 
 public class Window implements Runnable {
 
@@ -30,9 +29,6 @@ public class Window implements Runnable {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-
-		// Set the target TPS
-		this.targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
 
 		// Setup Window
 		this.frame = new JFrame(title);
@@ -60,14 +56,6 @@ public class Window implements Runnable {
 
 	public void stop() {
 		isRunning = false;
-	}
-
-	private void tick() {
-		World.Containers.updateContainersOnTick();
-	}
-
-	private void sec() {
-		World.Containers.updateContainersOnSec();
 	}
 
 	private void render() {
@@ -98,25 +86,14 @@ public class Window implements Runnable {
 	// FPS should happen as fast as it can, since it renders (only important if
 	// the field of vision can change)
 
+	public int FPS = 0;
+	
 	public void run() {
-		int fps = 0, tick = 0;
+		int fps = 0;
 
 		double fpsTimer = System.currentTimeMillis();
-		double secondsPerTick = 1D / targetTPS;
-		double nsPerTick = secondsPerTick * 1000000000D;
-		double then = System.nanoTime();
-		double now;
-		double unprocessed = 0;
 
-		while (isRunning) {
-			now = System.nanoTime();
-			unprocessed += (now - then) / nsPerTick;
-			then = now;
-			while (unprocessed >= 1) {
-				tick();
-				tick++;
-				unprocessed--;
-			}
+		while (isRunning && World.isRunning) {
 
 			// This is NOT to sleep, but to limit the game loop
 			try {
@@ -131,13 +108,14 @@ public class Window implements Runnable {
 			// If the current time is 1 second greater than the last time we
 			// printed
 			if (System.currentTimeMillis() - fpsTimer >= 1000) {
-				System.out.printf("FPS: %d\tTPS: %d%n", fps, tick);
+			//	System.out.printf("FPS: %d\tTPS: %d%n", fps, tick);
+				FPS = fps;
 				fps = 0;
-				tick = 0;
 				fpsTimer += 1000;
-				sec();
 			}
 		}
+		
+		World.closeGame(); // TODO: Remove this and have a better way, so that multiple windows can be opened etc...
 
 		// When the gameloop is finished running, close the program
 		this.frame.dispatchEvent(new WindowEvent(this.frame, WindowEvent.WINDOW_CLOSING));

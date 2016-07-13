@@ -1,6 +1,6 @@
 package me.hii488.general;
 
-// TODO: Add this to base
+// TODO: Get rid and convert everything to position (as a vector is a position or change in position)
 public class Vector {
 	double dx;
 	double dy;
