@@ -1,4 +1,4 @@
-package me.hii488.gameWorld;
+package me.hii488.gameWorld.baseTypes;
 
 import java.awt.Graphics;
 

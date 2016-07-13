@@ -5,6 +5,7 @@ import java.util.Random;
 
 import me.hii488.gameWindow.Window;
 import me.hii488.gameWorld.Initialisation.WorldInitialisation;
+import me.hii488.gameWorld.baseTypes.GeneralWorldContainer;
 import me.hii488.objects.entities.Player;
 
 public class World {

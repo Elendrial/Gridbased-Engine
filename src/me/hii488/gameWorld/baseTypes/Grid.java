@@ -1,9 +1,9 @@
-package me.hii488.general;
+package me.hii488.gameWorld.baseTypes;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import me.hii488.gameWorld.Tile;
+import me.hii488.general.Position;
 import me.hii488.objects.tileTypes.BaseTileType;
 
 // TODO: Add this to Base

@@ -1,5 +1,6 @@
 package me.hii488.objects.entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -8,11 +9,11 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import me.hii488.gameWorld.World;
-import me.hii488.general.EntityHelper;
 import me.hii488.general.Position;
 import me.hii488.general.Settings;
-import me.hii488.general.TextureHelper;
 import me.hii488.general.Vector;
+import me.hii488.helpers.EntityHelper;
+import me.hii488.helpers.TextureHelper;
 
 // TODO : add this to base
 public class GeneralEntity {
@@ -62,13 +63,13 @@ public class GeneralEntity {
 	}
 
 	public void render(Graphics g) {
-		if(textureImage.getWidth() == 16){
-			g.drawImage(textureImage, position.getX(), position.getY(), null);
-		}
-		else{
-			int i = (16 - textureImage.getWidth())/2;
-			g.drawImage(textureImage, position.getX() + i, position.getY(), null);
-		}
+		
+		g.drawImage(textureImage, position.getX(), position.getY(), null);
+		
+		Color c = g.getColor();
+		g.setColor(Color.red);
+		g.drawRect(this.collisionBox.x, this.collisionBox.y, this.collisionBox.width, this.collisionBox.height);
+		g.setColor(c);
 	}
 
 	public Vector getMotion() {

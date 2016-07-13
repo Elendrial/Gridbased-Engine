@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import me.hii488.gameWorld.World;
-import me.hii488.general.Grid;
+import me.hii488.gameWorld.baseTypes.Grid;
 import me.hii488.general.Position;
 import me.hii488.general.Vector;
 

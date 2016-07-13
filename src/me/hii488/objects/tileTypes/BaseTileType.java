@@ -7,7 +7,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import me.hii488.general.Settings;
-import me.hii488.general.TextureHelper;
+import me.hii488.helpers.TextureHelper;
 
 public class BaseTileType {
 

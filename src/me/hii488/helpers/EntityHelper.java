@@ -1,4 +1,4 @@
-package me.hii488.general;
+package me.hii488.helpers;
 
 import java.util.ArrayList;
 
