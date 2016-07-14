@@ -24,6 +24,7 @@ public class Settings {
 
 	public static class Logging{
 		// TODO : This.
+		public static boolean debug = false;
 	}
 	
 }

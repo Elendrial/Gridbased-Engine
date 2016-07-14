@@ -69,14 +69,22 @@ public class GeneralWorldContainer implements ITickable{
 	
 	public void addEntity(GeneralEntity e){
 		entities.add(e);
+		e.containerID = this.ID;
 		e.onLoad();
 	}
 
+	public ArrayList<GeneralEntity> destroyedInTick = new ArrayList<GeneralEntity>();
+	public void tickEndCleanup(){
+		this.entities.removeAll(destroyedInTick);
+		destroyedInTick.clear();
+	}
+	
+	
 	protected boolean alwaysTicks = false;
 	protected float randTickChance = 0f;
 	
 	@Override
-	public void updateOnRandTick() {}
+	public void updateOnRandTick() {} // Entities and tiles cannot be called from this method, as otherwise all tiles/entities will call have a "random" tick at the same time, rather than independently.
 
 	@Override
 	public boolean alwaysTicks() {return this.alwaysTicks;}

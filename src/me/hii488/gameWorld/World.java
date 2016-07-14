@@ -31,6 +31,8 @@ public class World {
 		
 		WorldInitialisation.initMainWorld();
 		
+		TickController.start();
+		
 		mainWindow.createDisplay();
 		mainWindow.start();
 	}

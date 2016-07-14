@@ -6,6 +6,7 @@ import java.util.Map;
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.baseTypes.GeneralWorldContainer;
 import me.hii488.general.Settings;
+import me.hii488.objects.entities.GeneralEntity;
 
 public class TickController implements Runnable{
 	
@@ -48,16 +49,31 @@ public class TickController implements Runnable{
 		
 		// Tick the loaded container now.
 		if(World.rand.nextFloat() < World.getCurrentWorldContainer().randTickChance())World.getCurrentWorldContainer().updateOnRandTick();
+		for(GeneralEntity ge : World.getCurrentWorldContainer().entities)if(World.rand.nextFloat() < ge.randTickChance()) ge.updateOnRandTick();
+		
 		
 		// Tick always ticking containers next.
 		for (Map.Entry<Integer, GeneralWorldContainer> entry : World.worldContainers.entrySet()) {
 			if(entry.getValue().alwaysTicks()) if (entry.getKey() != World.currentWorldContainerID) if(World.rand.nextFloat() < entry.getValue().randTickChance()) entry.getValue().updateOnRandTick(); // Eclipse had a hissy fit at me if I combined the conditions :/
+			for(GeneralEntity ge : entry.getValue().entities) if(World.rand.nextFloat() < ge.randTickChance()) ge.updateOnRandTick();
 		}
 		
 		// TICK ADDITIONAL AFTER
 		for(ITickable toTick: additionalLateTicking) if(World.rand.nextFloat() < toTick.randTickChance()) toTick.updateOnTick();
 	}
 
+	public static void tickClearup(){
+		World.getCurrentWorldContainer().tickEndCleanup();
+		
+		for (Map.Entry<Integer, GeneralWorldContainer> entry : World.worldContainers.entrySet()) {
+			if(entry.getValue().alwaysTicks()) {if (entry.getKey() != World.currentWorldContainerID) { entry.getValue().tickEndCleanup();}} // Eclipse had a hissy fit at me if I combined the conditions :/
+		}
+	}
+	
+	
+	public static void start(){
+		new Thread(new TickController()).start();
+	}
 	
 	
 	public static int TPS = 0;
