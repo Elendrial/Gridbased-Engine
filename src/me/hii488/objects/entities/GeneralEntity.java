@@ -17,16 +17,23 @@ import me.hii488.helpers.EntityHelper;
 import me.hii488.helpers.TextureHelper;
 
 public class GeneralEntity implements ITickable{
-	public Position position;
+	public Position position = new Position(0,0);
 	public Rectangle collisionBox;
-	public BufferedImage textureImage;
-	public String textureName = "";
-	public Vector queuedMovement = new Vector(0, 0);
 	public boolean notDestroyed = true;
+	
+	public BufferedImage[] textureImages;
+	public BufferedImage currentTexture;
+	public String textureName = "";
+	
+	public Vector queuedMovement = new Vector(0, 0);
+	
 	public int containerID;
 	
 	public float randTickChance = 0f;
 
+	public int states = 0;
+	public int currentState = 0;
+	
 	public GeneralEntity(){}
 	
 	protected GeneralEntity(GeneralEntity toCopy){
@@ -36,21 +43,40 @@ public class GeneralEntity implements ITickable{
 	}
 	
 	public void setup() {
-		try {
-			textureImage = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\" + textureName));
-		} catch (Exception e) {
+		this.textureImages = new BufferedImage[states+1];
+		
+		if(states == 0){
 			try {
-				TextureHelper.TextureNotFoundPrint(textureName, this.getClass());
-				textureImage = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\" + Settings.defaultEntityTextureLocation));
-			} catch (Exception e1) {
-				TextureHelper.TextureNotFoundPrint(Settings.defaultEntityTextureLocation, this.getClass());
+				textureImages[0] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\" + textureName));
+			} catch (Exception e) {
+				try {
+					TextureHelper.TextureNotFoundPrint(textureName, this.getClass());
+					textureImages[0] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\" + Settings.defaultEntityTextureLocation));
+				} catch (Exception e1) {
+					TextureHelper.TextureNotFoundPrint(Settings.defaultEntityTextureLocation, this.getClass());
+				}
 			}
 		}
-		collisionBox = new Rectangle(textureImage.getWidth(), textureImage.getHeight());
+		else{
+			for(int i = 0; i < states; i++){
+				try {
+					textureImages[i] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\" + textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1]));
+				} catch (Exception e) {
+					try {
+						TextureHelper.TextureNotFoundPrint(textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this.getClass());
+						textureImages[i] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\" + Settings.defaultEntityTextureLocation));
+					} catch (Exception e1) {
+						TextureHelper.TextureNotFoundPrint(Settings.defaultEntityTextureLocation, this.getClass());
+					}
+				}
+			}
+		}
+		currentTexture = textureImages[currentState];
+		collisionBox = new Rectangle(position.getX(),position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
 	}
 
 	public void updateOnTick() {
-		collisionBox = new Rectangle(position.getX(),position.getY(),textureImage.getWidth(), textureImage.getHeight());
+		collisionBox = new Rectangle(position.getX(),position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
 		if(EntityHelper.isOutOfContainer(this)){
 			this.destroy();
 		}
@@ -66,8 +92,8 @@ public class GeneralEntity implements ITickable{
 	}
 
 	public void render(Graphics g) {
-		
-		g.drawImage(textureImage, position.getX(), position.getY(), null);
+		currentTexture = textureImages[currentState];
+		g.drawImage(currentTexture, position.getX(), position.getY(), null);
 		
 		if(Settings.Logging.debug){
 			Color c = g.getColor();

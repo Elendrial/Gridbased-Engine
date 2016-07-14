@@ -25,7 +25,7 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 	@Override
 	public void onLoad() {
 		super.onLoad();
-		position = new Position(World.mainWindow.width / 2 - textureImage.getWidth() / 2,	World.mainWindow.height / 2 - textureImage.getHeight() / 2);
+		position = new Position(World.mainWindow.width / 2 - currentTexture.getWidth() / 2,	World.mainWindow.height / 2 - currentTexture.getHeight() / 2);
 	}
 
 	@Override
