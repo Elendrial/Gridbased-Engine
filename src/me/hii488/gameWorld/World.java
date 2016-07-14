@@ -84,7 +84,7 @@ public class World {
 			if (containerExists(id)) {
 				unloadCurrentContainer();
 				currentWorldContainerID = id;
-				worldContainers.get(currentWorldContainerID).entities.add(player);
+				worldContainers.get(currentWorldContainerID).addEntity(player);
 				worldContainers.get(currentWorldContainerID).onLoad();
 
 			}
@@ -92,7 +92,7 @@ public class World {
 
 		public static void unloadCurrentContainer() {
 			worldContainers.get(currentWorldContainerID).loaded = false;
-			worldContainers.get(currentWorldContainerID).entities.remove(player);
+			worldContainers.get(currentWorldContainerID).getEntities().remove(player);
 		}
 
 		public static boolean containerExists(int id) {

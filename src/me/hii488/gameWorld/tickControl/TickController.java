@@ -49,13 +49,13 @@ public class TickController implements Runnable{
 		
 		// Tick the loaded container now.
 		if(World.rand.nextFloat() < World.getCurrentWorldContainer().randTickChance())World.getCurrentWorldContainer().updateOnRandTick();
-		for(GeneralEntity ge : World.getCurrentWorldContainer().entities)if(World.rand.nextFloat() < ge.randTickChance()) ge.updateOnRandTick();
+		for(GeneralEntity ge : World.getCurrentWorldContainer().getEntities())if(World.rand.nextFloat() < ge.randTickChance()) ge.updateOnRandTick();
 		
 		
 		// Tick always ticking containers next.
 		for (Map.Entry<Integer, GeneralWorldContainer> entry : World.worldContainers.entrySet()) {
 			if(entry.getValue().alwaysTicks()) if (entry.getKey() != World.currentWorldContainerID) if(World.rand.nextFloat() < entry.getValue().randTickChance()) entry.getValue().updateOnRandTick(); // Eclipse had a hissy fit at me if I combined the conditions :/
-			for(GeneralEntity ge : entry.getValue().entities) if(World.rand.nextFloat() < ge.randTickChance()) ge.updateOnRandTick();
+			for(GeneralEntity ge : entry.getValue().getEntities()) if(World.rand.nextFloat() < ge.randTickChance()) ge.updateOnRandTick();
 		}
 		
 		// TICK ADDITIONAL AFTER
@@ -105,6 +105,7 @@ public class TickController implements Runnable{
 			while (unprocessed >= 1) {
 				updateTickableOnTick();
 				updateTickableOnRandTick();
+				tickClearup();
 				tick++;
 				unprocessed--;
 			}
@@ -115,6 +116,7 @@ public class TickController implements Runnable{
 				tick = 0;
 				fpsTimer += 1000;
 				updateTickableOnSec();
+				tickClearup();
 			}
 			
 			// This is NOT to sleep, but to limit the game loop

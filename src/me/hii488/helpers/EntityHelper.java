@@ -9,7 +9,7 @@ public class EntityHelper {
 	
 	@SuppressWarnings("unchecked")
 	public static ArrayList<GeneralEntity> getCollidingEntities(GeneralEntity toCheck){
-		ArrayList<GeneralEntity> all = (ArrayList<GeneralEntity>) World.getCurrentWorldContainer().entities.clone();
+		ArrayList<GeneralEntity> all = (ArrayList<GeneralEntity>) World.getCurrentWorldContainer().getEntities().clone();
 		
 		ArrayList<GeneralEntity> collidingWith = new ArrayList<GeneralEntity>();
 		

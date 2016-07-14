@@ -13,7 +13,8 @@ public class GeneralWorldContainer implements ITickable{
 	public int ID;
 	public Grid grid = new Grid();
 	public boolean loaded = false;
-	public ArrayList<GeneralEntity> entities = new ArrayList<GeneralEntity>();
+	protected ArrayList<GeneralEntity> entities = new ArrayList<GeneralEntity>();
+
 	// TODO: Rename this
 	public Position metaPosition;
 	
@@ -50,6 +51,7 @@ public class GeneralWorldContainer implements ITickable{
 		metaPosition = new Position((World.mainWindow.width / 2) - (grid.gridSize[0] * 8),	World.mainWindow.height / 2 - (grid.gridSize[1] * 8));
 		grid.positionGrid(metaPosition);
 		grid.onLoad();
+		tickEndCleanup();
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).onLoad();
 		}
@@ -68,15 +70,23 @@ public class GeneralWorldContainer implements ITickable{
 	
 	
 	public void addEntity(GeneralEntity e){
-		entities.add(e);
-		e.containerID = this.ID;
-		e.onLoad();
+		addedInTick.add(e);
 	}
 
 	public ArrayList<GeneralEntity> destroyedInTick = new ArrayList<GeneralEntity>();
+	public ArrayList<GeneralEntity> addedInTick = new ArrayList<GeneralEntity>();
+	
 	public void tickEndCleanup(){
 		this.entities.removeAll(destroyedInTick);
 		destroyedInTick.clear();
+		
+		this.entities.addAll(addedInTick);
+		for(GeneralEntity ge: addedInTick){
+			ge.containerID = this.ID;
+			ge.onLoad();
+		}
+		
+		addedInTick.clear();
 	}
 	
 	
@@ -92,4 +102,9 @@ public class GeneralWorldContainer implements ITickable{
 	@Override
 	public float randTickChance() {return randTickChance;}
 	
+	
+	
+	public ArrayList<GeneralEntity> getEntities() {
+		return entities;
+	}
 }
