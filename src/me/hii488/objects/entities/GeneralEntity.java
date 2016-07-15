@@ -40,6 +40,7 @@ public class GeneralEntity implements ITickable{
 		this.setup();
 		position = toCopy.position;
 		notDestroyed = toCopy.notDestroyed;
+		currentState = toCopy.currentState;
 	}
 	
 	public void setup() {
@@ -58,7 +59,7 @@ public class GeneralEntity implements ITickable{
 			}
 		}
 		else{
-			for(int i = 0; i < states; i++){
+			for(int i = 0; i < textureImages.length; i++){
 				try {
 					textureImages[i] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\" + textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1]));
 				} catch (Exception e) {
