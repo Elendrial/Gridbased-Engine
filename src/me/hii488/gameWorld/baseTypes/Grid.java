@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import me.hii488.general.Position;
 import me.hii488.objects.tileTypes.BaseTileType;
 
-// TODO: Add this to Base
 public class Grid {
 
 	public Tile[][] grid;

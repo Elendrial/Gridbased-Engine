@@ -7,7 +7,6 @@ import me.hii488.objects.tileTypes.BaseTileType;
 
 public class Tile {
 
-	// TODO : Refactor code to use this shit
 	protected BaseTileType tileType;
 	public Position position;
 

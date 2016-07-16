@@ -1,6 +1,7 @@
 package me.hii488.gameWorld.baseTypes;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import me.hii488.gameWorld.World;
@@ -15,7 +16,7 @@ public class GeneralWorldContainer implements ITickable{
 	public boolean loaded = false;
 	protected ArrayList<GeneralEntity> entities = new ArrayList<GeneralEntity>();
 
-	// TODO: Rename this
+	// TODO: Rename this, it's got a bad name, etc etc etc
 	public Position metaPosition;
 	
 	protected boolean setup = false;
@@ -46,7 +47,6 @@ public class GeneralWorldContainer implements ITickable{
 		grid.updateOnSec();
 	}
 
-	// TODO : add this to base
 	public void onLoad() {
 		metaPosition = new Position((World.mainWindow.width / 2) - (grid.gridSize[0] * 8),	World.mainWindow.height / 2 - (grid.gridSize[1] * 8));
 		grid.positionGrid(metaPosition);
@@ -57,6 +57,7 @@ public class GeneralWorldContainer implements ITickable{
 		}
 	}
 
+	
 	public void render(Graphics g) {
 		grid.render(g);
 		for (int i = 0; i < entities.size(); i++) {
@@ -64,14 +65,11 @@ public class GeneralWorldContainer implements ITickable{
 		}
 	}
 
+	
 	public boolean isSetup() {
 		return setup;
 	}
 	
-	
-	public void addEntity(GeneralEntity e){
-		addedInTick.add(e);
-	}
 
 	public ArrayList<GeneralEntity> destroyedInTick = new ArrayList<GeneralEntity>();
 	public ArrayList<GeneralEntity> addedInTick = new ArrayList<GeneralEntity>();
@@ -106,5 +104,26 @@ public class GeneralWorldContainer implements ITickable{
 	
 	public ArrayList<GeneralEntity> getEntities() {
 		return entities;
+	}
+	
+	public void addEntity(GeneralEntity e){
+		addedInTick.add(e);
+	}
+
+	public ArrayList<GeneralEntity> getEntitiesInsideRect(Rectangle r){
+		return getEntitiesInsideRect(r, false);
+	}
+	
+	public Rectangle rect = new Rectangle(0,0,0,0);
+	
+	public ArrayList<GeneralEntity> getEntitiesInsideRect(Rectangle r, boolean strictlyWithin){
+		ArrayList<GeneralEntity> ge = new ArrayList<GeneralEntity>();
+		
+		rect = r;
+		
+		if(!strictlyWithin)	for(GeneralEntity e : this.getEntities()){ if(e.collisionBox.intersects(r)) ge.add(e);}
+		else for(GeneralEntity e : this.getEntities()){ if(e.collisionBox.x >= r.x  && e.collisionBox.y >= r.y && e.collisionBox.width < r.width && e.collisionBox.height < r.height) ge.add(e);}
+		
+		return ge;
 	}
 }
