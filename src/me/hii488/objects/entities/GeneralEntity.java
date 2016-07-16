@@ -19,6 +19,7 @@ import me.hii488.helpers.TextureHelper;
 public class GeneralEntity implements ITickable{
 	public Position position = new Position(0,0);
 	public Rectangle collisionBox;
+	public boolean showCollisionBox = false;
 	public boolean notDestroyed = true;
 	
 	public BufferedImage[] textureImages;
@@ -96,7 +97,7 @@ public class GeneralEntity implements ITickable{
 		currentTexture = textureImages[currentState];
 		g.drawImage(currentTexture, position.getX(), position.getY(), null);
 		
-		if(Settings.Logging.debug){
+		if(Settings.Logging.debug || this.showCollisionBox){
 			Color c = g.getColor();
 			g.setColor(Color.red);
 			g.drawRect(this.collisionBox.x, this.collisionBox.y, this.collisionBox.width, this.collisionBox.height);
