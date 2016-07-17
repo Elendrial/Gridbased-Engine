@@ -12,6 +12,8 @@ import me.hii488.objects.entities.Player;
 public class World {
 
 	public static boolean isRunning = true;
+	public static boolean isPaused = false;
+	
 	public static Window mainWindow;
 	public static Player player;
 	

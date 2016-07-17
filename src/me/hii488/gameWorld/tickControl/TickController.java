@@ -103,9 +103,11 @@ public class TickController implements Runnable{
 			unprocessed += (now - then) / nsPerTick;
 			then = now;
 			while (unprocessed >= 1) {
-				updateTickableOnTick();
-				updateTickableOnRandTick();
-				tickClearup();
+				if(!World.isPaused){
+					updateTickableOnTick();
+					updateTickableOnRandTick();
+					tickClearup();
+				}
 				tick++;
 				unprocessed--;
 			}

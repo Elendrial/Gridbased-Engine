@@ -18,7 +18,6 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 
 	@Override
 	public void setup() {
-		textureName = "player.jpg";
 		super.setup();
 	}
 
