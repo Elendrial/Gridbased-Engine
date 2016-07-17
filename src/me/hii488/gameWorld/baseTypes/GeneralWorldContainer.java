@@ -126,4 +126,11 @@ public class GeneralWorldContainer implements ITickable{
 		
 		return ge;
 	}
+	
+	public void clear(){
+		this.addedInTick.clear();
+		this.entities.clear();
+		this.destroyedInTick.clear();
+		this.setup = false;
+	}
 }
