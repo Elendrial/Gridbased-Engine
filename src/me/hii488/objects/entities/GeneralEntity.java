@@ -18,7 +18,7 @@ import me.hii488.helpers.TextureHelper;
 
 public class GeneralEntity implements ITickable{
 	public Position position = new Position(0,0);
-	public Rectangle collisionBox;
+	public Rectangle collisionBox = new Rectangle(0,0,0,0);
 	public boolean showCollisionBox = false;
 	public boolean notDestroyed = true;
 	
