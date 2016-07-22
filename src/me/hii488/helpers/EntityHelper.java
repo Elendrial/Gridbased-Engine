@@ -1,5 +1,6 @@
 package me.hii488.helpers;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import me.hii488.gameWorld.World;
@@ -15,6 +16,21 @@ public class EntityHelper {
 		
 		for(GeneralEntity e : all){
 			if(e.collisionBox.intersects(toCheck.collisionBox)){
+				collidingWith.add(e);
+			}
+		}
+		
+		return collidingWith;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static ArrayList<GeneralEntity> getEntitiesIntersectingWithRect(Rectangle r){
+		ArrayList<GeneralEntity> all = (ArrayList<GeneralEntity>) World.getCurrentWorldContainer().getEntities().clone();
+		
+		ArrayList<GeneralEntity> collidingWith = new ArrayList<GeneralEntity>();
+		
+		for(GeneralEntity e : all){
+			if(e.collisionBox.intersects(r)){
 				collidingWith.add(e);
 			}
 		}
