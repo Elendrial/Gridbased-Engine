@@ -20,8 +20,9 @@ public class Position {
 		return x;
 	}
 
-	public void setX(float x) {
+	public Position setX(float x) {
 		this.x = x;
+		return this;
 	}
 
 	public int getY() {
@@ -32,18 +33,21 @@ public class Position {
 		return y;
 	}
 
-	public void setY(float y) {
+	public Position setY(float y) {
 		this.y = y;
+		return this;
 	}
 
-	public void setLocation(float x, float y) {
+	public Position setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
+		return this;
 	}
 
-	public void addToLocation(float x, float y) {
+	public Position addToLocation(float x, float y) {
 		this.x += x;
 		this.y += y;
+		return this;
 	}
 
 	public Position addVector(Vector v) {
@@ -56,7 +60,12 @@ public class Position {
 		return new Position(x, y);
 	}
 
-	public void print() {
+	public Position print() {
 		System.out.println("x: " + this.getX() + "; y: " + this.getY());
+		return this;
+	}
+	
+	public String toString(){
+		return "x: " + this.getX() + "; y: " + this.getY();
 	}
 }
