@@ -104,9 +104,9 @@ public class TickController implements Runnable{
 			then = now;
 			while (unprocessed >= 1) {
 				if(!World.isPaused){
-					updateTickableOnTick();
-					updateTickableOnRandTick();
-					tickClearup();
+					try{updateTickableOnTick();}catch(Exception e){e.printStackTrace();}
+					try{updateTickableOnRandTick();}catch(Exception e){e.printStackTrace();}
+					try{tickClearup();}catch(Exception e){e.printStackTrace();}
 				}
 				tick++;
 				unprocessed--;
