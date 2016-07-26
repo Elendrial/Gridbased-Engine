@@ -22,7 +22,7 @@ public class Display extends Canvas{
 		catch(Exception e){
 			System.err.println("Error rendering current world container:");
 			e.printStackTrace();
-			System.exit(ERROR);
+//			System.exit(ERROR);
 		}
 	}
 	

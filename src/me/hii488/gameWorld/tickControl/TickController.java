@@ -97,6 +97,7 @@ public class TickController implements Runnable{
 			if(targetTPS != (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed)){
 				targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
 				nsPerTick = (1D / targetTPS) * 1000000000D;
+				System.err.println("Target TPS changed to: " + targetTPS);
 			}
 			
 			now = System.nanoTime();
@@ -118,7 +119,10 @@ public class TickController implements Runnable{
 				tick = 0;
 				fpsTimer += 1000;
 				updateTickableOnSec();
-				tickClearup();
+				try{tickClearup();} catch(Exception e){e.printStackTrace();}
+				
+				if(Settings.Logging.tpsPrinter) System.out.println("FPS: " + World.mainWindow.FPS + "\tTPS: " + TPS);
+				
 			}
 			
 			// This is NOT to sleep, but to limit the game loop
