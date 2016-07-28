@@ -77,6 +77,7 @@ public class TickController implements Runnable{
 	
 	
 	public static int TPS = 0;
+	public static int actualTPS;
 	
 	public static boolean isRunning = true;
 	
@@ -85,7 +86,7 @@ public class TickController implements Runnable{
 		int tick = 0;
 		
 		int targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
-		
+		actualTPS = targetTPS;
 		double fpsTimer = System.currentTimeMillis();
 		double secondsPerTick = 1D / targetTPS;
 		double nsPerTick = secondsPerTick * 1000000000D;
@@ -97,6 +98,7 @@ public class TickController implements Runnable{
 			if(targetTPS != (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed)){
 				targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
 				nsPerTick = (1D / targetTPS) * 1000000000D;
+				actualTPS = targetTPS;
 				System.err.println("Target TPS changed to: " + targetTPS);
 			}
 			
@@ -118,11 +120,27 @@ public class TickController implements Runnable{
 				TPS = tick;
 				tick = 0;
 				fpsTimer += 1000;
-				updateTickableOnSec();
+				
+				try{updateTickableOnSec();}catch(Exception e){e.printStackTrace();}
 				try{tickClearup();} catch(Exception e){e.printStackTrace();}
+			//	then = System.nanoTime(); // This avoids any errors caused by a potential large lag outside main ticking loop.
+				
+	//			fpsTimer = System.currentTimeMillis() + 1000;
 				
 				if(Settings.Logging.tpsPrinter) System.out.println("FPS: " + World.mainWindow.FPS + "\tTPS: " + TPS);
 				
+				if(TPS > actualTPS * 2.5){
+					then = System.nanoTime();
+					actualTPS -= actualTPS * 0.05D;
+					nsPerTick = (1D / actualTPS) * 1000000000D;
+					System.err.println("Target TPS lowered to: " + actualTPS + " in order to avoid runaway.");
+					System.err.println("Skipped " + (int)unprocessed + " in the process.");
+					unprocessed = 0;
+					fpsTimer = System.currentTimeMillis() + 1000;
+				}
+				/*
+				if(Settings.Logging.tpsPrinter) System.out.println("Skipping " + unprocessed+ " ticks.");
+				unprocessed = 0;*/
 			}
 			
 			// This is NOT to sleep, but to limit the game loop
