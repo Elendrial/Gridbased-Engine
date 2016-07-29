@@ -19,9 +19,8 @@ public class World {
 	
 	public static Random rand = new Random();
 
-	public static void startGame(String windowTitle, int windowWidth, int windowHeight){
-		mainWindow = new Window(windowTitle, windowWidth, windowHeight);
-		
+	public static void startGame(Window w){
+		mainWindow = w;
 		WorldInitialisation.preInitMainWorld();
 		
 		if(player.equals(null)){
@@ -37,6 +36,10 @@ public class World {
 		
 		mainWindow.createDisplay();
 		mainWindow.start();
+	}
+	
+	public static void startGame(String windowTitle, int windowWidth, int windowHeight){
+		startGame(new Window(windowTitle, windowWidth, windowHeight));
 	}
 	
 	public static void closeGame(){
