@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
 
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.tickControl.ITickable;
@@ -48,29 +45,11 @@ public class GeneralEntity implements ITickable{
 		this.textureImages = new BufferedImage[states+1];
 		
 		if(states == 0){
-			try {
-				textureImages[0] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\" + textureName));
-			} catch (Exception e) {
-				try {
-					TextureHelper.TextureNotFoundPrint(textureName, this.getClass());
-					textureImages[0] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\" + Settings.defaultEntityTextureLocation));
-				} catch (Exception e1) {
-					TextureHelper.TextureNotFoundPrint(Settings.defaultEntityTextureLocation, this.getClass());
-				}
-			}
+			textureImages[0] = TextureHelper.loadTexture("textures/entities/", textureName, this);
 		}
 		else{
 			for(int i = 0; i < textureImages.length; i++){
-				try {
-					textureImages[i] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\" + textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1]));
-				} catch (Exception e) {
-					try {
-						TextureHelper.TextureNotFoundPrint(textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this.getClass());
-						textureImages[i] = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\" + Settings.defaultEntityTextureLocation));
-					} catch (Exception e1) {
-						TextureHelper.TextureNotFoundPrint(Settings.defaultEntityTextureLocation, this.getClass());
-					}
-				}
+				textureImages[i] = TextureHelper.loadTexture("textures/entities/", textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
 			}
 		}
 		currentTexture = textureImages[currentState];

@@ -19,13 +19,13 @@ public class Settings {
 
 	}
 
-	public static final String defaultTileTextureLocation = "textures\\somethingsgonewrong\\tdefault.png";
-	public static final String defaultEntityTextureLocation = "textures\\somethingsgonewrong\\edefault.png";
-
 	public static class Logging{
 		// TODO : This.
 		public static boolean debug = false;
 		public static boolean tpsPrinter = false;
 	}
+
+	public static final String defaultTileTextureLocation = "textures/somethingsgonewrong/tdefault.png";
+	public static final String defaultEntityTextureLocation = "textures/somethingsgonewrong/edefault.png";
 	
 }
