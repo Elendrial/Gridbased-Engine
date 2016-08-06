@@ -9,7 +9,6 @@ import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.tickControl.ITickable;
 import me.hii488.general.Position;
 import me.hii488.general.Settings;
-import me.hii488.general.Vector;
 import me.hii488.helpers.EntityHelper;
 import me.hii488.helpers.TextureHelper;
 
@@ -23,7 +22,7 @@ public class GeneralEntity implements ITickable{
 	public BufferedImage currentTexture;
 	public String textureName = "";
 	
-	public Vector queuedMovement = new Vector(0, 0);
+	public Position queuedMovement = new Position(0, 0);
 	
 	public int containerID;
 	
@@ -84,10 +83,6 @@ public class GeneralEntity implements ITickable{
 		}
 	}
 
-	public Vector getMotion() {
-		return new Vector(0, 0);
-	}
-	
 	public void destroy(){
 		World.worldContainers.get(containerID).destroyedInTick.add(this);
 		notDestroyed = false;

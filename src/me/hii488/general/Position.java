@@ -50,9 +50,9 @@ public class Position {
 		return this;
 	}
 
-	public Position addVector(Vector v) {
-		this.x += v.getDx();
-		this.y += v.getDy();
+	public Position addPosition(Position v) {
+		this.x += v.getAbsX();
+		this.y += v.getAbsY();
 		return this;
 	}
 
