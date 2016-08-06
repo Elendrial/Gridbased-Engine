@@ -4,14 +4,15 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import me.hii488.general.Position;
-import me.hii488.objects.tileTypes.BaseTileType;
+import me.hii488.objects.tileTypes.BaseTile;
 
 public class Grid {
 
-	public Tile[][] grid;
+	public BaseTile[][] grid;
 	public int gridSize[] = {0,0}; // 0 = x, 1 = y
 	public Position metaPosition;
-
+	public int tileSize = 16; // Height and width of tiles.
+	
 	public Grid() {}
 
 	public Grid(Grid g) {
@@ -25,20 +26,20 @@ public class Grid {
 
 	public void setupGrid(int size) {
 		gridSize[0] = size; gridSize[1] = size;
-		grid = new Tile[size][size];
+		grid = new BaseTile[size][size];
 		for (int i = 0; i < gridSize[0]; i++) {
 			for (int j = 0; j < gridSize[1]; j++) {
-				grid[i][j] = new Tile(new BaseTileType());
+				grid[i][j] = new BaseTile();
 			}
 		}
 	}
 	
 	public void setupGrid(int sizeX, int sizeY) {
 		gridSize[0] = sizeX; gridSize[1] = sizeY;
-		grid = new Tile[sizeX][sizeY];
+		grid = new BaseTile[sizeX][sizeY];
 		for (int i = 0; i < gridSize[0]; i++) {
 			for (int j = 0; j < gridSize[1]; j++) {
-				grid[i][j] = new Tile(new BaseTileType());
+				grid[i][j] = new BaseTile();
 			}
 		}
 	}
@@ -47,7 +48,7 @@ public class Grid {
 		metaPosition = start;
 		for (int i = 0; i < gridSize[0]; i++) {
 			for (int j = 0; j < gridSize[1]; j++) {
-				this.getTile(i, j).position = (new Position(start.getAbsX() + i * 16, start.getAbsY() + j * 16));
+				this.getTile(i, j).gridPosition = (new Position(start.getAbsX() + i * 16, start.getAbsY() + j * 16));
 			}
 		}
 	}
@@ -78,7 +79,7 @@ public class Grid {
 		}
 	}
 
-	public Tile getTile(int x, int y) {
+	public BaseTile getTile(int x, int y) {
 		try{
 			return grid[x][y];
 		}
@@ -87,7 +88,7 @@ public class Grid {
 		}
 	}
 	
-	public Tile getTile(Position p) {
+	public BaseTile getTile(Position p) {
 		try{
 			return grid[p.getX()][p.getY()];
 		}
@@ -96,28 +97,19 @@ public class Grid {
 		}
 	}
 
-	public void setTile(Tile tile, Position p) {
+	public void setTile(BaseTile tile, Position p) {
 		this.setTile(tile, p.getX(), p.getY());
 	}
 	
-	public void setTileType(BaseTileType tile, Position p) {
-		this.setTileType(tile, p.getX(), p.getY());
-	}
-	
-	public void setTile(Tile tile, int x, int y) {
+	public void setTile(BaseTile tile, int x, int y) {
 		grid[x][y] = tile;
 		this.getTile(x, y).setup();
 	}
-	
-	public void setTileType(BaseTileType tile, int x, int y) {
-		this.getTile(x, y).setTileType(tile);
-		this.getTile(x, y).setup();
-	}
 
-	public void fillRectWithTileType(BaseTileType tile, int x1, int y1, int x2, int y2) {
+	public void fillRectWithTile(BaseTile tile, int x1, int y1, int x2, int y2) {
 		for (int i = x1; i < x2; i++) {
 			for (int j = y1; j < y2; j++) {
-				this.getTile(i, j).setTileType(tile);
+				this.setTile(tile, i, j);
 				this.getTile(i, j).setup();
 			}
 		}
@@ -130,21 +122,9 @@ public class Grid {
 	public void render(Graphics g) {
 		for (int i = 0; i < gridSize[0]; i++) {
 			for (int j = 0; j < gridSize[1]; j++) {
-				getTile(i, j).render(g);
+				getTile(i, j).render(g, tileSize);
 			}
 		}
-	}
-
-	public Tile[][] intersectsWithCollidable(Rectangle rect) {
-		Tile[][] tiles = new Tile[gridSize[0]][gridSize[1]];
-		for (int i = 0; i < gridSize[0]; i++) {
-			for (int j = 0; j < gridSize[1]; j++) {
-				if (this.getTile(i, j).getTileType().isCollidable) {
-					// TODO: This, like wtf why is it blank?
-				}
-			}
-		}
-		return tiles;
 	}
 
 	public Position getGridPositionOn(Position p) {

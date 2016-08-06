@@ -51,18 +51,18 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 			updated = false;
 			
 			if(out.getAbsX() != 0){
-				try{if(g.getTile(g.getGridPositionOn((int) (p.getX() - speed/divisor), p.getY())).getTileType().isCollidable && out.getAbsX() < 0){updated = true; out.setX(-speed/divisor);}}
+				try{if(g.getTile(g.getGridPositionOn((int) (p.getX() - speed/divisor), p.getY())).isCollidable && out.getAbsX() < 0){updated = true; out.setX(-speed/divisor);}}
 				catch(Exception e){out.setX(0);}
 			
-				try{if(g.getTile(g.getGridPositionOn((int) (p.getX() + speed/divisor), p.getY())).getTileType().isCollidable && out.getAbsX() > 0){updated = true; out.setX(speed/divisor);}}
+				try{if(g.getTile(g.getGridPositionOn((int) (p.getX() + speed/divisor), p.getY())).isCollidable && out.getAbsX() > 0){updated = true; out.setX(speed/divisor);}}
 				catch(Exception e){out.setX(0);}
 			}
 			
 			if(out.getY() != 0){
-				try{if(g.getTile(g.getGridPositionOn(p.getX(), (int) (p.getY() - speed/divisor))).getTileType().isCollidable && out.getAbsX() > 0){updated = true; out.setY(-speed/divisor);}}
+				try{if(g.getTile(g.getGridPositionOn(p.getX(), (int) (p.getY() - speed/divisor))).isCollidable && out.getAbsX() > 0){updated = true; out.setY(-speed/divisor);}}
 				catch(Exception e){out.setY(0);}
 				
-				try{if(g.getTile(g.getGridPositionOn(p.getX(), (int) (p.getY() + speed/divisor))).getTileType().isCollidable && out.getAbsX() < 0){updated = true; out.setY(speed/divisor);}}
+				try{if(g.getTile(g.getGridPositionOn(p.getX(), (int) (p.getY() + speed/divisor))).isCollidable && out.getAbsX() < 0){updated = true; out.setY(speed/divisor);}}
 				catch(Exception e){out.setY(0);}
 			}
 			
@@ -70,16 +70,16 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 			
 		}while(updated && divisor <= speed);
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX() - speed, p.getY())).getTileType().isCollidable && out.getAbsX() < 0) out.setX(0);}
+		try{if(g.getTile(g.getGridPositionOn(p.getX() - speed, p.getY())).isCollidable && out.getAbsX() < 0) out.setX(0);}
 		catch(Exception e){out.setX(0);}
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX() + speed, p.getY())).getTileType().isCollidable && out.getAbsX() > 0) out.setX(0);}
+		try{if(g.getTile(g.getGridPositionOn(p.getX() + speed, p.getY())).isCollidable && out.getAbsX() > 0) out.setX(0);}
 		catch(Exception e){out.setX(0);}
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX(), p.getY() - speed)).getTileType().isCollidable && out.getAbsX() > 0) out.setY(0);}
+		try{if(g.getTile(g.getGridPositionOn(p.getX(), p.getY() - speed)).isCollidable && out.getAbsX() > 0) out.setY(0);}
 		catch(Exception e){out.setY(0);}
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX(), p.getY() + speed)).getTileType().isCollidable && out.getAbsX() < 0) out.setY(0);}
+		try{if(g.getTile(g.getGridPositionOn(p.getX(), p.getY() + speed)).isCollidable && out.getAbsX() < 0) out.setY(0);}
 		catch(Exception e){out.setY(0);}
 		
 		return out;
