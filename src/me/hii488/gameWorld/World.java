@@ -23,7 +23,7 @@ public class World {
 		mainWindow = w;
 		WorldInitialisation.preInitMainWorld();
 		
-		if(player.equals(null)){
+		if(player == null){
 			System.err.println("No player set, defaulting to base.");
 			player = new Player();
 		}

@@ -8,7 +8,8 @@ import me.hii488.helpers.TextureHelper;
 
 public class BaseTile {
     // GRID STUFF//
-	public Position gridPosition = new Position();
+	public Position gridPosition = new Position(0,0);
+	public Position renderOffset = new Position(0,0);
 	
 	
 	public boolean isCollidable;
@@ -23,9 +24,11 @@ public class BaseTile {
 	public int currentState = 0;
 	
 	
-	public BaseTile(){
+	public void onLoad() {currentTexture = textureImages[currentState];}
+	
+	public void setup() {
 		this.textureImages = new BufferedImage[states+1];
-		
+
 		if(states == 0){
 			textureImages[0] = TextureHelper.loadTexture("textures/tiles/", textureName, this);
 		}
@@ -35,16 +38,28 @@ public class BaseTile {
 			}
 		}
 	}
-	
-	public void onLoad() {currentTexture = textureImages[currentState];}
-	
-	public void setup() {}
 
 	public void updateOnTick() {}
 
 	public void updateOnSec() {}
 
 	public void render(Graphics g, int tileSize) {
-		g.drawImage(currentTexture, gridPosition.getX() * tileSize, gridPosition.getY() * tileSize, null);
+		g.drawImage(currentTexture, gridPosition.getX() * tileSize + renderOffset.getX(), gridPosition.getY() * tileSize + renderOffset.getY(), null);
+		g.drawLine(gridPosition.getX()* tileSize, gridPosition.getY()* tileSize, gridPosition.getX() * tileSize + renderOffset.getX(), gridPosition.getY() * tileSize + renderOffset.getY());
+	}
+	
+	public BaseTile clone(){
+		return new BaseTile(this);
+	}
+	
+	public BaseTile(){}
+	
+	private BaseTile(BaseTile t){
+		this.states = t.states;
+		this.currentState = t.currentState;
+		this.textureName = t.textureName;
+		this.zLayer = t.zLayer;
+		this.isCollidable = t.isCollidable;
+		this.setup();
 	}
 }

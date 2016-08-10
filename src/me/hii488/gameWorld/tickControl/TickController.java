@@ -105,7 +105,7 @@ public class TickController implements Runnable{
 			now = System.nanoTime();
 			unprocessed += (now - then) / nsPerTick;
 			then = now;
-			while (unprocessed >= 1) {
+			while (unprocessed >= 1 && ((unprocessed < actualTPS && Settings.WorldSettings.debug) || !Settings.WorldSettings.debug)) {
 				if(!World.isPaused){
 					try{updateTickableOnTick();}catch(Exception e){e.printStackTrace();}
 					try{updateTickableOnRandTick();}catch(Exception e){e.printStackTrace();}
@@ -114,7 +114,9 @@ public class TickController implements Runnable{
 				tick++;
 				unprocessed--;
 			}
-
+			
+			if(unprocessed >= actualTPS) unprocessed = 0;
+			
 			// If the current time is 1 second greater than the last time we printed
 			if (System.currentTimeMillis() - fpsTimer >= 1000) {
 				TPS = tick;
@@ -144,7 +146,8 @@ public class TickController implements Runnable{
 			}
 			
 			// This is NOT to sleep, but to limit the game loop
-			try { Thread.sleep(1);
+			try { if(actualTPS > 500) Thread.sleep(1);
+				  else Thread.sleep(10); 
 			} catch (InterruptedException e) {e.printStackTrace();}
 		}
 		

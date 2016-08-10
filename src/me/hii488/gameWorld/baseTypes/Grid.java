@@ -1,7 +1,6 @@
 package me.hii488.gameWorld.baseTypes;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 import me.hii488.general.Position;
 import me.hii488.objects.tileTypes.BaseTile;
@@ -10,7 +9,7 @@ public class Grid {
 
 	public BaseTile[][] grid;
 	public int gridSize[] = {0,0}; // 0 = x, 1 = y
-	public Position metaPosition;
+	public Position positionOffset;
 	public int tileSize = 16; // Height and width of tiles.
 	
 	public Grid() {}
@@ -45,10 +44,11 @@ public class Grid {
 	}
 
 	public void positionGrid(Position start) {
-		metaPosition = start;
+		positionOffset = start;
 		for (int i = 0; i < gridSize[0]; i++) {
 			for (int j = 0; j < gridSize[1]; j++) {
-				this.getTile(i, j).gridPosition = (new Position(start.getAbsX() + i * 16, start.getAbsY() + j * 16));
+				this.getTile(i, j).gridPosition = (new Position(i, j));
+				this.getTile(i, j).renderOffset = positionOffset;
 			}
 		}
 	}
@@ -57,8 +57,6 @@ public class Grid {
 		for (int i = 0; i < gridSize[0]; i++) {
 			for (int j = 0; j < gridSize[1]; j++) {
 				this.getTile(i, j).onLoad();
-				// System.out.println(this.getTile(i,
-				// j).getTileType().getClass().getName());
 			}
 		}
 	}
@@ -102,7 +100,7 @@ public class Grid {
 	}
 	
 	public void setTile(BaseTile tile, int x, int y) {
-		grid[x][y] = tile;
+		grid[x][y] = tile.clone();
 		this.getTile(x, y).setup();
 	}
 
@@ -112,6 +110,24 @@ public class Grid {
 				this.setTile(tile, i, j);
 				this.getTile(i, j).setup();
 			}
+		}
+	}
+	
+	public void wallRectWithTile(BaseTile tile, int x1, int y1, int x2, int y2){
+		for(int i = x1; i < x2; i++){
+			this.setTile(tile, i, y1);
+			this.setTile(tile, i, y2-1);
+			
+			this.getTile(i, y1).setup();
+			this.getTile(i, y2-1).setup();
+		}
+		
+		for(int i = y1; i < y2; i++){
+			this.setTile(tile, x1, i);
+			this.setTile(tile, x2-1, i);
+			
+			this.getTile(x1, i).setup();
+			this.getTile(x2-1, i).setup();
 		}
 	}
 
@@ -127,11 +143,13 @@ public class Grid {
 		}
 	}
 
+	
+	/*
 	public Position getGridPositionOn(Position p) {
 		Position out = p.clone();
 
-		out.setX(Math.round((out.getAbsX() - metaPosition.getAbsX()) / 16));
-		out.setY(Math.round((out.getAbsY() - metaPosition.getAbsY()) / 16));
+		out.setX(Math.round((out.getAbsX() - positionOffset.getAbsX()) / tileSize));
+		out.setY(Math.round((out.getAbsY() - positionOffset.getAbsY()) / tileSize));
 
 		return out;
 	}
@@ -139,8 +157,8 @@ public class Grid {
 	public Position getPositionFromTileCoords(Position p){
 		Position out = p.clone();
 		
-		out.setX(out.getAbsX() * 16 + metaPosition.getAbsX());
-		out.setY(out.getAbsY() * 16 + metaPosition.getAbsY());
+		out.setX(out.getAbsX() * 16 + positionOffset.getAbsX());
+		out.setY(out.getAbsY() * 16 + positionOffset.getAbsY());
 		
 		return out;
 	}
@@ -148,9 +166,22 @@ public class Grid {
 	public Position getGridPositionOn(int x, int y) {
 		Position out = new Position(x, y);
 
-		out.setX(Math.round((out.getAbsX() - metaPosition.getAbsX()) / 16));
-		out.setY(Math.round((out.getAbsY() - metaPosition.getAbsY()) / 16));
+		out.setX(Math.round((out.getAbsX() - positionOffset.getAbsX()) / tileSize));
+		out.setY(Math.round((out.getAbsY() - positionOffset.getAbsY()) / tileSize));
 
 		return out;
+	}
+	*/
+	
+	public BaseTile getTileAtAbsPosition(int x, int y){
+		return getTileAtAbsPosition(new Position(x,y));
+	}
+	
+	public BaseTile getTileAtAbsPosition(Position p){
+		return this.getTile((int)(p.getAbsX() - this.positionOffset.getAbsX())/this.tileSize, (int)(p.getAbsY() - this.positionOffset.getAbsY())/this.tileSize);
+	}
+	
+	public void printInfo(){
+		System.out.println("Grid info:\n\tTile size: " + this.tileSize + "\n\tGrid Dimensions: " + this.gridSize[0] + ", " + this.gridSize[1] + "\n\tTop left corner position: " + this.positionOffset.toString());
 	}
 }

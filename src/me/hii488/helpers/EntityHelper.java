@@ -39,9 +39,8 @@ public class EntityHelper {
 	}
 
 	public static boolean isOutOfContainer(GeneralEntity generalEntity) {
-		// Might need to change this idk
+		// TODO: This, again
 		try{
-			World.getCurrentWorldContainer().grid.getTile(World.getCurrentWorldContainer().grid.getGridPositionOn(generalEntity.position));
 		}
 		catch(Exception e){
 			return true;

@@ -15,17 +15,13 @@ public class GeneralWorldContainer implements ITickable{
 	public Grid grid = new Grid();
 	public boolean loaded = false;
 	protected ArrayList<GeneralEntity> entities = new ArrayList<GeneralEntity>();
-
-	// TODO: Rename this, it's got a bad name, etc etc etc
-	public Position metaPosition;
+	
+	public Position positionOffset;
 	
 	protected boolean setup = false;
 	
 	public void setup() {
 		this.ID = World.Containers.getUnusedID();
-		for (int i = 0; i < entities.size(); i++) {
-			entities.get(i).setup();
-		}
 		setup = true;
 	}
 
@@ -48,8 +44,8 @@ public class GeneralWorldContainer implements ITickable{
 	}
 
 	public void onLoad() {
-		metaPosition = new Position((World.mainWindow.width / 2) - (grid.gridSize[0] * 8),	World.mainWindow.height / 2 - (grid.gridSize[1] * 8));
-		grid.positionGrid(metaPosition);
+		positionOffset = new Position((World.mainWindow.width / 2) - (grid.gridSize[0] * (grid.tileSize/2)),	World.mainWindow.height / 2 - (grid.gridSize[1] * (grid.tileSize/2)));
+		grid.positionGrid(positionOffset);
 		grid.onLoad();
 		tickEndCleanup();
 		for (int i = 0; i < entities.size(); i++) {

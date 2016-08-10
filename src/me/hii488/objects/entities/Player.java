@@ -37,6 +37,12 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
+		g.drawRect(position.getX(), position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
+		g.fillRect(position.getX()-1, position.getY(), 3, 3);
+		g.fillRect(position.getX() - speed-1, position.getY()-1, 3, 3);
+		g.fillRect((int) (position.getX() + speed-1 + collisionBox.getWidth()), position.getY()-1, 3, 3);
+		g.fillRect(position.getX()-1, (int) (position.getY() - speed)-1, 3, 3);
+		g.fillRect(position.getX()-1, (int) (position.getY() + speed + collisionBox.getHeight())-1, 3, 3);
 	}
 
 	protected Position allowedVector(Position v) {
@@ -44,25 +50,25 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 		Position p = position.clone();
 		
 		Position out = v.clone();
-		
+				
 		float divisor = 1;
 		boolean updated = false;
 		do{
 			updated = false;
 			
 			if(out.getAbsX() != 0){
-				try{if(g.getTile(g.getGridPositionOn((int) (p.getX() - speed/divisor), p.getY())).isCollidable && out.getAbsX() < 0){updated = true; out.setX(-speed/divisor);}}
+				try{if(out.getAbsX() < 0)if(g.getTileAtAbsPosition((int) (p.getX() - speed/divisor), p.getY()).isCollidable){updated = true; out.setX(-speed/divisor);}}
 				catch(Exception e){out.setX(0);}
 			
-				try{if(g.getTile(g.getGridPositionOn((int) (p.getX() + speed/divisor), p.getY())).isCollidable && out.getAbsX() > 0){updated = true; out.setX(speed/divisor);}}
+				try{if(out.getAbsX() > 0)if(g.getTileAtAbsPosition((int) (p.getX() + speed/divisor + collisionBox.getWidth()), p.getY()).isCollidable){updated = true; out.setX(speed/divisor);}}
 				catch(Exception e){out.setX(0);}
 			}
 			
 			if(out.getY() != 0){
-				try{if(g.getTile(g.getGridPositionOn(p.getX(), (int) (p.getY() - speed/divisor))).isCollidable && out.getAbsX() > 0){updated = true; out.setY(-speed/divisor);}}
+				try{if(out.getAbsY() > 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() - speed/divisor)).isCollidable){updated = true; out.setY(-speed/divisor);}}
 				catch(Exception e){out.setY(0);}
 				
-				try{if(g.getTile(g.getGridPositionOn(p.getX(), (int) (p.getY() + speed/divisor))).isCollidable && out.getAbsX() < 0){updated = true; out.setY(speed/divisor);}}
+				try{if(out.getAbsY() < 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() + speed/divisor + collisionBox.getHeight())).isCollidable){updated = true; out.setY(speed/divisor);}}
 				catch(Exception e){out.setY(0);}
 			}
 			
@@ -70,16 +76,16 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 			
 		}while(updated && divisor <= speed);
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX() - speed, p.getY())).isCollidable && out.getAbsX() < 0) out.setX(0);}
+		try{if(g.getTileAtAbsPosition(p.getX() - speed, p.getY()).isCollidable && out.getAbsX() < 0) out.setX(0);}
 		catch(Exception e){out.setX(0);}
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX() + speed, p.getY())).isCollidable && out.getAbsX() > 0) out.setX(0);}
+		try{if(g.getTileAtAbsPosition(p.getX() + speed, p.getY()).isCollidable && out.getAbsX() > 0) out.setX(0);}
 		catch(Exception e){out.setX(0);}
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX(), p.getY() - speed)).isCollidable && out.getAbsX() > 0) out.setY(0);}
+		try{if(g.getTileAtAbsPosition(p.getX(), p.getY() - speed).isCollidable && out.getAbsX() > 0) out.setY(0);}
 		catch(Exception e){out.setY(0);}
 		
-		try{if(g.getTile(g.getGridPositionOn(p.getX(), p.getY() + speed)).isCollidable && out.getAbsX() < 0) out.setY(0);}
+		try{if(g.getTileAtAbsPosition(p.getX(), p.getY() + speed).isCollidable && out.getAbsX() < 0) out.setY(0);}
 		catch(Exception e){out.setY(0);}
 		
 		return out;
