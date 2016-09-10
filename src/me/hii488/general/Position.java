@@ -24,6 +24,13 @@ public class Position {
 		this.x = x;
 		return this;
 	}
+	
+	public Position addToX(float x){
+		this.x += x;
+		return this;
+	}
+	
+	
 
 	public int getY() {
 		return Math.round(y);
@@ -38,6 +45,12 @@ public class Position {
 		return this;
 	}
 
+	public Position addToY(float y){
+		this.y += y;
+		return this;
+	}
+	
+	
 	public Position setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;

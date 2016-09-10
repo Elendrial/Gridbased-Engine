@@ -9,6 +9,8 @@ import java.awt.event.MouseListener;
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.baseTypes.Grid;
 import me.hii488.general.Position;
+import me.hii488.general.Settings;
+import me.hii488.objects.tileTypes.BaseTile;
 
 public class Player extends GeneralEntity implements MouseListener, KeyListener {
 
@@ -30,27 +32,30 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 	public void updateOnTick() {
 		super.updateOnTick();
 		if (moveable) {
-			position.addPosition(allowedVector(queuedMovement));
+			position.addPosition(allowedMovement(queuedMovement));
 		}
 	}
 
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		g.drawRect(position.getX(), position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
-		g.fillRect(position.getX()-1, position.getY(), 3, 3);
-		g.fillRect(position.getX() - speed-1, position.getY()-1, 3, 3);
-		g.fillRect((int) (position.getX() + speed-1 + collisionBox.getWidth()), position.getY()-1, 3, 3);
-		g.fillRect(position.getX()-1, (int) (position.getY() - speed)-1, 3, 3);
-		g.fillRect(position.getX()-1, (int) (position.getY() + speed + collisionBox.getHeight())-1, 3, 3);
+		if(Settings.WorldSettings.debug){
+			g.drawRect(position.getX(), position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
+			g.fillRect(position.getX()-1, position.getY(), 3, 3);
+			g.fillRect(position.getX() - speed-1, position.getY()-1, 3, 3);
+			g.fillRect((int) (position.getX() + speed-1 + collisionBox.getWidth()), position.getY()-1, 3, 3);
+			g.fillRect(position.getX()-1, (int) (position.getY() - speed)-1, 3, 3);
+			g.fillRect(position.getX()-1, (int) (position.getY() + speed + collisionBox.getHeight())-1, 3, 3);
+		}
 	}
 
-	protected Position allowedVector(Position v) {
+	protected Position allowedMovement(Position v) {
 		Grid g = World.worldContainers.get(World.currentWorldContainerID).grid;
 		Position p = position.clone();
 		
 		Position out = v.clone();
-				
+			
+		/*
 		float divisor = 1;
 		boolean updated = false;
 		do{
@@ -65,10 +70,10 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 			}
 			
 			if(out.getY() != 0){
-				try{if(out.getAbsY() > 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() - speed/divisor)).isCollidable){updated = true; out.setY(-speed/divisor);}}
+				try{if(out.getAbsY() > 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() + speed/divisor + collisionBox.getHeight())).isCollidable){updated = true; out.setY(-speed/divisor);}}
 				catch(Exception e){out.setY(0);}
 				
-				try{if(out.getAbsY() < 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() + speed/divisor + collisionBox.getHeight())).isCollidable){updated = true; out.setY(speed/divisor);}}
+				try{if(out.getAbsY() < 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() - speed/divisor)).isCollidable){updated = true; out.setY(speed/divisor);}}
 				catch(Exception e){out.setY(0);}
 			}
 			
@@ -87,6 +92,35 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 		
 		try{if(g.getTileAtAbsPosition(p.getX(), p.getY() + speed).isCollidable && out.getAbsX() < 0) out.setY(0);}
 		catch(Exception e){out.setY(0);}
+		*/
+		
+		boolean updated = false;
+			
+		if(out.getAbsX() != 0){
+			do{
+				updated = false;
+				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()));
+				if(t == null || t.isCollidable){
+					updated = true;
+					out.addToX((out.getAbsX() > 0) ? -1f : 1f);
+				}
+			}while(updated && (out.getAbsX() >= 1 || out.getAbsX() <= -1));
+			
+				
+		}
+		
+		if(out.getAbsY() != 0){
+			do{
+				updated = false;
+				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsY() + out.getAbsY()), (int)(p.getAbsY() + out.getAbsY()));
+				if(t == null || t.isCollidable){
+					updated = true;
+					out.addToY((out.getAbsY() > 0) ? -1f : 1f);
+				}
+			}while(updated && (out.getAbsY() >= 1 || out.getAbsY() <= -1));
+		}
+			
+		
 		
 		return out;
 		
