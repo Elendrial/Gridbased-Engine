@@ -96,6 +96,7 @@ public class World {
 		}
 
 		public static void unloadCurrentContainer() {
+			worldContainers.get(currentWorldContainerID).onUnLoad();
 			worldContainers.get(currentWorldContainerID).loaded = false;
 			worldContainers.get(currentWorldContainerID).getEntities().remove(player);
 		}

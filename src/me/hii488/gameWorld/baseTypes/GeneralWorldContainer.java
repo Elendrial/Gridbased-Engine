@@ -52,6 +52,8 @@ public class GeneralWorldContainer implements ITickable{
 			entities.get(i).onLoad();
 		}
 	}
+	
+	public void onUnLoad(){}
 
 	
 	public void render(Graphics g) {
