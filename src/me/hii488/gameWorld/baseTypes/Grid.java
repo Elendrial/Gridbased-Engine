@@ -181,6 +181,14 @@ public class Grid {
 		return this.getTile((int)(p.getAbsX() - this.positionOffset.getAbsX())/this.tileSize, (int)(p.getAbsY() - this.positionOffset.getAbsY())/this.tileSize);
 	}
 	
+	public Position getPositionFromTileCoords(Position p){
+		return getPositionFromTileCoords(p.getX(), p.getY());
+	}
+	
+	public Position getPositionFromTileCoords(int x, int y){
+		return new Position(x*this.tileSize, y*this.tileSize);
+	}
+	
 	public void printInfo(){
 		System.out.println("Grid info:\n\tTile size: " + this.tileSize + "\n\tGrid Dimensions: " + this.gridSize[0] + ", " + this.gridSize[1] + "\n\tTop left corner position: " + this.positionOffset.toString());
 	}
