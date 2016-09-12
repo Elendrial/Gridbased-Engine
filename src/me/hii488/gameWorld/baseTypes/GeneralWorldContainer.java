@@ -132,6 +132,8 @@ public class GeneralWorldContainer implements ITickable {
 		this.entities.clear();
 		this.destroyedInTick.clear();
 		this.setup = false;
+		
+		this.addEntity(World.player);
 	}
 
 	public void keyPressed(KeyEvent arg0) {}

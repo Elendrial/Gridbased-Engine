@@ -2,9 +2,7 @@ package me.hii488.objects.entities;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.baseTypes.Grid;

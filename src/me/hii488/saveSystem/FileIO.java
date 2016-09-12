@@ -30,9 +30,9 @@ public class FileIO {
 	}
 	
 	public static String readFile(String filename){
-		String content = null;
-		File file = new File(filename);
+		String content = "";
 		try {
+			File file = new File(filename);
 		    FileReader reader = new FileReader(file);
 		    char[] chars = new char[(int) file.length()];
 		    reader.read(chars);
