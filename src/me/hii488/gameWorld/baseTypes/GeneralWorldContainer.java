@@ -2,6 +2,8 @@ package me.hii488.gameWorld.baseTypes;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import me.hii488.gameWorld.World;
@@ -9,7 +11,7 @@ import me.hii488.gameWorld.tickControl.ITickable;
 import me.hii488.general.Position;
 import me.hii488.objects.entities.GeneralEntity;
 
-public class GeneralWorldContainer implements ITickable{
+public class GeneralWorldContainer implements ITickable {
 
 	public int ID;
 	public Grid grid = new Grid();
@@ -131,4 +133,20 @@ public class GeneralWorldContainer implements ITickable{
 		this.destroyedInTick.clear();
 		this.setup = false;
 	}
+
+	public void keyPressed(KeyEvent arg0) {}
+
+	public void keyReleased(KeyEvent arg0) {}
+
+	public void keyTyped(KeyEvent arg0) {}
+
+	public void mouseClicked(MouseEvent e) {}
+
+	public void mouseEntered(MouseEvent e) {}
+
+	public void mouseExited(MouseEvent e) {}
+
+	public void mousePressed(MouseEvent e) {}
+
+	public void mouseReleased(MouseEvent e) {}
 }

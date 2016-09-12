@@ -13,8 +13,8 @@ import me.hii488.gameWorld.World;
 public class Window implements Runnable {
 
 	// Actual window
-	private JFrame frame;
-	private Display display;
+	public JFrame frame;
+	public Display display;
 
 	public int width, height;
 	public String title;
@@ -43,8 +43,8 @@ public class Window implements Runnable {
 	
 	public void createDisplay(){
 		this.display = new Display(this);
-		display.addKeyListener(World.player);
-		display.addMouseListener(World.player);
+		display.addKeyListener(World.inputHandler);
+		display.addMouseListener(World.inputHandler);
 		this.frame.add(this.display);
 	}
 

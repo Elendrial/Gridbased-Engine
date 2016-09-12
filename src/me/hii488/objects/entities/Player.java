@@ -12,7 +12,7 @@ import me.hii488.general.Position;
 import me.hii488.general.Settings;
 import me.hii488.objects.tileTypes.BaseTile;
 
-public class Player extends GeneralEntity implements MouseListener, KeyListener {
+public class Player extends GeneralEntity {
 
 	public boolean moveable = true;
 	public int speed = 2;
@@ -160,34 +160,26 @@ public class Player extends GeneralEntity implements MouseListener, KeyListener 
 		}
 	}
 
-	@Override
 	public void keyPressed(KeyEvent arg0) {
 		keyDown(arg0);
 	}
 
-	@Override
 	public void keyReleased(KeyEvent arg0) {
 		keyUp(arg0);
 	}
 
-	@Override
 	public void keyTyped(KeyEvent arg0) {
 		keyDown(arg0);
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent arg0) {}
 
-	@Override
 	public void mouseEntered(MouseEvent arg0) {}
 
-	@Override
 	public void mouseExited(MouseEvent arg0) {}
 
-	@Override
 	public void mousePressed(MouseEvent arg0) {}
 
-	@Override
 	public void mouseReleased(MouseEvent arg0) {}
 
 }

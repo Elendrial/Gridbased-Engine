@@ -1,5 +1,9 @@
 package me.hii488.gameWorld;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -133,6 +137,59 @@ public class World {
 	
 	public static GeneralWorldContainer getCurrentWorldContainer(){
 		return worldContainers.get(currentWorldContainerID);
+	}
+	
+	public static InputHandling inputHandler = new InputHandling();
+	private static class InputHandling implements MouseListener, KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			World.player.keyPressed(e);
+			World.getCurrentWorldContainer().keyPressed(e);
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			World.player.keyReleased(e);
+			World.getCurrentWorldContainer().keyReleased(e);
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			World.player.keyTyped(e);
+			World.getCurrentWorldContainer().keyTyped(e);
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			World.player.mouseClicked(e);
+			World.getCurrentWorldContainer().mouseClicked(e);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			World.player.mouseEntered(e);
+			World.getCurrentWorldContainer().mouseEntered(e);
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			World.player.mouseExited(e);
+			World.getCurrentWorldContainer().mouseExited(e);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			World.player.mousePressed(e);
+			World.getCurrentWorldContainer().mousePressed(e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			World.player.mouseReleased(e);
+			World.getCurrentWorldContainer().mouseReleased(e);
+		}
+		
 	}
 	
 }
