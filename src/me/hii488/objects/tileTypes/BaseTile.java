@@ -45,7 +45,6 @@ public class BaseTile {
 
 	public void render(Graphics g, int tileSize) {
 		g.drawImage(currentTexture, gridPosition.getX() * tileSize + renderOffset.getX(), gridPosition.getY() * tileSize + renderOffset.getY(), null);
-		g.drawLine(gridPosition.getX()* tileSize, gridPosition.getY()* tileSize, gridPosition.getX() * tileSize + renderOffset.getX(), gridPosition.getY() * tileSize + renderOffset.getY());
 	}
 	
 	public BaseTile clone(){

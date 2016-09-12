@@ -112,8 +112,8 @@ public class Player extends GeneralEntity {
 		if(out.getAbsY() != 0){
 			do{
 				updated = false;
-				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsY() + out.getAbsY()), (int)(p.getAbsY() + out.getAbsY()));
-				BaseTile t2 = g.getTileAtAbsPosition((int)(p.getAbsY() + out.getAbsY()), (int)(p.getAbsY() + out.getAbsY()+ currentTexture.getHeight()));
+				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()));
+				BaseTile t2 = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()+ currentTexture.getHeight()));
 
 				if((t == null || t.isCollidable) || (t2 == null || t2.isCollidable)){
 					updated = true;
