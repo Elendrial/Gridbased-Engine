@@ -98,7 +98,9 @@ public class Player extends GeneralEntity {
 			do{
 				updated = false;
 				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()));
-				if(t == null || t.isCollidable){
+				BaseTile t2 = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX() + currentTexture.getWidth()), (int)(p.getAbsY() + out.getAbsY()));
+				
+				if(t == null || t.isCollidable|| (t2 == null || t2.isCollidable)){
 					updated = true;
 					out.addToX((out.getAbsX() > 0) ? -1f : 1f);
 				}
@@ -111,14 +113,24 @@ public class Player extends GeneralEntity {
 			do{
 				updated = false;
 				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsY() + out.getAbsY()), (int)(p.getAbsY() + out.getAbsY()));
-				if(t == null || t.isCollidable){
+				BaseTile t2 = g.getTileAtAbsPosition((int)(p.getAbsY() + out.getAbsY()), (int)(p.getAbsY() + out.getAbsY()+ currentTexture.getHeight()));
+
+				if((t == null || t.isCollidable) || (t2 == null || t2.isCollidable)){
 					updated = true;
 					out.addToY((out.getAbsY() > 0) ? -1f : 1f);
 				}
 			}while(updated && (out.getAbsY() >= 1 || out.getAbsY() <= -1));
 		}
-			
 		
+	/*	if(out.getAbsX() !=0){
+			BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()));
+			if(t == null || t.isCollidable){
+				int x = (out.getAbsX() > 0) ? 1 : -1;
+				int delta = 1;
+				t = g.getTileAtAbsPosition((int)(p.getAbsX() + delta), (int)(p.getAbsY() + out.getAbsY()));
+				while()
+			}
+		}*/
 		
 		return out;
 		

@@ -192,4 +192,17 @@ public class Grid {
 	public void printInfo(){
 		System.out.println("Grid info:\n\tTile size: " + this.tileSize + "\n\tGrid Dimensions: " + this.gridSize[0] + ", " + this.gridSize[1] + "\n\tTop left corner position: " + this.positionOffset.toString());
 	}
+	
+	public String gridAsString(){
+		String s = "";
+		
+		for(int i = 0; i < this.gridSize[0]; i++){
+			for(int j = 0; j < this.gridSize[1]; j++){
+				s+="[" + this.getTile(i, j).textureName.substring(0, 1) + "] ";
+			}
+			s+="\n";
+		}
+		
+		return s;
+	}
 }
