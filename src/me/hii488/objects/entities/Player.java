@@ -150,7 +150,21 @@ public class Player extends GeneralEntity {
 		case 40:
 			queuedMovement.setY(speed);
 			break;
+		case KeyEvent.VK_A:
+			queuedMovement.setX(-speed);
+			break;
+		case KeyEvent.VK_W:
+			queuedMovement.setY(-speed);
+			break;
+		case KeyEvent.VK_D:
+			queuedMovement.setX(speed);
+			break;
+		case KeyEvent.VK_S:
+			queuedMovement.setY(speed);
+			break;
 		}
+		
+		
 	}
 	
 	public void keyUp(KeyEvent arg0){
@@ -165,6 +179,18 @@ public class Player extends GeneralEntity {
 			queuedMovement.setX(0);
 			break;
 		case 40:
+			queuedMovement.setY(0);
+			break;
+		case KeyEvent.VK_A:
+			queuedMovement.setX(0);
+			break;
+		case KeyEvent.VK_W:
+			queuedMovement.setY(0);
+			break;
+		case KeyEvent.VK_D:
+			queuedMovement.setX(0);
+			break;
+		case KeyEvent.VK_S:
 			queuedMovement.setY(0);
 			break;
 		}
