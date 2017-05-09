@@ -49,7 +49,7 @@ public class TextureHelper {
 		} catch (IOException e) {
 			try {
 				TextureHelper.TextureNotFoundPrint(imageName, obj.getClass());
-				i = ImageIO.read(TextureHelper.class.getResourceAsStream((obj instanceof GeneralEntity) ? Settings.defaultEntityTextureLocation : Settings.defaultTileTextureLocation));
+				i = ImageIO.read(TextureHelper.class.getClassLoader().getResourceAsStream((obj instanceof GeneralEntity) ? Settings.defaultEntityTextureLocation : Settings.defaultTileTextureLocation));
 //				i = ImageIO.read(new File(System.getProperty("user.dir") + Settings.resourceTopLevel + Settings.defaultTileTextureLocation));
 			} catch (Exception e1) {
 				TextureHelper.TextureNotFoundPrint(Settings.defaultTileTextureLocation, obj.getClass());
