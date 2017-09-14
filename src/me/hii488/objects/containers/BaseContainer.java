@@ -11,7 +11,7 @@ import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.entities.BaseEntity;
 
-public abstract class BaseContainer implements ITickable{
+public class BaseContainer implements ITickable{
 	
 	protected ArrayList<BaseEntity> entitiesDestroyedInTick = new ArrayList<BaseEntity>();
 	protected ArrayList<BaseEntity> entitiesAddedInTick = new ArrayList<BaseEntity>();
@@ -49,6 +49,11 @@ public abstract class BaseContainer implements ITickable{
 		}
 		grid.updateOnSec();
 	}
+	
+	public void updateOnRandTick() {}
+	
+	@Override
+	public float randTickChance() {return 0;}
 	
 	public void endOfTick(){
 		this.entities.removeAll(entitiesDestroyedInTick);

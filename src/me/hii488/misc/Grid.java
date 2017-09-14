@@ -118,6 +118,14 @@ public class Grid {
 		}
 	}
 	
+	public void fillRectWithTile(BaseTile tile, int x1, int y1, int x2, int y2) {
+		for (int i = x1; i < x2; i++) {
+			for (int j = y1; j < y2; j++) {
+				this.setTile(tile, i, j);
+			}
+		}
+	}
+	
 	public void wallRectWithTile(String identifier, int x1, int y1, int x2, int y2){
 		for(int i = x1; i < x2; i++){
 			this.setTile(identifier, i, y1);
@@ -127,6 +135,18 @@ public class Grid {
 		for(int i = y1; i < y2; i++){
 			this.setTile(identifier, x1, i);
 			this.setTile(identifier, x2-1, i);
+		}
+	}
+	
+	public void wallRectWithTile(BaseTile tile, int x1, int y1, int x2, int y2){
+		for(int i = x1; i < x2; i++){
+			this.setTile(tile, i, y1);
+			this.setTile(tile, i, y2-1);
+		}
+		
+		for(int i = y1; i < y2; i++){
+			this.setTile(tile, x1, i);
+			this.setTile(tile, x2-1, i);
 		}
 	}
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import me.hii488.objects.tiles.BaseTile;
 import me.hii488.objects.tiles.BlankTile;
 
-public class TileRegistry {
+public class TileRegistry{
 	
 	protected static HashMap<String, BaseTile> tiles = new HashMap<String, BaseTile>();
 	

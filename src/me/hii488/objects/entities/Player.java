@@ -16,7 +16,12 @@ public class Player extends BaseEntity{
 
 	public boolean moveable = true;
 	public int speed = 2;
-
+	
+	@Override
+	public void initVars() {
+		this.identifier = "player";
+	}
+	
 	@Override
 	public void onLoad() {
 		position = new Vector(GameController.windows[0].width / 2 - currentTexture.getWidth() / 2,	GameController.windows[0].height / 2 - currentTexture.getHeight() / 2);
@@ -110,8 +115,6 @@ public class Player extends BaseEntity{
 			queuedMovement.setY(speed);
 			break;
 		}
-		
-		
 	}
 	
 	public void keyUp(KeyEvent arg0){
@@ -166,39 +169,18 @@ public class Player extends BaseEntity{
 	public void mouseReleased(MouseEvent arg0) {}
 
 	@Override
-	public float randTickChance() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public float randTickChance() {return 0;}
 
 	@Override
-	public void updateOnSec() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void updateOnSec() {}
 
 	@Override
-	public void updateOnRandTick() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void updateOnRandTick() {}
 
 	@Override
-	public void initVars() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onDestroy() {}
 
 	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public TexturedObject clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public TexturedObject clone() {return null;} // Player entity should not be cloned.
 
 }

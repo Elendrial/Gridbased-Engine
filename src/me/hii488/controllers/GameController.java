@@ -11,27 +11,34 @@ public class GameController {
 	public static boolean isRunning = true;
 	public static boolean isPaused = false;
 	
-	public static Window[] windows; // Goal is to modify containers to allow for multiple windows.
+	public static Window[] windows = new Window[1]; // Goal is to modify containers to allow for multiple windows.
 	public static Random rand = new Random();
 	
-	
-	public static void startGame(String windowTitle, int windowWidth, int windowHeight){
-		startGame(new Window(windowTitle, windowWidth, windowHeight));
+	public static void setupEngine(){ //This may grow, it may not
+		InitilisationController.addSelf();
 	}
 	
-	public static void startGame(Window w){
+	public static void loadWindow(String windowTitle, int windowWidth, int windowHeight){
+		loadWindow(new Window(windowTitle, windowWidth, windowHeight));
+	}
+	
+	public static void loadWindow(Window w){
 		windows[0] = w;
-		InitilisationController.preInit();
+		InitilisationController.preInitAll();
 		
 		if(EntityRegistry.player == null){
 			System.err.println("No player set, defaulting to base.");
 			EntityRegistry.player = new Player();
 		}
 		
-		InitilisationController.init();
-		InitilisationController.postInit();
+		InitilisationController.initAll();
+	}
+	
+	public static void startGame(){
 		
 		TickController.start();
+		
+		InitilisationController.postInitAll();
 		
 		windows[0].createDisplay();
 		windows[0].start();
