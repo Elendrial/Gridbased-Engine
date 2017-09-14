@@ -1,4 +1,4 @@
-package me.hii488.general;
+package me.hii488.misc;
 
 public class Settings {
 
@@ -16,7 +16,7 @@ public class Settings {
 		public static float minZoom = 0.01f;
 		public static float maxZoom = 2f;
 		
-		public static Position currentPosition = new Position(0,0); // TODO: Add options for this
+		public static Vector currentPosition = new Vector(0,0);
 
 	}
 
@@ -26,7 +26,10 @@ public class Settings {
 		public static boolean tpsPrinter = false;
 	}
 
-	public static final String defaultTileTextureLocation = "textures/somethingsgonewrong/tdefault.png";
-	public static final String defaultEntityTextureLocation = "textures/somethingsgonewrong/edefault.png";
+	public static class Texture{
+		public static final String defaultTileTextureLocation = "textures/somethingsgonewrong/tdefault.png";
+		public static final String defaultEntityTextureLocation = "textures/somethingsgonewrong/edefault.png";
+		public static int tileSize = 16;
+	}
 	
 }

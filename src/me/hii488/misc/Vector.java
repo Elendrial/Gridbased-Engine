@@ -1,13 +1,13 @@
-package me.hii488.general;
+package me.hii488.misc;
 
-public class Position {
+public class Vector {
 	private float x = 0;
 	private float y = 0;
 
-	public Position() {
+	public Vector() {
 	}
 
-	public Position(float x, float y) {
+	public Vector(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -20,12 +20,12 @@ public class Position {
 		return x;
 	}
 
-	public Position setX(float x) {
+	public Vector setX(float x) {
 		this.x = x;
 		return this;
 	}
 	
-	public Position addToX(float x){
+	public Vector addToX(float x){
 		this.x += x;
 		return this;
 	}
@@ -40,40 +40,40 @@ public class Position {
 		return y;
 	}
 
-	public Position setY(float y) {
+	public Vector setY(float y) {
 		this.y = y;
 		return this;
 	}
 
-	public Position addToY(float y){
+	public Vector addToY(float y){
 		this.y += y;
 		return this;
 	}
 	
 	
-	public Position setLocation(float x, float y) {
+	public Vector setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
 		return this;
 	}
 
-	public Position addToLocation(float x, float y) {
+	public Vector addToLocation(float x, float y) {
 		this.x += x;
 		this.y += y;
 		return this;
 	}
 
-	public Position addPosition(Position v) {
+	public Vector addPosition(Vector v) {
 		this.x += v.getAbsX();
 		this.y += v.getAbsY();
 		return this;
 	}
 
-	public Position clone() {
-		return new Position(x, y);
+	public Vector clone() {
+		return new Vector(x, y);
 	}
 
-	public Position print() {
+	public Vector print() {
 		System.out.println("x: " + this.getX() + "; y: " + this.getY());
 		return this;
 	}

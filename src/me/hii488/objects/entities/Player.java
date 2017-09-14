@@ -4,26 +4,22 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import me.hii488.gameWorld.World;
-import me.hii488.gameWorld.baseTypes.Grid;
-import me.hii488.general.Position;
-import me.hii488.general.Settings;
-import me.hii488.objects.tileTypes.BaseTile;
+import me.hii488.controllers.GameController;
+import me.hii488.handlers.ContainerHandler;
+import me.hii488.misc.Grid;
+import me.hii488.misc.Settings;
+import me.hii488.misc.Vector;
+import me.hii488.objects.TexturedObject;
+import me.hii488.objects.tiles.BaseTile;
 
-public class Player extends GeneralEntity {
+public class Player extends BaseEntity{
 
 	public boolean moveable = true;
 	public int speed = 2;
 
 	@Override
-	public void setup() {
-		super.setup();
-	}
-
-	@Override
 	public void onLoad() {
-		super.onLoad();
-		position = new Position(World.mainWindow.width / 2 - currentTexture.getWidth() / 2,	World.mainWindow.height / 2 - currentTexture.getHeight() / 2);
+		position = new Vector(GameController.windows[0].width / 2 - currentTexture.getWidth() / 2,	GameController.windows[0].height / 2 - currentTexture.getHeight() / 2);
 	}
 
 	@Override
@@ -47,50 +43,12 @@ public class Player extends GeneralEntity {
 		}
 	}
 
-	protected Position allowedMovement(Position v) {
-		Grid g = World.worldContainers.get(World.currentWorldContainerID).grid;
-		Position p = position.clone();
+	// TODO: Check this works properly, it was virtually straight copied from V2
+	protected Vector allowedMovement(Vector queuedMovement) {
+		Grid g = ContainerHandler.getLoadedContainer().grid;
+		Vector p = position.clone();
 		
-		Position out = v.clone();
-			
-		/*
-		float divisor = 1;
-		boolean updated = false;
-		do{
-			updated = false;
-			
-			if(out.getAbsX() != 0){
-				try{if(out.getAbsX() < 0)if(g.getTileAtAbsPosition((int) (p.getX() - speed/divisor), p.getY()).isCollidable){updated = true; out.setX(-speed/divisor);}}
-				catch(Exception e){out.setX(0);}
-			
-				try{if(out.getAbsX() > 0)if(g.getTileAtAbsPosition((int) (p.getX() + speed/divisor + collisionBox.getWidth()), p.getY()).isCollidable){updated = true; out.setX(speed/divisor);}}
-				catch(Exception e){out.setX(0);}
-			}
-			
-			if(out.getY() != 0){
-				try{if(out.getAbsY() > 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() + speed/divisor + collisionBox.getHeight())).isCollidable){updated = true; out.setY(-speed/divisor);}}
-				catch(Exception e){out.setY(0);}
-				
-				try{if(out.getAbsY() < 0)if(g.getTileAtAbsPosition(p.getX(), (int) (p.getY() - speed/divisor)).isCollidable){updated = true; out.setY(speed/divisor);}}
-				catch(Exception e){out.setY(0);}
-			}
-			
-			divisor += 0.5f;
-			
-		}while(updated && divisor <= speed);
-		
-		try{if(g.getTileAtAbsPosition(p.getX() - speed, p.getY()).isCollidable && out.getAbsX() < 0) out.setX(0);}
-		catch(Exception e){out.setX(0);}
-		
-		try{if(g.getTileAtAbsPosition(p.getX() + speed, p.getY()).isCollidable && out.getAbsX() > 0) out.setX(0);}
-		catch(Exception e){out.setX(0);}
-		
-		try{if(g.getTileAtAbsPosition(p.getX(), p.getY() - speed).isCollidable && out.getAbsX() > 0) out.setY(0);}
-		catch(Exception e){out.setY(0);}
-		
-		try{if(g.getTileAtAbsPosition(p.getX(), p.getY() + speed).isCollidable && out.getAbsX() < 0) out.setY(0);}
-		catch(Exception e){out.setY(0);}
-		*/
+		Vector out = queuedMovement.clone();
 		
 		boolean updated = false;
 			
@@ -122,18 +80,7 @@ public class Player extends GeneralEntity {
 			}while(updated && (out.getAbsY() >= 1 || out.getAbsY() <= -1));
 		}
 		
-	/*	if(out.getAbsX() !=0){
-			BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()));
-			if(t == null || t.isCollidable){
-				int x = (out.getAbsX() > 0) ? 1 : -1;
-				int delta = 1;
-				t = g.getTileAtAbsPosition((int)(p.getAbsX() + delta), (int)(p.getAbsY() + out.getAbsY()));
-				while()
-			}
-		}*/
-		
 		return out;
-		
 	}
 	
 	public void keyDown(KeyEvent arg0){
@@ -217,5 +164,41 @@ public class Player extends GeneralEntity {
 	public void mousePressed(MouseEvent arg0) {}
 
 	public void mouseReleased(MouseEvent arg0) {}
+
+	@Override
+	public float randTickChance() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void updateOnSec() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateOnRandTick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initVars() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TexturedObject clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

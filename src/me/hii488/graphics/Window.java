@@ -1,4 +1,4 @@
-package me.hii488.gameWindow;
+package me.hii488.graphics;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +8,8 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-import me.hii488.gameWorld.World;
+import me.hii488.controllers.GameController;
+import me.hii488.handlers.InputHandler;
 
 public class Window implements Runnable {
 
@@ -43,8 +44,8 @@ public class Window implements Runnable {
 	
 	public void createDisplay(){
 		this.display = new Display(this);
-		display.addKeyListener(World.inputHandler);
-		display.addMouseListener(World.inputHandler);
+		display.addKeyListener(InputHandler.instance);
+		display.addMouseListener(InputHandler.instance);
 		this.frame.add(this.display);
 	}
 
@@ -81,19 +82,12 @@ public class Window implements Runnable {
 		bs.show();
 	}
 
-	// Tick is deliberately throttled, it should only happen every 'x' ms, as it
-	// applies game logic
-	// FPS should happen as fast as it can, since it renders (only important if
-	// the field of vision can change)
-
 	public int FPS = 0;
-	
 	public void run() {
 		int fps = 0;
-
 		double fpsTimer = System.currentTimeMillis();
 
-		while (isRunning && World.isRunning) {
+		while (isRunning && GameController.isRunning) {
 
 			// This is NOT to sleep, but to limit the game loop
 			try {
@@ -108,15 +102,12 @@ public class Window implements Runnable {
 			// If the current time is 1 second greater than the last time we
 			// printed
 			if (System.currentTimeMillis() - fpsTimer >= 1000) {
-			//	System.out.printf("FPS: %d\tTPS: %d%n", fps, tick);
 				FPS = fps;
 				fps = 0;
 				fpsTimer += 1000;
 			}
 		}
 		
-		World.closeGame(); // TODO: Remove this and have a better way, so that multiple windows can be opened etc...
-
 		// When the gameloop is finished running, close the program
 		this.frame.dispatchEvent(new WindowEvent(this.frame, WindowEvent.WINDOW_CLOSING));
 
