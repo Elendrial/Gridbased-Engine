@@ -1,12 +1,12 @@
 # Gridbased-Engine
-This is a simple, easy to use, independant game engine written in and for Java.
+This is a simple, easy to use, independant game engine written in Java.
 There are no physics implemented, so if you're looking for more complex things than you're willing to write yourself, then I'm afraid this engine isn't for you!
 This is designed for only one player, although it would probably take very little work to change that.
 
 ## How it works (roughly) :
-###### _Probaby needs to be modified heavily and probably will be, so things will change from this!_
+###### _The information below will not be up to date until V3 is considered nearing completion._
 ###Hierarchy:
-* The [World](../master/src/me/hii488/gameWorld/World.java) class is the "most important" class. It is where the game is started and ended from.
+* The [Game Controller](../master/src/me/hii488/controllers/GameController.java) class is the top level class. It is where the game is started and ended from.
   * The [Player](../master/src/me/hii488/objects/entities/Player.java) object.
     * KeyListener and MouseListener for the active [Window](../master/src/me/hii488/gameWindow/Window.java)..
   * The active [Window](../master/src/me/hii488/gameWindow/Window.java).
