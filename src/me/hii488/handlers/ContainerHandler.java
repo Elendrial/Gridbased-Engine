@@ -27,7 +27,7 @@ public class ContainerHandler {
 	}
 	
 	public static void loadNewContainer(String identifier) {
-		unloadCurrentContainer();
+		if(getLoadedContainer() != null) unloadCurrentContainer();
 		currentContainerIndentifier = identifier;
 		containers.get(currentContainerIndentifier).addEntity(EntityRegistry.player);
 		containers.get(currentContainerIndentifier).onLoad();

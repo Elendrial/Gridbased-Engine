@@ -2,18 +2,24 @@ package me.hii488.objects.entities;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import me.hii488.controllers.GameController;
 import me.hii488.handlers.ContainerHandler;
+import me.hii488.handlers.InputHandler;
+import me.hii488.interfaces.IInputUser;
 import me.hii488.misc.Grid;
 import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;
 import me.hii488.objects.tiles.BaseTile;
 
-public class Player extends BaseEntity{
+public class Player extends BaseEntity implements IInputUser{
 
+	public Player(){
+		super();
+		InputHandler.inputUsers.add(this);
+	}
+	
 	public boolean moveable = true;
 	public int speed = 2;
 	
@@ -157,17 +163,7 @@ public class Player extends BaseEntity{
 	public void keyTyped(KeyEvent arg0) {
 		keyDown(arg0);
 	}
-
-	public void mouseClicked(MouseEvent arg0) {}
-
-	public void mouseEntered(MouseEvent arg0) {}
-
-	public void mouseExited(MouseEvent arg0) {}
-
-	public void mousePressed(MouseEvent arg0) {}
-
-	public void mouseReleased(MouseEvent arg0) {}
-
+	
 	@Override
 	public float randTickChance() {return 0;}
 

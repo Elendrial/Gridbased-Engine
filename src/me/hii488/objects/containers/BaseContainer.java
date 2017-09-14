@@ -5,13 +5,14 @@ import java.util.ArrayList;
 
 import me.hii488.controllers.GameController;
 import me.hii488.graphics.Camera;
+import me.hii488.interfaces.IInputUser;
 import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Grid;
 import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.entities.BaseEntity;
 
-public class BaseContainer implements ITickable{
+public class BaseContainer implements ITickable, IInputUser{
 	
 	protected ArrayList<BaseEntity> entitiesDestroyedInTick = new ArrayList<BaseEntity>();
 	protected ArrayList<BaseEntity> entitiesAddedInTick = new ArrayList<BaseEntity>();

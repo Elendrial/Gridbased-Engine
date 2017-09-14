@@ -41,7 +41,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	}
 	
 	public void render(Graphics g) {
-		currentTexture = textureImages[currentState];
+		if(this.states > 1) currentTexture = textureImages[currentState];
 		g.drawImage(currentTexture, position.getX(), position.getY(), null);
 		
 		if(Settings.Logging.debug || this.showCollisionBox){

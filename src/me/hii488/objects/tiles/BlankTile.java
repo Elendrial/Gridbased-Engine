@@ -1,7 +1,5 @@
 package me.hii488.objects.tiles;
 
-import me.hii488.misc.Settings;
-
 public class BlankTile extends BaseTile{
 
 	public BlankTile(){super();}
@@ -28,7 +26,7 @@ public class BlankTile extends BaseTile{
 	@Override
 	public void initVars() {
 		this.states = 0;
-		this.textureName = Settings.Texture.defaultTileTextureLocation;
+		this.textureName = "blankTile.png";
 		this.identifier = "blankTile";
 	}
 

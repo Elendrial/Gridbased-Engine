@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import me.hii488.handlers.TextureHandler;
+import me.hii488.objects.tiles.BaseTile;
 
 public abstract class TexturedObject {
 	
@@ -32,12 +33,12 @@ public abstract class TexturedObject {
 			this.textureImages = new BufferedImage[states+1];
 			
 			for(int i = 0; i < textureImages.length; i++)
-				textureImages[i] = TextureHandler.loadTexture("textures/tiles/", textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
+				textureImages[i] = TextureHandler.loadTexture("textures/" + (this instanceof BaseTile ? "tiles" : "entities") + "/", textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
 			
 			currentTexture = textureImages[0];
 		}
 		else{
-			currentTexture = TextureHandler.loadTexture("textures/tiles/", textureName, this);
+			currentTexture = TextureHandler.loadTexture("textures/" + (this instanceof BaseTile ? "tiles" : "entities") + "/", textureName, this);
 		}
 	}
 	

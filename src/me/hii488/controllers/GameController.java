@@ -4,6 +4,7 @@ import java.util.Random;
 
 import me.hii488.graphics.Window;
 import me.hii488.objects.entities.Player;
+import me.hii488.objects.tiles.BlankTile;
 import me.hii488.registries.EntityRegistry;
 
 public class GameController {
@@ -15,15 +16,18 @@ public class GameController {
 	public static Random rand = new Random();
 	
 	public static void setupEngine(){ //This may grow, it may not
-		InitilisationController.addSelf();
+		new BlankTile();
 	}
 	
 	public static void loadWindow(String windowTitle, int windowWidth, int windowHeight){
 		loadWindow(new Window(windowTitle, windowWidth, windowHeight));
 	}
 	
-	public static void loadWindow(Window w){
+	public static void loadWindow(Window w){ // seperate this
 		windows[0] = w;
+	}
+	
+	public static void startGame(){
 		InitilisationController.preInitAll();
 		
 		if(EntityRegistry.player == null){
@@ -32,9 +36,6 @@ public class GameController {
 		}
 		
 		InitilisationController.initAll();
-	}
-	
-	public static void startGame(){
 		
 		TickController.start();
 		
