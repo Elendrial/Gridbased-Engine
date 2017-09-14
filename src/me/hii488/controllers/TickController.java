@@ -2,8 +2,8 @@ package me.hii488.controllers;
 
 import java.util.ArrayList;
 
-import me.hii488.Interfaces.ITickable;
 import me.hii488.handlers.ContainerHandler;
+import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Settings;
 import me.hii488.objects.entities.BaseEntity;
 

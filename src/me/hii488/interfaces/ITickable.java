@@ -1,4 +1,4 @@
-package me.hii488.Interfaces;
+package me.hii488.interfaces;
 
 public interface ITickable {
 	public float randTickChance();

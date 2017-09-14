@@ -2,7 +2,7 @@ package me.hii488.objects.tiles;
 
 import java.awt.Graphics;
 
-import me.hii488.Interfaces.ITickable;
+import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;

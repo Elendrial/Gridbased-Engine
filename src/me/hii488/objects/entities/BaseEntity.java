@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import me.hii488.Interfaces.ITickable;
 import me.hii488.handlers.ContainerHandler;
 import me.hii488.handlers.EntityHandler;
+import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;

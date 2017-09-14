@@ -1,4 +1,4 @@
-package me.hii488.Interfaces;
+package me.hii488.interfaces;
 
 public interface IInitiliser {
 	public void preInit();

@@ -2,7 +2,7 @@ package me.hii488.controllers;
 
 import java.util.ArrayList;
 
-import me.hii488.Interfaces.IInitiliser;
+import me.hii488.interfaces.IInitiliser;
 
 public class InitilisationController {
 	

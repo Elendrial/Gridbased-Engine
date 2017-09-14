@@ -3,7 +3,7 @@ package me.hii488.objects.containers;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import me.hii488.Interfaces.ITickable;
+import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Grid;
 import me.hii488.objects.entities.BaseEntity;
 
