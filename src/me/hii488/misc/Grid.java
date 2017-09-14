@@ -2,13 +2,13 @@ package me.hii488.misc;
 
 import java.awt.Graphics;
 
+import me.hii488.graphics.Camera;
 import me.hii488.objects.tiles.BaseTile;
 import me.hii488.registries.TileRegistry;
 
 public class Grid {
 
 	public BaseTile[][] grid;
-	public Vector positionOffset;
 	public Vector dimensions = new Vector(0,0);
 	
 	public Grid() {}
@@ -38,16 +38,6 @@ public class Grid {
 		for (int i = 0; i < dimensions.getX(); i++) {
 			for (int j = 0; j < dimensions.getY(); j++) {
 				grid[i][j] = TileRegistry.getBlankTile();
-			}
-		}
-	}
-
-	public void positionGrid(Vector start) {
-		positionOffset = start;
-		for (int i = 0; i < dimensions.getX(); i++) {
-			for (int j = 0; j < dimensions.getY(); j++) {
-				this.getTile(i, j).gridPosition = (new Vector(i, j));
-//				this.getTile(i, j).renderOffset = positionOffset;
 			}
 		}
 	}
@@ -100,6 +90,7 @@ public class Grid {
 	
 	public void setTile(String identifier, int x, int y) {
 		grid[x][y] = TileRegistry.getTile(identifier);
+		grid[x][y].gridPosition.setLocation(x, y);
 	}
 
 	public void setTile(BaseTile tile, Vector p) {
@@ -108,6 +99,7 @@ public class Grid {
 	
 	public void setTile(BaseTile tile, int x, int y) {
 		grid[x][y] = (BaseTile) tile.clone();
+		grid[x][y].gridPosition.setLocation(x, y);
 	}
 	
 	public void fillRectWithTile(String identifier, int x1, int y1, int x2, int y2) {
@@ -167,7 +159,7 @@ public class Grid {
 	}
 	
 	public BaseTile getTileAtAbsPosition(Vector p){
-		return this.getTile((int)(p.getAbsX() - this.positionOffset.getAbsX())/Settings.Texture.tileSize, (int)(p.getAbsY() - this.positionOffset.getAbsY())/Settings.Texture.tileSize);
+		return this.getTile((int)(p.getAbsX() - Camera.cameraPosition.getAbsX())/Settings.Texture.tileSize, (int)(p.getAbsY() - Camera.cameraPosition.getAbsY())/Settings.Texture.tileSize);
 	}
 	
 	public Vector getPositionFromTileCoords(Vector p){
@@ -179,7 +171,7 @@ public class Grid {
 	}
 	
 	public void printInfo(){
-		System.out.println("Grid info:\n\tTile size: " + Settings.Texture.tileSize + "\n\tGrid Dimensions: " + this.dimensions.getX() + ", " + this.dimensions.getY() + "\n\tTop left corner position: " + this.positionOffset.toString());
+		System.out.println("Grid info:\n\tTile size: " + Settings.Texture.tileSize + "\n\tGrid Dimensions: " + this.dimensions.getX() + ", " + this.dimensions.getY() + "\n\tTop left corner position: " + Camera.cameraPosition.toString());
 	}
 	
 	public String gridAsString(){

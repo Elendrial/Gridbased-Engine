@@ -44,7 +44,7 @@ public class Player extends BaseEntity implements IInputUser{
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		if(Settings.WorldSettings.debug){
+		if(Settings.Logging.debug){
 			g.drawRect(position.getX(), position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
 			g.fillRect(position.getX()-1, position.getY(), 3, 3);
 			g.fillRect(position.getX() - speed-1, position.getY()-1, 3, 3);

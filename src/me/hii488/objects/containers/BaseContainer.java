@@ -26,13 +26,15 @@ public class BaseContainer implements ITickable, IInputUser{
 	
 	public void onLoad(){
 		if(grid.dimensions.getX() < GameController.windows[0].width && grid.dimensions.getY() < GameController.windows[0].height){
-			Camera.moveTo(new Vector(GameController.windows[0].width / 2 - grid.dimensions.getX() * (Settings.Texture.tileSize*Camera.scale/2),
-									 GameController.windows[0].height/ 2 - grid.dimensions.getY() * (Settings.Texture.tileSize*Camera.scale/2)));
+			Camera.moveTo(new Vector(-(GameController.windows[0].width / 2 - grid.dimensions.getX() * (Settings.Texture.tileSize*Camera.scale/2)),
+									 -(GameController.windows[0].height/ 2 - grid.dimensions.getY() * (Settings.Texture.tileSize*Camera.scale/2))));
 		}
 		endOfTick();
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).onLoad();
 		}
+		
+		if(Settings.Logging.debug) grid.printInfo();
 	}
 	
 	public void onUnload(){}

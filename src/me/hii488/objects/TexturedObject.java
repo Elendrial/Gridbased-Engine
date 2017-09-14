@@ -25,6 +25,7 @@ public abstract class TexturedObject {
 		this.states = t.states;
 		this.currentState = t.currentState;
 		this.textureName = t.textureName;
+		this.identifier = t.identifier;
 		setupTextures();
 	}
 	
