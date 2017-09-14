@@ -56,6 +56,12 @@ public class Vector {
 		this.y = y;
 		return this;
 	}
+	
+	public Vector setLocation(Vector v){
+		this.x = v.x;
+		this.y = v.y;
+		return this;
+	}
 
 	public Vector addToLocation(float x, float y) {
 		this.x += x;
@@ -63,7 +69,7 @@ public class Vector {
 		return this;
 	}
 
-	public Vector addPosition(Vector v) {
+	public Vector addToLocation(Vector v) {
 		this.x += v.getAbsX();
 		this.y += v.getAbsY();
 		return this;

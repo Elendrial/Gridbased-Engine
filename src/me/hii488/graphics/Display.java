@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import me.hii488.handlers.ContainerHandler;
+import me.hii488.misc.Settings;
 
 @SuppressWarnings("serial")
 public class Display extends Canvas{
@@ -18,7 +19,7 @@ public class Display extends Canvas{
 	// And by GUI I mean additional stuff, aside from rendering, like buttons / text and stuff
 	public void render(Graphics g){
 		Color c = g.getColor();
-		g.setColor(Color.blue);
+		g.setColor(Settings.Texture.background);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setColor(c);
 		try{

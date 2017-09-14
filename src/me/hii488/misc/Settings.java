@@ -1,5 +1,7 @@
 package me.hii488.misc;
 
+import java.awt.Color;
+
 public class Settings {
 
 	public static class WorldSettings {
@@ -30,6 +32,7 @@ public class Settings {
 		public static final String defaultTileTextureLocation = "textures/somethingsgonewrong/tdefault.png";
 		public static final String defaultEntityTextureLocation = "textures/somethingsgonewrong/edefault.png";
 		public static int tileSize = 16;
+		public static Color background = Color.BLACK;
 	}
 	
 }

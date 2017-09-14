@@ -26,7 +26,7 @@ public class Player extends BaseEntity{
 	public void updateOnTick() {
 		super.updateOnTick();
 		if (moveable) {
-			position.addPosition(allowedMovement(queuedMovement));
+			position.addToLocation(allowedMovement(queuedMovement));
 		}
 	}
 

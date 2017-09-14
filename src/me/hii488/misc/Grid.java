@@ -9,34 +9,34 @@ public class Grid {
 
 	public BaseTile[][] grid;
 	public Vector positionOffset;
-	public Vector gridDimensions = new Vector(0,0);
+	public Vector dimensions = new Vector(0,0);
 	
 	public Grid() {}
 
 	public Grid(Grid g) {
-		this.gridDimensions = g.gridDimensions;
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		this.dimensions = g.dimensions;
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				setTile(g.getTile(i, j), i, j);
 			}
 		}
 	}
 
 	public void setupGrid(int size) {
-		gridDimensions.setX(size); gridDimensions.setY(size);
+		dimensions.setX(size); dimensions.setY(size);
 		grid = new BaseTile[size][size];
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				grid[i][j] = TileRegistry.getBlankTile();
 			}
 		}
 	}
 	
 	public void setupGrid(int sizeX, int sizeY) {
-		gridDimensions.setX(sizeX); gridDimensions.setY(sizeY);
+		dimensions.setX(sizeX); dimensions.setY(sizeY);
 		grid = new BaseTile[sizeX][sizeY];
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				grid[i][j] = TileRegistry.getBlankTile();
 			}
 		}
@@ -44,8 +44,8 @@ public class Grid {
 
 	public void positionGrid(Vector start) {
 		positionOffset = start;
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				this.getTile(i, j).gridPosition = (new Vector(i, j));
 //				this.getTile(i, j).renderOffset = positionOffset;
 			}
@@ -53,24 +53,24 @@ public class Grid {
 	}
 
 	public void onLoad() {
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				this.getTile(i, j).onLoad();
 			}
 		}
 	}
 
 	public void updateOnTick() {
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				this.getTile(i, j).updateOnTick();
 			}
 		}
 	}
 
 	public void updateOnSec() {
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				this.getTile(i, j).updateOnSec();
 			}
 		}
@@ -135,8 +135,8 @@ public class Grid {
 	}
 
 	public void render(Graphics g) {
-		for (int i = 0; i < gridDimensions.getX(); i++) {
-			for (int j = 0; j < gridDimensions.getY(); j++) {
+		for (int i = 0; i < dimensions.getX(); i++) {
+			for (int j = 0; j < dimensions.getY(); j++) {
 				getTile(i, j).render(g);
 			}
 		}
@@ -159,14 +159,14 @@ public class Grid {
 	}
 	
 	public void printInfo(){
-		System.out.println("Grid info:\n\tTile size: " + Settings.Texture.tileSize + "\n\tGrid Dimensions: " + this.gridDimensions.getX() + ", " + this.gridDimensions.getY() + "\n\tTop left corner position: " + this.positionOffset.toString());
+		System.out.println("Grid info:\n\tTile size: " + Settings.Texture.tileSize + "\n\tGrid Dimensions: " + this.dimensions.getX() + ", " + this.dimensions.getY() + "\n\tTop left corner position: " + this.positionOffset.toString());
 	}
 	
 	public String gridAsString(){
 		String s = "";
 		
-		for(int i = 0; i < this.gridDimensions.getY(); i++){
-			for(int j = 0; j < this.gridDimensions.getX(); j++){
+		for(int i = 0; i < this.dimensions.getY(); i++){
+			for(int j = 0; j < this.dimensions.getX(); j++){
 				s+="[" + this.getTile(j, i).textureName.substring(0, 1) + "]";
 			}
 			s+="\n";
