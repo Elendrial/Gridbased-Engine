@@ -1,5 +1,6 @@
 package me.hii488.objects.tiles;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import me.hii488.controllers.GameController;
@@ -39,6 +40,10 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 		if(renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0){
 			if(renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0){
 				g.drawImage(currentTexture, renderPosA.getX(), renderPosA.getY(), null);
+				if(Settings.Logging.debug && isCollidable){
+					g.setColor(Color.red);
+					g.drawRect(renderPosA.getX(), renderPosA.getY(), (int)(Settings.Texture.tileSize * Camera.scale), (int)(Settings.Texture.tileSize * Camera.scale));
+				}
 			}
 		}
 	}
