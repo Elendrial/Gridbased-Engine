@@ -1,10 +1,12 @@
 package me.hii488.objects.containers;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import me.hii488.controllers.GameController;
 import me.hii488.graphics.Camera;
+import me.hii488.graphics.GUI.GUI;
 import me.hii488.interfaces.IInputUser;
 import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Grid;
@@ -17,6 +19,7 @@ public class BaseContainer implements ITickable, IInputUser{
 	protected ArrayList<BaseEntity> entitiesDestroyedInTick = new ArrayList<BaseEntity>();
 	protected ArrayList<BaseEntity> entitiesAddedInTick = new ArrayList<BaseEntity>();
 	protected ArrayList<BaseEntity> entities = new ArrayList<BaseEntity>();
+	public ArrayList<GUI> guis = new ArrayList<GUI>();
 	public Grid grid = new Grid();
 	public boolean loaded = false;
 	public String identifier;
@@ -71,6 +74,10 @@ public class BaseContainer implements ITickable, IInputUser{
 		entitiesAddedInTick.clear();
 	}
 	
+	public void mouseClicked(MouseEvent arg0) {
+		for(GUI gui : guis) gui.mouseClicked(arg0);
+	}
+	
 	public ArrayList<BaseEntity> getEntities() {
 		return entities;
 	}
@@ -85,8 +92,7 @@ public class BaseContainer implements ITickable, IInputUser{
 	
 	public void render(Graphics g) {
 		grid.render(g);
-		for (int i = 0; i < entities.size(); i++) {
-			entities.get(i).render(g);
-		}
+		for (BaseEntity e : entities) e.render(g);
+		for(GUI gui : guis) gui.render(g);
 	}
 }
