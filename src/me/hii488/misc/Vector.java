@@ -74,6 +74,11 @@ public class Vector {
 		this.y += v.getAbsY();
 		return this;
 	}
+	
+	//TODO: Rename this to something more fitting.
+	public boolean isEmpty(){
+		return x == 0 && y == 0;
+	}
 
 	public Vector clone() {
 		return new Vector(x, y);

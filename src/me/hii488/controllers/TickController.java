@@ -82,7 +82,7 @@ public class TickController implements Runnable {
 			now = System.nanoTime();
 			unprocessed += (now - then) / nsPerTick;
 			then = now;
-			while (unprocessed >= 1 && ((unprocessed < actualTPS && Settings.WorldSettings.debug) || !Settings.WorldSettings.debug)) {
+			while (unprocessed >= 1 && ((unprocessed < actualTPS) /*&& Settings.WorldSettings.debug) || !Settings.WorldSettings.debug*/)) {
 				if(!GameController.isPaused){
 					try{updateTickableOnTick();}catch(Exception e){e.printStackTrace();}
 					try{updateTickableOnRandTick();}catch(Exception e){e.printStackTrace();}

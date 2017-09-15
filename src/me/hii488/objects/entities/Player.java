@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import me.hii488.controllers.GameController;
+import me.hii488.graphics.Camera;
 import me.hii488.handlers.ContainerHandler;
 import me.hii488.handlers.InputHandler;
 import me.hii488.interfaces.IInputUser;
@@ -11,13 +12,13 @@ import me.hii488.misc.Grid;
 import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;
-import me.hii488.objects.tiles.BaseTile;
 
 public class Player extends BaseEntity implements IInputUser{
 
 	public Player(){
 		super();
 		InputHandler.inputUsers.add(this);
+		this.collisionBox.setBounds(0, 0, currentTexture.getWidth(), currentTexture.getHeight());
 	}
 	
 	public boolean moveable = true;
@@ -36,8 +37,9 @@ public class Player extends BaseEntity implements IInputUser{
 	@Override
 	public void updateOnTick() {
 		super.updateOnTick();
-		if (moveable) {
+		if (moveable && !queuedMovement.isEmpty()) {
 			position.addToLocation(allowedMovement(queuedMovement));
+			System.out.println(position);
 		}
 	}
 
@@ -53,42 +55,37 @@ public class Player extends BaseEntity implements IInputUser{
 			g.fillRect(position.getX()-1, (int) (position.getY() + speed + collisionBox.getHeight())-1, 3, 3);
 		}
 	}
-
-	// TODO: Check this works properly, it was virtually straight copied from V2
-	protected Vector allowedMovement(Vector queuedMovement) {
+	
+	protected Vector allowedMovement(Vector queuedMovement) { // TODO: Fix corner case (heh), where going ur or ul into a corner tps you away.
 		Grid g = ContainerHandler.getLoadedContainer().grid;
-		Vector p = position.clone();
+		Vector p = position.clone(), a;
 		
 		Vector out = queuedMovement.clone();
 		
-		boolean updated = false;
-			
-		if(out.getAbsX() != 0){
-			do{
-				updated = false;
-				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()));
-				BaseTile t2 = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX() + currentTexture.getWidth()), (int)(p.getAbsY() + out.getAbsY()));
-				
-				if(t == null || t.isCollidable|| (t2 == null || t2.isCollidable)){
-					updated = true;
-					out.addToX((out.getAbsX() > 0) ? -1f : 1f);
-				}
-			}while(updated && (out.getAbsX() >= 1 || out.getAbsX() <= -1));
-			
-				
+		if(out.getAbsY() < 0){
+			a = p.clone().addToLocation(0, out.getAbsY()); // Test -ve y movement
+			if(g.getTileAtScrnVector(a).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, 0)).isCollidable){
+				out.setY((position.getY() + Camera.cameraPosition.getY())%Settings.Texture.tileSize); // Get dist between top of player and above tile.
+			}
+		}
+		else if(out.getAbsY() > 0){
+			a = p.clone().addToLocation(0, out.getAbsY()); // Test +ve y movement
+			if(g.getTileAtScrnVector(a.clone().addToLocation(0, collisionBox.height-1)).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, collisionBox.height-1)).isCollidable){
+				out.setY(Settings.Texture.tileSize - collisionBox.height - (position.getY() + Camera.cameraPosition.getY()) % Settings.Texture.tileSize); // Get dist between bottom of player and tile below.
+			}
 		}
 		
-		if(out.getAbsY() != 0){
-			do{
-				updated = false;
-				BaseTile t = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()));
-				BaseTile t2 = g.getTileAtAbsPosition((int)(p.getAbsX() + out.getAbsX()), (int)(p.getAbsY() + out.getAbsY()+ currentTexture.getHeight()));
-
-				if((t == null || t.isCollidable) || (t2 == null || t2.isCollidable)){
-					updated = true;
-					out.addToY((out.getAbsY() > 0) ? -1f : 1f);
-				}
-			}while(updated && (out.getAbsY() >= 1 || out.getAbsY() <= -1));
+		if(out.getAbsX() < 0){
+			a = p.clone().addToLocation(out.getAbsX(), 0); // Test -ve x movement
+			if(g.getTileAtScrnVector(a).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(0, collisionBox.height-1)).isCollidable){
+				out.setX((position.getX() + Camera.cameraPosition.getX()) % Settings.Texture.tileSize); // Get dist between left of player and left tile.
+			}
+		}
+		else if(out.getAbsX() > 0){
+			a = p.clone().addToLocation(out.getAbsX(), 0); // Test +ve x movement
+			if(g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, 0)).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, collisionBox.height-1)).isCollidable){
+				out.setX(Settings.Texture.tileSize - collisionBox.width - (position.getX() + Camera.cameraPosition.getX()) % Settings.Texture.tileSize); // Get dist between right of player and right tile.
+			}
 		}
 		
 		return out;
