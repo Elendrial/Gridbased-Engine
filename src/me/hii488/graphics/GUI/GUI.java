@@ -38,4 +38,12 @@ public class GUI implements IInputUser{
 		}
 	}
 	
+	public void hideAll(){
+		for(GUIElement e : elements) e.hidden = true;
+	}
+	
+	public void showAll(){
+		for(GUIElement e : elements) e.hidden = false;
+	}
+	
 }

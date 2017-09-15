@@ -39,4 +39,42 @@ public class GUILabel extends GUIElement {
 	    g.setFont(f2);
 	}
 
+	public boolean isFill() {
+		return fill;
+	}
+
+	public GUILabel setFill(boolean fill) {
+		this.fill = fill;
+		return this;
+	}
+
+	public Color getOutlineColor() {
+		return outlineColor;
+	}
+
+	public GUILabel setOutlineColor(Color outlineColor) {
+		this.outlineColor = outlineColor;
+		return this;
+	}
+
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	public GUILabel setTextColor(Color textColor) {
+		this.textColor = textColor;
+		return this;
+	}
+
+	public Font getF() {
+		return f;
+	}
+
+	public GUILabel setF(Font f) {
+		this.f = f;
+		return this;
+	}
+	
+	
+
 }
