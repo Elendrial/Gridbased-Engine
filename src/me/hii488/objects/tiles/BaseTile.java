@@ -37,7 +37,7 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	private Vector renderPosA = new Vector(); // Upper left corner
 	private Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
-		if(this.states > 1) currentTexture = textureImages[currentState];
+		if(this.states > 0) currentTexture = textureImages[currentState];
 		
 		renderPosA.setX(gridPosition.getAbsX() * Camera.scale * Settings.Texture.tileSize - Camera.cameraPosition.getAbsX());
 		renderPosA.setY(gridPosition.getAbsY() * Camera.scale * Settings.Texture.tileSize - Camera.cameraPosition.getAbsY());
