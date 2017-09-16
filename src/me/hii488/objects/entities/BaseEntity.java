@@ -69,5 +69,6 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	public void destroy(){
 		ContainerHandler.containers.get(containerIdentifier).removeEntity(this);
 		notDestroyed = false;
+		this.onDestroy();
 	}
 }

@@ -62,8 +62,6 @@ public class BaseContainer implements ITickable, IInputUser{
 	public float randTickChance() {return 0;}
 	
 	public void endOfTick(){
-		this.entities.removeAll(entitiesDestroyedInTick);
-		entitiesDestroyedInTick.clear();
 		
 		this.entities.addAll(entitiesAddedInTick);
 		for(BaseEntity ge: entitiesAddedInTick){
@@ -71,7 +69,10 @@ public class BaseContainer implements ITickable, IInputUser{
 			ge.onLoad();
 		}
 		
+		this.entities.removeAll(entitiesDestroyedInTick);
+		
 		entitiesAddedInTick.clear();
+		entitiesDestroyedInTick.clear();
 	}
 	
 	public void mouseClicked(MouseEvent arg0) {
@@ -83,6 +84,7 @@ public class BaseContainer implements ITickable, IInputUser{
 	}
 	
 	public void addEntity(BaseEntity e){
+		e.containerIdentifier = identifier;
 		entitiesAddedInTick.add(e);
 	}
 	
