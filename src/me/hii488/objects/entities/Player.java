@@ -19,7 +19,7 @@ public class Player extends BaseEntity implements IInputUser{
 		this.collisionBox.setBounds(0, 0, currentTexture.getWidth(), currentTexture.getHeight());
 	}
 	
-	public boolean usesEngineMovement = true;
+	public boolean usesEngineMovement;
 	public int speed = 2;
 	
 	@Override
