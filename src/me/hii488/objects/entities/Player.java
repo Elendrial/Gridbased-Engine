@@ -20,11 +20,13 @@ public class Player extends BaseEntity implements IInputUser{
 	}
 	
 	public boolean usesEngineMovement;
-	public int speed = 2;
+	public int speed;
 	
 	@Override
 	public void initVars() {
 		this.identifier = "player";
+		usesEngineMovement = true;
+		speed = 2;
 	}
 	
 	@Override
