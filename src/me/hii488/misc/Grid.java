@@ -98,6 +98,16 @@ public class Grid implements ITickable{
 		grid[x][y] = TileRegistry.getTile(identifier);
 		grid[x][y].gridPosition.setLocation(x, y);
 	}
+	
+	public void setTile(String identifier, int state, Vector p) {
+		this.setTile(identifier, state, p.getX(), p.getY());
+	}
+	
+	public void setTile(String identifier, int state, int x, int y) {
+		grid[x][y] = TileRegistry.getTile(identifier);
+		grid[x][y].gridPosition.setLocation(x, y);
+		grid[x][y].currentState = state;
+	}
 
 	public void setTile(BaseTile tile, Vector p) {
 		this.setTile(tile, p.getX(), p.getY());
@@ -112,6 +122,14 @@ public class Grid implements ITickable{
 		for (int i = x1; i < x2; i++) {
 			for (int j = y1; j < y2; j++) {
 				this.setTile(identifier, i, j);
+			}
+		}
+	}
+	
+	public void fillRectWithTile(String identifier, int state, int x1, int y1, int x2, int y2) {
+		for (int i = x1; i < x2; i++) {
+			for (int j = y1; j < y2; j++) {
+				this.setTile(identifier, state, i, j);
 			}
 		}
 	}
@@ -133,6 +151,18 @@ public class Grid implements ITickable{
 		for(int i = y1; i < y2; i++){
 			this.setTile(identifier, x1, i);
 			this.setTile(identifier, x2-1, i);
+		}
+	}
+	
+	public void wallRectWithTile(String identifier, int state, int x1, int y1, int x2, int y2){
+		for(int i = x1; i < x2; i++){
+			this.setTile(identifier, state, i, y1);
+			this.setTile(identifier, state, i, y2-1);
+		}
+		
+		for(int i = y1; i < y2; i++){
+			this.setTile(identifier, state, x1, i);
+			this.setTile(identifier, state, x2-1, i);
 		}
 	}
 	
