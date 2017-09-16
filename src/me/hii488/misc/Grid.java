@@ -3,13 +3,15 @@ package me.hii488.misc;
 import java.awt.Graphics;
 
 import me.hii488.graphics.Camera;
+import me.hii488.interfaces.ITickable;
 import me.hii488.objects.tiles.BaseTile;
 import me.hii488.registries.TileRegistry;
 
-public class Grid {
+public class Grid implements ITickable{
 
 	public BaseTile[][] grid;
 	public Vector dimensions = new Vector(0,0);
+//	public HashMap<Vector, BaseTile> toUpdate = new HashMap<Vector, BaseTile>();
 	
 	public Grid() {}
 
@@ -64,6 +66,10 @@ public class Grid {
 				this.getTile(i, j).updateOnSec();
 			}
 		}
+	}
+	
+	public void endOfTick(){
+		
 	}
 
 	public BaseTile getTile(int x, int y) {
@@ -154,19 +160,19 @@ public class Grid {
 		}
 	}
 	
-	public BaseTile getTileAtScrnVector(int x, int y){
+	public BaseTile getTileAtVector(int x, int y){
 		return this.getTile((int) Math.floor((x)/Settings.Texture.tileSize), (int) Math.floor((y)/Settings.Texture.tileSize));
 	}
 	
-	public BaseTile getTileAtScrnVector(Vector p){
+	public BaseTile getTileAtVector(Vector p){
 		return this.getTile((int) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (int) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
-	public Vector getGridPosAtScrnVector(int x, int y){
+	public Vector getGridPosAtVector(int x, int y){
 		return new Vector((float) Math.floor(x)/Settings.Texture.tileSize, (float) Math.floor(y)/Settings.Texture.tileSize);
 	}
 	
-	public Vector getGridPosAtScrnVector(Vector p){
+	public Vector getGridPosAtVector(Vector p){
 		return new Vector((float) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (float) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
@@ -186,4 +192,10 @@ public class Grid {
 		
 		return s;
 	}
+
+	@Override
+	public float randTickChance() {return 0;}
+
+	@Override
+	public void updateOnRandTick() {}
 }

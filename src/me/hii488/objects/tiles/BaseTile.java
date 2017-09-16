@@ -27,6 +27,11 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 		this.gridPosition = t.gridPosition.clone();
 	}
 	
+	
+	public void onDestroy(){
+		
+	}
+	
 	public abstract BaseTile clone();
 	
 	private Vector renderPosA = new Vector(); // Upper left corner

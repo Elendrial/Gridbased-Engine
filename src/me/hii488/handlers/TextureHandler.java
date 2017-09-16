@@ -47,7 +47,7 @@ public class TextureHandler {
 		} catch (Exception e) {
 			try {
 				TextureHandler.TextureNotFoundPrint(path + imageName, obj.getClass());
-				i = ImageIO.read(TextureHandler.class.getResourceAsStream((obj instanceof BaseEntity) ? Settings.Texture.defaultEntityTextureLocation : Settings.Texture.defaultTileTextureLocation));
+				i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream((obj instanceof BaseEntity) ? Settings.Texture.defaultEntityTextureLocation : Settings.Texture.defaultTileTextureLocation));
 			} catch (Exception e1) {
 				TextureHandler.TextureNotFoundPrint((obj instanceof BaseEntity) ? Settings.Texture.defaultEntityTextureLocation : Settings.Texture.defaultTileTextureLocation, obj.getClass());
 			}
