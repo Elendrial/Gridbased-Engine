@@ -27,7 +27,6 @@ public abstract class GUIElement implements Comparable<GUIElement>{
 	
 	public GUIElement setPosition(int x, int y) {
 		this.position.setLocation(x, y);
-		this.dimensions.setLocation(position.getX(), position.getY());
 		return this;
 	}
 	

@@ -30,7 +30,7 @@ public abstract class TexturedObject {
 	}
 	
 	public void setupTextures() {
-		if(states > 1){
+		if(states > 0){
 			this.textureImages = new BufferedImage[states+1];
 			
 			for(int i = 0; i < textureImages.length; i++)

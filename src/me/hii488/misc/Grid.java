@@ -155,19 +155,19 @@ public class Grid {
 	}
 	
 	public BaseTile getTileAtScrnVector(int x, int y){
-		return this.getTile((int) Math.floor((x + Camera.cameraPosition.getAbsX())/Settings.Texture.tileSize), (int) Math.floor((y + Camera.cameraPosition.getAbsY())/Settings.Texture.tileSize));
+		return this.getTile((int) Math.floor((x)/Settings.Texture.tileSize), (int) Math.floor((y)/Settings.Texture.tileSize));
 	}
 	
 	public BaseTile getTileAtScrnVector(Vector p){
-		return this.getTile((int) Math.floor((p.getAbsX() + Camera.cameraPosition.getAbsX())/Settings.Texture.tileSize), (int) Math.floor((p.getAbsY() + Camera.cameraPosition.getAbsY())/Settings.Texture.tileSize));
+		return this.getTile((int) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (int) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
 	public Vector getGridPosAtScrnVector(int x, int y){
-		return new Vector((float) Math.floor(x + Camera.cameraPosition.getAbsX())/Settings.Texture.tileSize, (float) Math.floor(y + Camera.cameraPosition.getAbsY())/Settings.Texture.tileSize);
+		return new Vector((float) Math.floor(x)/Settings.Texture.tileSize, (float) Math.floor(y)/Settings.Texture.tileSize);
 	}
 	
 	public Vector getGridPosAtScrnVector(Vector p){
-		return new Vector((float) Math.floor((p.getAbsX() + Camera.cameraPosition.getAbsX())/Settings.Texture.tileSize), (float) Math.floor((p.getAbsY() + Camera.cameraPosition.getAbsY())/Settings.Texture.tileSize));
+		return new Vector((float) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (float) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
 	public void printInfo(){

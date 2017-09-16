@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import me.hii488.controllers.GameController;
+import me.hii488.graphics.Camera;
 import me.hii488.handlers.ContainerHandler;
 import me.hii488.handlers.EntityHandler;
 import me.hii488.interfaces.ITickable;
@@ -40,9 +42,21 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 		}
 	}
 	
+	private Vector renderPosA = new Vector(); // Upper left corner
+	private Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
 		if(this.states > 1) currentTexture = textureImages[currentState];
-		g.drawImage(currentTexture, position.getX(), position.getY(), null);
+		
+		renderPosA.setX(position.getX() - Camera.cameraPosition.getX());
+		renderPosA.setY(position.getY() - Camera.cameraPosition.getY());
+		renderPosB.setX(renderPosA.getAbsX() + (Settings.Texture.tileSize * Camera.scale));
+		renderPosB.setY(renderPosA.getAbsY() + (Settings.Texture.tileSize * Camera.scale));
+		
+		if(renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0){
+			if(renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0){
+				g.drawImage(currentTexture, renderPosA.getX(), renderPosA.getY(), null);
+			}
+		}
 		
 		if(Settings.Logging.debug || this.showCollisionBox){
 			Color c = g.getColor();

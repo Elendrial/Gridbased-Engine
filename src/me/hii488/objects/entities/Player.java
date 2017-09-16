@@ -3,8 +3,6 @@ package me.hii488.objects.entities;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import me.hii488.controllers.GameController;
-import me.hii488.graphics.Camera;
 import me.hii488.handlers.ContainerHandler;
 import me.hii488.handlers.InputHandler;
 import me.hii488.interfaces.IInputUser;
@@ -21,7 +19,7 @@ public class Player extends BaseEntity implements IInputUser{
 		this.collisionBox.setBounds(0, 0, currentTexture.getWidth(), currentTexture.getHeight());
 	}
 	
-	public boolean moveable = true;
+	public boolean usesEngineMovement = true;
 	public int speed = 2;
 	
 	@Override
@@ -31,15 +29,14 @@ public class Player extends BaseEntity implements IInputUser{
 	
 	@Override
 	public void onLoad() {
-		position = new Vector(GameController.windows[0].width / 2 - currentTexture.getWidth() / 2,	GameController.windows[0].height / 2 - currentTexture.getHeight() / 2);
+		position = new Vector(ContainerHandler.getLoadedContainer().grid.dimensions.getX()/2 * Settings.Texture.tileSize, ContainerHandler.getLoadedContainer().grid.dimensions.getY()/2 * Settings.Texture.tileSize);
 	}
 
 	@Override
 	public void updateOnTick() {
 		super.updateOnTick();
-		if (moveable && !queuedMovement.isEmpty()) {
+		if (usesEngineMovement && !queuedMovement.isEmpty()) {
 			position.addToLocation(allowedMovement(queuedMovement));
-			System.out.println(position);
 		}
 	}
 
@@ -65,26 +62,26 @@ public class Player extends BaseEntity implements IInputUser{
 		if(out.getAbsY() < 0){
 			a = p.clone().addToLocation(0, out.getAbsY()); // Test -ve y movement
 			if(g.getTileAtScrnVector(a).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, 0)).isCollidable){
-				out.setY((position.getY() + Camera.cameraPosition.getY())%Settings.Texture.tileSize); // Get dist between top of player and above tile.
+				out.setY((position.getY())%Settings.Texture.tileSize); // Get dist between top of player and above tile.
 			}
 		}
 		else if(out.getAbsY() > 0){
 			a = p.clone().addToLocation(0, out.getAbsY()); // Test +ve y movement
 			if(g.getTileAtScrnVector(a.clone().addToLocation(0, collisionBox.height-1)).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, collisionBox.height-1)).isCollidable){
-				out.setY(Settings.Texture.tileSize - collisionBox.height - (position.getY() + Camera.cameraPosition.getY()) % Settings.Texture.tileSize); // Get dist between bottom of player and tile below.
+				out.setY(Settings.Texture.tileSize - collisionBox.height - (position.getY()) % Settings.Texture.tileSize); // Get dist between bottom of player and tile below.
 			}
 		}
 		
 		if(out.getAbsX() < 0){
 			a = p.clone().addToLocation(out.getAbsX(), 0); // Test -ve x movement
 			if(g.getTileAtScrnVector(a).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(0, collisionBox.height-1)).isCollidable){
-				out.setX((position.getX() + Camera.cameraPosition.getX()) % Settings.Texture.tileSize); // Get dist between left of player and left tile.
+				out.setX((position.getX()) % Settings.Texture.tileSize); // Get dist between left of player and left tile.
 			}
 		}
 		else if(out.getAbsX() > 0){
 			a = p.clone().addToLocation(out.getAbsX(), 0); // Test +ve x movement
 			if(g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, 0)).isCollidable || g.getTileAtScrnVector(a.clone().addToLocation(collisionBox.width-1, collisionBox.height-1)).isCollidable){
-				out.setX(Settings.Texture.tileSize - collisionBox.width - (position.getX() + Camera.cameraPosition.getX()) % Settings.Texture.tileSize); // Get dist between right of player and right tile.
+				out.setX(Settings.Texture.tileSize - collisionBox.width - (position.getX()) % Settings.Texture.tileSize); // Get dist between right of player and right tile.
 			}
 		}
 		
