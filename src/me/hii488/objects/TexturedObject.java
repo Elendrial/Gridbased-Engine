@@ -43,6 +43,20 @@ public abstract class TexturedObject {
 		}
 	}
 	
+	public void setupTextures(String customFile){
+		if(states > 0){
+			this.textureImages = new BufferedImage[states+1];
+			
+			for(int i = 0; i < textureImages.length; i++)
+				textureImages[i] = TextureHandler.loadTexture("textures/" + customFile + "/", textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
+			
+			currentTexture = textureImages[0];
+		}
+		else{
+			currentTexture = TextureHandler.loadTexture("textures/" + customFile + "/", textureName, this);
+		}
+	}
+	
 	public abstract void initVars();
 	public abstract void render(Graphics g);
 	public abstract void onLoad();

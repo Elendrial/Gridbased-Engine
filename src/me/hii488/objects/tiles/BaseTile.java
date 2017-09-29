@@ -34,8 +34,8 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	
 	public abstract BaseTile clone();
 	
-	private Vector renderPosA = new Vector(); // Upper left corner
-	private Vector renderPosB = new Vector(); // Lower right corner
+	protected Vector renderPosA = new Vector(); // Upper left corner
+	protected Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
 		if(this.states > 0) currentTexture = textureImages[currentState];
 		

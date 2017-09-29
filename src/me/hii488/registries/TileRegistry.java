@@ -10,7 +10,7 @@ public class TileRegistry{
 	protected static HashMap<String, BaseTile> tiles = new HashMap<String, BaseTile>();
 	
 	public static void registerTile(BaseTile b){
-		tiles.put(b.identifier, b);
+		if(!tiles.containsValue(b)) tiles.put(b.identifier, b);
 	}
 	
 	public static BlankTile getBlankTile(){

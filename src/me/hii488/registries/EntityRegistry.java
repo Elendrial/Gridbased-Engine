@@ -11,6 +11,10 @@ public class EntityRegistry {
 	protected static HashMap<String, BaseEntity> entities = new HashMap<String, BaseEntity>();
 	
 	public static void registerEntity(BaseEntity b){
-		entities.put(b.identifier, b);
+		if(!entities.containsValue(b)) entities.put(b.identifier, b);
+	}
+	
+	public static BaseEntity getEntity(String identifier){
+		return (BaseEntity) entities.get(identifier).clone();
 	}
 }
