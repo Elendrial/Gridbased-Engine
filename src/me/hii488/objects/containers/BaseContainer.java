@@ -1,6 +1,7 @@
 package me.hii488.objects.containers;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -77,6 +78,10 @@ public class BaseContainer implements ITickable, IInputUser{
 	
 	public void mouseClicked(MouseEvent arg0) {
 		for(GUI gui : guis) gui.mouseClicked(arg0);
+	}
+	
+	public void keyTyped(KeyEvent arg0){
+		for(GUI gui : guis) gui.keyTyped(arg0);
 	}
 	
 	public ArrayList<BaseEntity> getEntities() {

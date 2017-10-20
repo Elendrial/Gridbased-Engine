@@ -1,6 +1,7 @@
 package me.hii488.graphics.GUI;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import me.hii488.misc.Vector;
@@ -8,12 +9,13 @@ import me.hii488.misc.Vector;
 public abstract class GUIElement implements Comparable<GUIElement>{
 	protected Vector position = new Vector(0, 0);
 	protected Vector dimensions = new Vector(0,0);
-	public String identifier, text;
+	public String identifier = "", text = "";
 	public GUIPriority priority = GUIPriority.LOW;
 	public boolean hidden = false;
 	
 	public abstract void onClick(MouseEvent e);
 	public abstract void render(Graphics g);
+	public void onKeyTyped(KeyEvent e){}
 	
 	public Vector getPosition() {
 		return position;

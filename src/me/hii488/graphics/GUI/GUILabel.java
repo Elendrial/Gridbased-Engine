@@ -66,11 +66,11 @@ public class GUILabel extends GUIElement {
 		return this;
 	}
 
-	public Font getF() {
+	public Font getFont() {
 		return f;
 	}
 
-	public GUILabel setF(Font f) {
+	public GUILabel setFont(Font f) {
 		this.f = f;
 		return this;
 	}

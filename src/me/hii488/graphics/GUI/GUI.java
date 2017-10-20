@@ -1,6 +1,7 @@
 package me.hii488.graphics.GUI;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +36,12 @@ public class GUI implements IInputUser{
 					e.onClick(arg0);
 				}
 			}
+		}
+	}
+	
+	public void keyTyped(KeyEvent event){
+		for(GUIElement e : elements){
+			e.onKeyTyped(event);
 		}
 	}
 	
