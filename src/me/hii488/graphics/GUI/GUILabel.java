@@ -29,13 +29,17 @@ public class GUILabel extends GUIElement {
 		Font f2 = g.getFont();
 		if(f != null)g.setFont(f);
 		
-		FontMetrics metrics = g.getFontMetrics(g.getFont()); // Grabbed from stack overflow
-	    // Determine the X coordinate for the text
-	    int x = position.getX() + (dimensions.getX() - metrics.stringWidth(text)) / 2;
-	    // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
-	    int y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + metrics.getAscent();
-	    // Draw the String
-	    g.drawString(text, x, y);
+		FontMetrics metrics = g.getFontMetrics(g.getFont());
+		
+		String[] s = text.split("\n");
+		int x,y;
+		
+		for(int i = 0; i < s.length; i++){
+			x = position.getX() + (dimensions.getX() - metrics.stringWidth(s[i])) / 2;
+			y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + ((i-s.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this center better
+			g.drawString(s[i], x, y);
+		}
+		
 	    g.setFont(f2);
 	}
 
