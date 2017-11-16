@@ -97,6 +97,11 @@ public class BaseContainer implements ITickable, IInputUser{
 		entitiesDestroyedInTick.add(e);
 	}
 	
+	public GUI getGui(String s){
+		for(GUI g : guis) if(g.getIdentifier().equals(s)) return g;
+		return null;
+	}
+	
 	public boolean showEntities = true;
 	public boolean showGUI = true;
 	

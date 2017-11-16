@@ -10,6 +10,7 @@ import me.hii488.interfaces.IInputUser;
 
 public class GUI implements IInputUser{
 	protected ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
+	public String identifier = "";
 	
 	public void render(Graphics g){
 		for(GUIElement e : elements) e.render(g);
@@ -51,6 +52,15 @@ public class GUI implements IInputUser{
 	
 	public void showAll(){
 		for(GUIElement e : elements) e.hidden = false;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public GUI setIdentifier(String identifier) {
+		this.identifier = identifier;
+		return this;
 	}
 	
 }
