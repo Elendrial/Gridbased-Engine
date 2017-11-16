@@ -75,8 +75,7 @@ public class Vector {
 		return this;
 	}
 	
-	//TODO: Rename this to something more fitting.
-	public boolean isEmpty(){
+	public boolean isZeroVector(){
 		return x == 0 && y == 0;
 	}
 

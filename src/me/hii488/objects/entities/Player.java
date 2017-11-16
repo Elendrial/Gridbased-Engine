@@ -37,7 +37,7 @@ public class Player extends BaseEntity implements IInputUser{
 	@Override
 	public void updateOnTick() {
 		super.updateOnTick();
-		if (usesEngineMovement && !queuedMovement.isEmpty()) {
+		if (usesEngineMovement && !queuedMovement.isZeroVector()) {
 			position.addToLocation(allowedMovement(queuedMovement));
 		}
 	}

@@ -9,7 +9,8 @@ import java.awt.event.MouseEvent;
 public class GUILabel extends GUIElement {
 	
 	public boolean fill = false;
-	public int justification = 0; // -1 = left, 0 = centred, 1 = right
+	public int horizontalJustification = 0; // -1 = left, 0 = centred, 1 = right
+	public int verticalJustificaton = 0;    // -1 = down, 0 = centred, 1 = up
 	public Color outlineColor, textColor = Color.BLACK;
 	public Font f;
 	
@@ -36,10 +37,13 @@ public class GUILabel extends GUIElement {
 		int x,y;
 		
 		for(int i = 0; i < s.length; i++){
-			if(justification == 0)       x = position.getX() + (dimensions.getX() - metrics.stringWidth(s[i])) / 2;
-			else if(justification == -1) x = position.getX();
-			else                         x = position.getX() + dimensions.getX() - metrics.stringWidth(s[i]);
-			y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + ((i-s.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this center better
+			if(horizontalJustification == 0)       x = position.getX() + (dimensions.getX() - metrics.stringWidth(s[i])) / 2;
+			else if(horizontalJustification == -1) x = position.getX();
+			else                                   x = position.getX() + dimensions.getX() - metrics.stringWidth(s[i]);
+			
+			if(verticalJustificaton == 0)       y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + ((i-s.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this center better
+			else if(verticalJustificaton == -1) y = position.getY() + dimensions.getY() + metrics.getHeight() * (i-s.length+1); 
+			else                                y = position.getY() - metrics.getHeight() * (i-s.length+1); 
 			g.drawString(s[i], x, y);
 		}
 		
@@ -82,12 +86,21 @@ public class GUILabel extends GUIElement {
 		return this;
 	}
 
-	public int getJustification() {
-		return justification;
+	public int getHorizontalJustification() {
+		return horizontalJustification;
 	}
 
-	public GUILabel setJustification(int justification) {
-		this.justification = justification;
+	public GUILabel setHorizontalJustification(int justification) {
+		this.horizontalJustification = justification;
+		return this;
+	}
+
+	public int getVerticalJustificaton() {
+		return verticalJustificaton;
+	}
+
+	public GUILabel setVerticalJustificaton(int verticalJustificaton) {
+		this.verticalJustificaton = verticalJustificaton;
 		return this;
 	}
 
