@@ -80,7 +80,7 @@ public class BaseContainer implements ITickable, IInputUser{
 		for(GUI gui : guis) gui.mouseClicked(arg0);
 	}
 	
-	public void keyTyped(KeyEvent arg0){
+	public void keyPressed(KeyEvent arg0){
 		for(GUI gui : guis) gui.keyTyped(arg0);
 	}
 	

@@ -17,10 +17,7 @@ public class GUIPicture extends GUIElement{
 	public int currentState = 0;
 	
 	@Override
-	public void onClick(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onClick(MouseEvent e) {}
 
 	@Override
 	public void render(Graphics g) {

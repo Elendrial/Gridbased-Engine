@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 public class GUILabel extends GUIElement {
 	
 	public boolean fill = false;
+	public int justification = 0; // -1 = left, 0 = centred, 1 = right
 	public Color outlineColor, textColor = Color.BLACK;
 	public Font f;
 	
@@ -31,11 +32,13 @@ public class GUILabel extends GUIElement {
 		
 		FontMetrics metrics = g.getFontMetrics(g.getFont());
 		
-		String[] s = text.split("\n");
+		String[] s = text.replace("\t", "    ").split("\n");
 		int x,y;
 		
 		for(int i = 0; i < s.length; i++){
-			x = position.getX() + (dimensions.getX() - metrics.stringWidth(s[i])) / 2;
+			if(justification == 0)       x = position.getX() + (dimensions.getX() - metrics.stringWidth(s[i])) / 2;
+			else if(justification == -1) x = position.getX();
+			else                         x = position.getX() + dimensions.getX() - metrics.stringWidth(s[i]);
 			y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + ((i-s.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this center better
 			g.drawString(s[i], x, y);
 		}
@@ -78,7 +81,14 @@ public class GUILabel extends GUIElement {
 		this.f = f;
 		return this;
 	}
-	
-	
+
+	public int getJustification() {
+		return justification;
+	}
+
+	public GUILabel setJustification(int justification) {
+		this.justification = justification;
+		return this;
+	}
 
 }
