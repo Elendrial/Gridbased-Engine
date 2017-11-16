@@ -18,6 +18,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	public String containerIdentifier;
 	public boolean showCollisionBox = false;
 	public boolean notDestroyed = true;
+	public boolean destroyIfOutside = false;
 
 	public Vector position = new Vector(0,0);
 	public Vector queuedMovement = new Vector(0, 0);
@@ -37,9 +38,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	
 	public void updateOnTick() {
 		collisionBox = new Rectangle(position.getX(),position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
-		if(EntityHandler.isOutOfContainer(this)){
-			this.destroy();
-		}
+		if(destroyIfOutside && EntityHandler.isOutOfContainer(this)) this.destroy();
 	}
 	
 	private Vector renderPosA = new Vector(); // Upper left corner

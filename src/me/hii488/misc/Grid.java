@@ -11,7 +11,6 @@ public class Grid implements ITickable{
 
 	public BaseTile[][] grid;
 	public Vector dimensions = new Vector(0,0);
-//	public HashMap<Vector, BaseTile> toUpdate = new HashMap<Vector, BaseTile>();
 	
 	public Grid() {}
 

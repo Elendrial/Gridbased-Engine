@@ -14,6 +14,10 @@ public class ContainerHandler {
 		return containers.get(currentContainerIndentifier);
 	}
 	
+	public static BaseContainer getContainer(String identifier){
+		return containers.get(identifier);
+	}
+	
 	public static void addContainer(BaseContainer container) {
 		if(!containers.containsKey(container.identifier))
 			containers.put(container.identifier, container);

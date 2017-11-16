@@ -3,6 +3,8 @@ package me.hii488.handlers;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import me.hii488.misc.Settings;
+import me.hii488.objects.containers.BaseContainer;
 import me.hii488.objects.entities.BaseEntity;
 
 
@@ -37,13 +39,11 @@ public class EntityHandler {
 		return collidingWith;
 	}
 
-	public static boolean isOutOfContainer(BaseEntity generalEntity) {
-		// TODO: This, again
-		try{
-		}
-		catch(Exception e){
-			return true;
-		}
+	public static boolean isOutOfContainer(BaseEntity e) {
+		if(e.position.getAbsX() < 0 || e.position.getAbsY() < 0) return true;
+		
+		BaseContainer c = ContainerHandler.getContainer(e.containerIdentifier);
+		if(e.position.getX() > c.grid.dimensions.getX() * Settings.Texture.tileSize || e.position.getY() > c.grid.dimensions.getY() * Settings.Texture.tileSize) return true;
 		
 		return false;
 	}
