@@ -35,3 +35,7 @@ This is designed for only one player, although it would probably take very littl
 ## Examples:
 [Space Invaders](https://github.com/hii488/Space-Invaders)
 ######If you make something with this engine, send me a message and I'll add it here :)
+
+
+TODO:
+- Make the rendering more efficient (if TextureHandler stores all textures anyway, why does each instance of the tile?) 

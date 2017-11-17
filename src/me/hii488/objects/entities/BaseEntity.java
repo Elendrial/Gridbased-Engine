@@ -37,7 +37,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	}
 	
 	public void updateOnTick() {
-		collisionBox = new Rectangle(position.getX(),position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
+		collisionBox = new Rectangle(position.getX() - Camera.cameraPosition.getX(),position.getY() - Camera.cameraPosition.getY(), currentTexture.getWidth(), currentTexture.getHeight());
 		if(destroyIfOutside && EntityHandler.isOutOfContainer(this)) this.destroy();
 	}
 	

@@ -38,5 +38,25 @@ public class GUIPicture extends GUIElement{
 			currentTexture = TextureHandler.loadTexture("textures/gui/", textureName, this);
 		}
 	}
+
+	public String getTextureName() {
+		return textureName;
+	}
+
+	public GUIPicture setTextureName(String textureName) {
+		this.textureName = textureName;
+		return this;
+	}
+
+	public int getStates() {
+		return states;
+	}
+
+	public GUIPicture setStates(int states) {
+		this.states = states;
+		return this;
+	}
+	
+	
 	
 }
