@@ -29,7 +29,7 @@ public class BaseContainer implements ITickable, IInputUser{
 	public BaseContainer(){}
 	
 	public void onLoad(){
-		if(grid.dimensions.getX() < GameController.windows[0].width && grid.dimensions.getY() < GameController.windows[0].height){
+		if(grid.dimensions.getX() * Settings.Texture.tileSize < GameController.windows[0].width && grid.dimensions.getY() * Settings.Texture.tileSize < GameController.windows[0].height){
 			Camera.moveTo(new Vector(-(GameController.windows[0].width / 2 - grid.dimensions.getX() * (Settings.Texture.tileSize*Camera.scale/2)),
 									 -(GameController.windows[0].height/ 2 - grid.dimensions.getY() * (Settings.Texture.tileSize*Camera.scale/2))));
 		}
