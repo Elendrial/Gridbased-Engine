@@ -12,7 +12,7 @@ public class GUIPicture extends GUIElement{
 	public BufferedImage[] textureImages;
 	public BufferedImage currentTexture;
 
-	public String identifier;
+	public String identifier, path = "textures/gui/";
 	public int states = 0;
 	public int currentState = 0;
 	
@@ -30,12 +30,12 @@ public class GUIPicture extends GUIElement{
 			this.textureImages = new BufferedImage[states+1];
 			
 			for(int i = 0; i < textureImages.length; i++)
-				textureImages[i] = TextureHandler.loadTexture("textures/gui/", textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
+				textureImages[i] = TextureHandler.loadTexture(path, textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
 			
 			currentTexture = textureImages[0];
 		}
 		else{
-			currentTexture = TextureHandler.loadTexture("textures/gui/", textureName, this);
+			currentTexture = TextureHandler.loadTexture(path, textureName, this);
 		}
 	}
 
@@ -54,6 +54,11 @@ public class GUIPicture extends GUIElement{
 
 	public GUIPicture setStates(int states) {
 		this.states = states;
+		return this;
+	}
+	
+	public GUIPicture setPath(String path) {
+		this.path = path;
 		return this;
 	}
 	

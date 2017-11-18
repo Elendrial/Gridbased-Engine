@@ -38,6 +38,10 @@ public class GUI implements IInputUser{
 		Collections.sort(elements);
 	}
 	
+	public void empty() {
+		elements.clear();
+	}
+	
 	public void mouseClicked(MouseEvent arg0) {
 		for(GUIElement e : elements){ // If is split for ease of reading.
 			if(arg0.getX() - e.position.getX() < e.dimensions.getX() && arg0.getX() > e.position.getX()){
