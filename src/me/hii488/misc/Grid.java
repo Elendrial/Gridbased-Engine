@@ -197,11 +197,11 @@ public class Grid implements ITickable{
 		return this.getTile((int) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (int) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
-	public Vector getGridPosAtVector(int x, int y){
+	public static Vector getGridPosAtVector(int x, int y){
 		return new Vector((float) Math.floor(x)/Settings.Texture.tileSize, (float) Math.floor(y)/Settings.Texture.tileSize);
 	}
 	
-	public Vector getGridPosAtVector(Vector p){
+	public static Vector getGridPosAtVector(Vector p){
 		return new Vector((float) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (float) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	

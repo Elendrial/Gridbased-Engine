@@ -29,9 +29,7 @@ public class Vector {
 		this.x += x;
 		return this;
 	}
-	
-	
-
+		
 	public int getY() {
 		return Math.round(y);
 	}
@@ -90,5 +88,10 @@ public class Vector {
 	
 	public String toString(){
 		return "x: " + this.getX() + "; y: " + this.getY();
+	}
+	
+	public boolean equals(Object v) {
+		if(v instanceof Vector)	return ((Vector) v).getAbsX() == getAbsX() && ((Vector) v).getAbsY() == getAbsY();
+		return false;
 	}
 }
