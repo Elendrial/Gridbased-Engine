@@ -31,13 +31,13 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	
 	protected BaseEntity(BaseEntity t){
 		super(t);
-		this.position = t.position;
-		this.collisionBox = t.collisionBox;
+		this.position = t.position.clone();
+		this.collisionBox = new Rectangle(t.collisionBox);
 		this.showCollisionBox = t.showCollisionBox;
 	}
 	
 	public void updateOnTick() {
-		collisionBox = new Rectangle(position.getX() - Camera.cameraPosition.getX(),position.getY() - Camera.cameraPosition.getY(), currentTexture.getWidth(), currentTexture.getHeight());
+		collisionBox = new Rectangle(position.getX(), position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
 		if(destroyIfOutside && EntityHandler.isOutOfContainer(this)) this.destroy();
 	}
 	
@@ -60,14 +60,14 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 		if(Settings.Logging.debug || this.showCollisionBox){
 			Color c = g.getColor();
 			g.setColor(Color.red);
-			g.drawRect(this.collisionBox.x, this.collisionBox.y, this.collisionBox.width, this.collisionBox.height);
+			g.drawRect(this.collisionBox.x  - Camera.cameraPosition.getX(), this.collisionBox.y - Camera.cameraPosition.getY(), this.collisionBox.width, this.collisionBox.height);
 			g.setColor(c);
 		}
 	}
 
 	public void destroy(){
+		this.onDestroy();
 		ContainerHandler.containers.get(containerIdentifier).removeEntity(this);
 		notDestroyed = false;
-		this.onDestroy();
 	}
 }

@@ -44,9 +44,11 @@ public class GUI implements IInputUser{
 	
 	public void mouseClicked(MouseEvent arg0) {
 		for(GUIElement e : elements){ // If is split for ease of reading.
-			if(arg0.getX() - e.position.getX() < e.dimensions.getX() && arg0.getX() > e.position.getX()){
-				if(arg0.getY() - e.position.getY() < e.dimensions.getY() && arg0.getY() > e.position.getY()){
-					e.onClick(arg0);
+			if(!e.hidden) {
+				if(arg0.getX() - e.position.getX() < e.dimensions.getX() && arg0.getX() > e.position.getX()){
+					if(arg0.getY() - e.position.getY() < e.dimensions.getY() && arg0.getY() > e.position.getY()){
+						e.onClick(arg0);
+					}
 				}
 			}
 		}

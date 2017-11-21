@@ -205,6 +205,15 @@ public class Grid implements ITickable{
 		return new Vector((float) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (float) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
+	public static Vector getVectorAtGridPos(int x, int y) {
+		return new Vector(x * Settings.Texture.tileSize, y * Settings.Texture.tileSize);
+	}
+	
+	public static Vector getVectorAtGridPos(Vector v) {
+		return new Vector(v.getX() * Settings.Texture.tileSize, v.getY() * Settings.Texture.tileSize);
+	}
+	
+	
 	public void printInfo(){
 		System.out.println("Grid info:\n\tTile size: " + Settings.Texture.tileSize + "\n\tGrid Dimensions: " + this.dimensions.getX() + ", " + this.dimensions.getY() + "\n\tTop left corner position: " + Camera.cameraPosition.toString());
 	}
