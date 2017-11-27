@@ -1,6 +1,7 @@
 package me.hii488.misc;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import me.hii488.graphics.Camera;
 import me.hii488.interfaces.ITickable;
@@ -181,6 +182,14 @@ public class Grid implements ITickable{
 		return new Grid(this);
 	}
 
+	public void renderArea(Graphics g, Rectangle r) {
+		for(int i = r.x; i < r.x + r.width; i++) {
+			for(int j = r.y; j < r.y + r.height; j++) {
+				getTile(i,j).render(g);
+			}
+		}
+	}
+	
 	public void render(Graphics g) {
 		for (int i = 0; i < dimensions.getX(); i++) {
 			for (int j = 0; j < dimensions.getY(); j++) {
