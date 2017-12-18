@@ -4,14 +4,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import me.hii488.handlers.TextureHandler;
+import me.hii488.objects.entities.BaseEntity;
 import me.hii488.objects.tiles.BaseTile;
 
 public abstract class TexturedObject {
 	
 	public String textureName = "";
-	public BufferedImage[] textureImages;
-	public BufferedImage currentTexture;
-
+	private String sanitizedName = "";
+	
 	public String identifier;
 	public int states = 0;
 	public int currentState = 0;
@@ -30,35 +30,32 @@ public abstract class TexturedObject {
 	}
 	
 	public void setupTextures() {
-		if(states > 0){
-			this.textureImages = new BufferedImage[states+1];
-			
-			for(int i = 0; i < textureImages.length; i++)
-				textureImages[i] = TextureHandler.loadTexture("textures/" + (this instanceof BaseTile ? "tiles" : "entities") + "/", textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
-			
-			currentTexture = textureImages[0];
-		}
-		else{
-			currentTexture = TextureHandler.loadTexture("textures/" + (this instanceof BaseTile ? "tiles" : "entities") + "/", textureName, this);
-		}
+		if     (this instanceof BaseTile)   setupTextures("tiles");
+		else if(this instanceof BaseEntity) setupTextures("entities");
 	}
 	
 	public void setupTextures(String customFile){
+		sanitizedName = textureName.split("\\.")[0];
+		
 		if(states > 0){
-			this.textureImages = new BufferedImage[states+1];
-			
-			for(int i = 0; i < textureImages.length; i++)
-				textureImages[i] = TextureHandler.loadTexture("textures/" + customFile + "/", textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
-			
-			currentTexture = textureImages[0];
+			for(int i = 0; i < states; i++) TextureHandler.loadTexture("textures/" + customFile + "/", sanitizedName + "_" + i + "." + textureName.split("\\.")[1], this, sanitizedName + "_" + i);
 		}
 		else{
-			currentTexture = TextureHandler.loadTexture("textures/" + customFile + "/", textureName, this);
+			TextureHandler.loadTexture("textures/" + customFile + "/", textureName, this, sanitizedName + "_0");
 		}
+		
+		textureName = sanitizedName + "_" + currentState;
+	}
+	
+	public void render(Graphics g) {
+		textureName = sanitizedName + "_" + currentState;
+	}
+	
+	public BufferedImage getTexture() {
+		return TextureHandler.getTexture(textureName);
 	}
 	
 	public abstract void initVars();
-	public abstract void render(Graphics g);
 	public abstract void onLoad();
 	public abstract void onDestroy();
 	public abstract TexturedObject clone();

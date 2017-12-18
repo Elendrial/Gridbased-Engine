@@ -1,6 +1,7 @@
 package me.hii488.handlers;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,23 +14,22 @@ public class TextureHandler {
 
 	public static ArrayList<String> lostTextures = new ArrayList<String>();
 	private static HashMap<String, BufferedImage> textures = new HashMap<String, BufferedImage>();
-
-	public static void TextureNotFound(String s) {
-		if (!lostTextures.contains(s))
-			lostTextures.add(s);
-	}
-
-	public static void TextureNotFoundPrint(String s, Class<?> c) {
-		if (!lostTextures.contains(s)) {
-			lostTextures.add(s);
-			System.err.println("Texture Not Found : " + s + "\n\t       in : " + c.getName());
+	
+	static {
+		try {
+			BufferedImage i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream(Settings.Texture.defaultTileTextureLocation));
+			textures.put("undefined", i);
+		} catch (IOException e) {
+			System.err.println("Default textures not found, something wrong, exiting.");
+			System.exit(1);
 		}
+		
 	}
 
-	public static void TextureNotFoundPrint(String s) {
+	private static void TextureNotFound(String s, Class<?> c, boolean print) {
 		if (!lostTextures.contains(s)) {
 			lostTextures.add(s);
-			System.err.println("Texture Not Found : " + s);
+			if(print) System.err.println("Texture Not Found : " + s + "\n\t       in : " + c.getName());
 		}
 	}
 
@@ -39,24 +39,33 @@ public class TextureHandler {
 		}
 	}
 	
-	public static BufferedImage loadTexture(String path, String imageName, Object obj){
-		if(textures.containsKey(imageName)) return textures.get(imageName);
+	public static void loadTexture(String path, String imageName, Object obj, String key){
+		if(textures.containsKey(imageName)) return;
 		BufferedImage i = null;
 		try {
 			i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream(path + imageName));
 		} catch (Exception e) {
 			try {
-				TextureHandler.TextureNotFoundPrint(path + imageName, obj.getClass());
+				TextureNotFound(path + imageName, obj.getClass(), true);
 				i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream((obj instanceof BaseEntity) ? Settings.Texture.defaultEntityTextureLocation : Settings.Texture.defaultTileTextureLocation));
 			} catch (Exception e1) {
-				TextureHandler.TextureNotFoundPrint((obj instanceof BaseEntity) ? Settings.Texture.defaultEntityTextureLocation : Settings.Texture.defaultTileTextureLocation, obj.getClass());
+				System.err.println("Default textures not found, something seriously wrong, exiting.");
+				System.exit(1);
 			}
 		}
-		textures.put(imageName, i);
-		return textures.get(imageName);
+		textures.put(key, i);
 	}
 	
-	public static BufferedImage getImage(String imageName){
-		return textures.get(imageName);
+	public static BufferedImage getTexture(String key){
+		if(textures.containsKey(key)) return textures.get(key);
+		return textures.get("uninitilised");
+	}
+	
+	public static void addTexture(BufferedImage i, String key) {
+		textures.put(key, i);
+	}
+	
+	public static boolean containsTexture(String key) {
+		return textures.containsKey(key);
 	}
 }

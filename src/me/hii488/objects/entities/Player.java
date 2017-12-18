@@ -16,7 +16,7 @@ public class Player extends BaseEntity implements IInputUser{
 	public Player(){
 		super();
 		InputHandler.inputUsers.add(this);
-		this.collisionBox.setBounds(0, 0, currentTexture.getWidth(), currentTexture.getHeight());
+		this.collisionBox.setBounds(0, 0, getTexture().getWidth(), getTexture().getHeight());
 	}
 	
 	public boolean usesEngineMovement;

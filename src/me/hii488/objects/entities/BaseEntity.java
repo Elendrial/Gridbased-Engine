@@ -37,14 +37,14 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	}
 	
 	public void updateOnTick() {
-		collisionBox = new Rectangle(position.getX(), position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
+		collisionBox = new Rectangle(position.getX(), position.getY(), getTexture().getWidth(), getTexture().getHeight());
 		if(destroyIfOutside && EntityHandler.isOutOfContainer(this)) this.destroy();
 	}
 	
 	private Vector renderPosA = new Vector(); // Upper left corner
 	private Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
-		if(this.states > 1) currentTexture = textureImages[currentState];
+		super.render(g);
 		
 		renderPosA.setX(position.getX() - Camera.cameraPosition.getX());
 		renderPosA.setY(position.getY() - Camera.cameraPosition.getY());
@@ -53,7 +53,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 		
 		if(renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0){
 			if(renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0){
-				g.drawImage(currentTexture, renderPosA.getX(), renderPosA.getY(), null);
+				g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
 			}
 		}
 		

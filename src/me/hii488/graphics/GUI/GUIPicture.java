@@ -2,15 +2,12 @@ package me.hii488.graphics.GUI;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
 import me.hii488.handlers.TextureHandler;
 
 public class GUIPicture extends GUIElement{
 
 	public String textureName = "";
-	public BufferedImage[] textureImages;
-	public BufferedImage currentTexture;
 
 	public String identifier, path = "textures/gui/";
 	public int states = 0;
@@ -22,21 +19,19 @@ public class GUIPicture extends GUIElement{
 	@Override
 	public void render(Graphics g) {
 		if(hidden) return;
-		g.drawImage(currentTexture, position.getX(), position.getY(), null);
+		g.drawImage(TextureHandler.getTexture(textureName + "_" + currentState), position.getX(), position.getY(), null);
 	}
 	
 	public void setupTextures() {
-		if(states > 1){
-			this.textureImages = new BufferedImage[states+1];
-			
-			for(int i = 0; i < textureImages.length; i++)
-				textureImages[i] = TextureHandler.loadTexture(path, textureName.split("\\.")[0] + "_" + i + "." + textureName.split("\\.")[1], this);
-			
-			currentTexture = textureImages[0];
+		String sanitizedName = textureName.split("\\.")[0];
+		if(states > 0){
+			for(int i = 0; i < states; i++) TextureHandler.loadTexture(path, sanitizedName + "_" + i + "." + textureName.split("\\.")[1], this, sanitizedName + "_" + i);
 		}
 		else{
-			currentTexture = TextureHandler.loadTexture(path, textureName, this);
+			TextureHandler.loadTexture(path, textureName, this, sanitizedName + "_0");
 		}
+		
+		textureName = textureName.split("\\.")[0];
 	}
 
 	public String getTextureName() {
@@ -58,10 +53,8 @@ public class GUIPicture extends GUIElement{
 	}
 	
 	public GUIPicture setPath(String path) {
-		this.path = path;
+		this.path = "textures/" + path;
 		return this;
 	}
-	
-	
 	
 }

@@ -28,16 +28,13 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	}
 	
 	
-	public void onDestroy(){
-		
-	}
-	
+	public void onDestroy(){}
 	public abstract BaseTile clone();
 	
 	protected Vector renderPosA = new Vector(); // Upper left corner
 	protected Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
-		if(this.states > 0) currentTexture = textureImages[currentState];
+		super.render(g);
 		
 		renderPosA.setX(gridPosition.getAbsX() * Camera.scale * Settings.Texture.tileSize - Camera.cameraPosition.getAbsX());
 		renderPosA.setY(gridPosition.getAbsY() * Camera.scale * Settings.Texture.tileSize - Camera.cameraPosition.getAbsY());
@@ -46,7 +43,8 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 		
 		if(renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0){
 			if(renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0){
-				g.drawImage(currentTexture, renderPosA.getX(), renderPosA.getY(), null);
+				g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
+				
 				if(Settings.Logging.debug && isCollidable){
 					g.setColor(Color.red);
 					g.drawRect(renderPosA.getX(), renderPosA.getY(), (int)(Settings.Texture.tileSize * Camera.scale), (int)(Settings.Texture.tileSize * Camera.scale));
