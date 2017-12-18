@@ -10,7 +10,7 @@ import me.hii488.objects.tiles.BaseTile;
 public abstract class TexturedObject {
 	
 	public String textureName = "";
-	private String sanitizedName = "";
+	protected String sanitizedName = "";
 	
 	public String identifier;
 	public int states = 0;

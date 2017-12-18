@@ -107,7 +107,7 @@ public class BaseContainer implements ITickable, IInputUser{
 	
 	public void render(Graphics g) {
 		grid.render(g);
-		if(showEntities) for (BaseEntity e : entities) e.render(g);
+		if(showEntities) for (BaseEntity e : entities) if(e.shouldRender()) e.render(g);
 		if(showGUI) for(GUI gui : guis) gui.render(g);
 	}
 }

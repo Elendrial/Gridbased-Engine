@@ -41,21 +41,23 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 		if(destroyIfOutside && EntityHandler.isOutOfContainer(this)) this.destroy();
 	}
 	
+	public void updateRenderPosition() {
+		textureName = sanitizedName + "_" + currentState; // Needs to happen here for texture height&width
+		renderPosA.setX(position.getX() - Camera.cameraPosition.getX());
+		renderPosA.setY(position.getY() - Camera.cameraPosition.getY());
+		renderPosB.setX(renderPosA.getAbsX() + (getTexture().getWidth() * Camera.scale));
+		renderPosB.setY(renderPosA.getAbsY() + (getTexture().getHeight() * Camera.scale));
+	}
+	
+	public boolean shouldRender() {
+		updateRenderPosition();
+		return (renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0) && (renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0);
+	}
+	
 	private Vector renderPosA = new Vector(); // Upper left corner
 	private Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
-		super.render(g);
-		
-		renderPosA.setX(position.getX() - Camera.cameraPosition.getX());
-		renderPosA.setY(position.getY() - Camera.cameraPosition.getY());
-		renderPosB.setX(renderPosA.getAbsX() + (Settings.Texture.tileSize * Camera.scale));
-		renderPosB.setY(renderPosA.getAbsY() + (Settings.Texture.tileSize * Camera.scale));
-		
-		if(renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0){
-			if(renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0){
-				g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
-			}
-		}
+		g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
 		
 		if(Settings.Logging.debug || this.showCollisionBox){
 			Color c = g.getColor();

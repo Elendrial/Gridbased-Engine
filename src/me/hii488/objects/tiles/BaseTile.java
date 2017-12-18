@@ -33,23 +33,27 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	
 	protected Vector renderPosA = new Vector(); // Upper left corner
 	protected Vector renderPosB = new Vector(); // Lower right corner
-	public void render(Graphics g) {
-		super.render(g);
-		
+	
+	public void updateRenderPosition() {
 		renderPosA.setX(gridPosition.getAbsX() * Camera.scale * Settings.Texture.tileSize - Camera.cameraPosition.getAbsX());
 		renderPosA.setY(gridPosition.getAbsY() * Camera.scale * Settings.Texture.tileSize - Camera.cameraPosition.getAbsY());
 		renderPosB.setX(renderPosA.getAbsX() + (Settings.Texture.tileSize * Camera.scale));
 		renderPosB.setY(renderPosA.getAbsY() + (Settings.Texture.tileSize * Camera.scale));
+	}
+	
+	public boolean shouldRender() {
+		updateRenderPosition();
+		return (renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0) && (renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0);
+	}
+	
+	public void render(Graphics g) {
+		super.render(g);
 		
-		if(renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0){
-			if(renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0){
-				g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
+		g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
 				
-				if(Settings.Logging.debug && isCollidable){
-					g.setColor(Color.red);
-					g.drawRect(renderPosA.getX(), renderPosA.getY(), (int)(Settings.Texture.tileSize * Camera.scale), (int)(Settings.Texture.tileSize * Camera.scale));
-				}
-			}
-		}
+		if(Settings.Logging.debug && isCollidable){
+			g.setColor(Color.red);
+			g.drawRect(renderPosA.getX(), renderPosA.getY(), (int)(Settings.Texture.tileSize * Camera.scale), (int)(Settings.Texture.tileSize * Camera.scale));
+		}		
 	}
 }

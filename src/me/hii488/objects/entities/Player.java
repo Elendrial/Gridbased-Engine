@@ -1,6 +1,5 @@
 package me.hii488.objects.entities;
 
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import me.hii488.handlers.ContainerHandler;
@@ -40,11 +39,6 @@ public class Player extends BaseEntity implements IInputUser{
 		if (usesEngineMovement && !queuedMovement.isZeroVector()) {
 			position.addToLocation(allowedMovement(queuedMovement));
 		}
-	}
-
-	@Override
-	public void render(Graphics g) {
-		super.render(g);
 	}
 	
 	protected Vector allowedMovement(Vector queuedMovement) { // TODO: Fix corner case (heh), where going ur or ul into a corner tps you away.
