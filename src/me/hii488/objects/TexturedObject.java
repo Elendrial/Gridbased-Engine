@@ -25,8 +25,8 @@ public abstract class TexturedObject {
 		this.states = t.states;
 		this.currentState = t.currentState;
 		this.textureName = t.textureName;
+		this.sanitizedName = t.sanitizedName;
 		this.identifier = t.identifier;
-		setupTextures();
 	}
 	
 	public void setupTextures() {
@@ -37,7 +37,7 @@ public abstract class TexturedObject {
 	public void setupTextures(String customFile){
 		sanitizedName = textureName.split("\\.")[0];
 		
-		if(states > 0){
+		if(states > 1){
 			for(int i = 0; i < states; i++) TextureHandler.loadTexture("textures/" + customFile + "/", sanitizedName + "_" + i + "." + textureName.split("\\.")[1], this, sanitizedName + "_" + i);
 		}
 		else{

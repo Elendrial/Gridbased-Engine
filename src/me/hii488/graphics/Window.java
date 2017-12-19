@@ -1,6 +1,5 @@
 package me.hii488.graphics;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.WindowEvent;
@@ -39,7 +38,6 @@ public class Window implements Runnable {
 		this.frame.pack();
 		this.frame.setLocationRelativeTo(null);
 		this.frame.setVisible(true);
-
 	}
 	
 	public void createDisplay(){
@@ -74,8 +72,7 @@ public class Window implements Runnable {
 		g.clearRect(0, 0, width, height);
 
 		// Draw the display
-		g.setColor(Color.black);
-		g.fillRect(0, 0, width, height);
+		//g.fillRect(0, 0, width, height);
 		this.display.render(g);
 
 		g.dispose();

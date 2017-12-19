@@ -1,6 +1,8 @@
 package me.hii488.handlers;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ public class TextureHandler {
 		try {
 			BufferedImage i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream(Settings.Texture.defaultTileTextureLocation));
 			textures.put("undefined", i);
+			System.out.println("Successfully loaded '" + Settings.Texture.defaultTileTextureLocation + "' as 'undefined'");
 		} catch (IOException e) {
 			System.err.println("Default textures not found, something wrong, exiting.");
 			System.exit(1);
@@ -40,10 +43,11 @@ public class TextureHandler {
 	}
 	
 	public static void loadTexture(String path, String imageName, Object obj, String key){
-		if(textures.containsKey(imageName)) return;
+		if(textures.containsKey(key)) return;
 		BufferedImage i = null;
 		try {
 			i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream(path + imageName));
+			System.out.println("Successfully loaded '" + path + imageName + "' as '" + key + "'");
 		} catch (Exception e) {
 			try {
 				TextureNotFound(path + imageName, obj.getClass(), true);
@@ -58,14 +62,22 @@ public class TextureHandler {
 	
 	public static BufferedImage getTexture(String key){
 		if(textures.containsKey(key)) return textures.get(key);
-		return textures.get("uninitilised");
+		return textures.get("undefined");
 	}
 	
 	public static void addTexture(BufferedImage i, String key) {
 		textures.put(key, i);
+		System.out.println("Successfully added '" + key + "'");
 	}
 	
 	public static boolean containsTexture(String key) {
 		return textures.containsKey(key);
+	}
+	
+	public static BufferedImage cloneTexture(BufferedImage bi) {
+		 ColorModel cm = bi.getColorModel();
+		 boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+		 WritableRaster raster = bi.copyData(null);
+		 return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
 	}
 }

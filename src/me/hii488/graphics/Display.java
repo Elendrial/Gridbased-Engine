@@ -1,7 +1,6 @@
 package me.hii488.graphics;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 
 import me.hii488.handlers.ContainerHandler;
@@ -15,10 +14,8 @@ public class Display extends Canvas{
 	}
 	
 	public void render(Graphics g){
-		Color c = g.getColor();
 		g.setColor(Settings.Texture.background);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		g.setColor(c);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		try{
 			ContainerHandler.getLoadedContainer().render(g);
 		}
