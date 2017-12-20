@@ -21,7 +21,6 @@ public class TextureHandler {
 		try {
 			BufferedImage i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream(Settings.Texture.defaultTileTextureLocation));
 			textures.put("undefined", i);
-			System.out.println("Successfully loaded '" + Settings.Texture.defaultTileTextureLocation + "' as 'undefined'");
 		} catch (IOException e) {
 			System.err.println("Default textures not found, something wrong, exiting.");
 			System.exit(1);
@@ -47,7 +46,6 @@ public class TextureHandler {
 		BufferedImage i = null;
 		try {
 			i = ImageIO.read(TextureHandler.class.getClassLoader().getResourceAsStream(path + imageName));
-			System.out.println("Successfully loaded '" + path + imageName + "' as '" + key + "'");
 		} catch (Exception e) {
 			try {
 				TextureNotFound(path + imageName, obj.getClass(), true);
@@ -67,7 +65,6 @@ public class TextureHandler {
 	
 	public static void addTexture(BufferedImage i, String key) {
 		textures.put(key, i);
-		System.out.println("Successfully added '" + key + "'");
 	}
 	
 	public static boolean containsTexture(String key) {
