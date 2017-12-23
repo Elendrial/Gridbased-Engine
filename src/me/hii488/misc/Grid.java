@@ -17,6 +17,7 @@ public class Grid implements ITickable{
 
 	public Grid(Grid g) {
 		this.dimensions = g.dimensions;
+		grid = new BaseTile[dimensions.getX()][dimensions.getY()];
 		for (int i = 0; i < dimensions.getX(); i++) {
 			for (int j = 0; j < dimensions.getY(); j++) {
 				setTile(g.getTile(i, j), i, j);
@@ -224,7 +225,7 @@ public class Grid implements ITickable{
 	
 	
 	public void printInfo(){
-		System.out.println("Grid info:\n\tTile size: " + Settings.Texture.tileSize + "\n\tGrid Dimensions: " + this.dimensions.getX() + ", " + this.dimensions.getY() + "\n\tTop left corner position: " + Camera.cameraPosition.toString());
+		System.out.println("Grid info:\n\tTile size: " + Settings.Texture.tileSize + "\n\tGrid Dimensions: " + this.dimensions.getX() + ", " + this.dimensions.getY() + "\n\tTop left corner position: " + Camera.getPosition().toString());
 	}
 	
 	public String gridAsString(){

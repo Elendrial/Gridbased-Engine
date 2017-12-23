@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import me.hii488.controllers.GameController;
 import me.hii488.graphics.Camera;
 import me.hii488.graphics.GUI.GUI;
+import me.hii488.handlers.EntityHandler;
 import me.hii488.interfaces.IInputUser;
 import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Grid;
@@ -20,7 +21,9 @@ public class BaseContainer implements ITickable, IInputUser{
 	protected ArrayList<BaseEntity> entitiesDestroyedInTick = new ArrayList<BaseEntity>();
 	protected ArrayList<BaseEntity> entitiesAddedInTick = new ArrayList<BaseEntity>();
 	protected ArrayList<BaseEntity> entities = new ArrayList<BaseEntity>();
+	private ArrayList<BaseEntity> oldEntities = new ArrayList<BaseEntity>();
 	public ArrayList<GUI> guis = new ArrayList<GUI>();
+	private Grid oldGrid = new Grid();
 	public Grid grid = new Grid();
 	public boolean loaded = false;
 	public String identifier;
@@ -33,7 +36,7 @@ public class BaseContainer implements ITickable, IInputUser{
 			Camera.moveTo(new Vector(-(GameController.windows[0].width / 2 - grid.dimensions.getX() * (Settings.Texture.tileSize*Camera.scale/2)),
 									 -(GameController.windows[0].height/ 2 - grid.dimensions.getY() * (Settings.Texture.tileSize*Camera.scale/2))));
 		}
-		endOfTick();
+		
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).onLoad();
 		}
@@ -63,8 +66,12 @@ public class BaseContainer implements ITickable, IInputUser{
 	public float randTickChance() {return 0;}
 	
 	public void endOfTick(){
+		oldGrid = grid.clone();
 		
-		this.entities.addAll(entitiesAddedInTick);
+		oldEntities.clear();
+		oldEntities = EntityHandler.deepClone(entities);
+		
+		entities.addAll(entitiesAddedInTick);
 		for(BaseEntity ge: entitiesAddedInTick){
 			ge.containerIdentifier = this.identifier;
 			ge.onLoad();
@@ -106,8 +113,8 @@ public class BaseContainer implements ITickable, IInputUser{
 	public boolean showGUI = true;
 	
 	public void render(Graphics g) {
-		grid.render(g);
-		if(showEntities) for (BaseEntity e : entities) if(e.shouldRender()) e.render(g);
+		oldGrid.render(g);
+		if(showEntities) for (BaseEntity e : oldEntities) if(e.shouldRender()) e.render(g);
 		if(showGUI) for(GUI gui : guis) gui.render(g);
 	}
 }

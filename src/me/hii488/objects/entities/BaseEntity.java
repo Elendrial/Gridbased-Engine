@@ -43,8 +43,8 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	
 	public void updateRenderPosition() {
 		textureName = sanitizedName + "_" + currentState; // Needs to happen here for texture height&width
-		renderPosA.setX(position.getX() - Camera.cameraPosition.getX());
-		renderPosA.setY(position.getY() - Camera.cameraPosition.getY());
+		renderPosA.setX(position.getX() - Camera.getPosition().getX());
+		renderPosA.setY(position.getY() - Camera.getPosition().getY());
 		renderPosB.setX(renderPosA.getAbsX() + (getTexture().getWidth() * Camera.scale));
 		renderPosB.setY(renderPosA.getAbsY() + (getTexture().getHeight() * Camera.scale));
 	}
@@ -54,15 +54,15 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 		return (renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0) && (renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0);
 	}
 	
-	private Vector renderPosA = new Vector(); // Upper left corner
-	private Vector renderPosB = new Vector(); // Lower right corner
+	protected Vector renderPosA = new Vector(); // Upper left corner
+	protected Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
 		g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
 		
 		if(Settings.Logging.debug || this.showCollisionBox){
 			Color c = g.getColor();
 			g.setColor(Color.red);
-			g.drawRect(this.collisionBox.x  - Camera.cameraPosition.getX(), this.collisionBox.y - Camera.cameraPosition.getY(), this.collisionBox.width, this.collisionBox.height);
+			g.drawRect(this.collisionBox.x  - Camera.getPosition().getX(), this.collisionBox.y - Camera.getPosition().getY(), this.collisionBox.width, this.collisionBox.height);
 			g.setColor(c);
 		}
 	}

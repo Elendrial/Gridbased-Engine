@@ -23,6 +23,7 @@ public class Window implements Runnable {
 	public int targetTPS;
 
 	public boolean isRunning;
+	public boolean isWaiting = false;
 
 	public Window(String title, int width, int height) {
 		// Set the variables
@@ -57,8 +58,7 @@ public class Window implements Runnable {
 		isRunning = false;
 	}
 
-	private void render() {
-		// Buffer Strategy
+	private synchronized void render() {
 		BufferStrategy bs = this.display.getBufferStrategy();
 		if (bs == null) {
 			this.display.createBufferStrategy(2);
@@ -68,11 +68,9 @@ public class Window implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 
-		// Clear the graphics
 		g.clearRect(0, 0, width, height);
-
-		// Draw the display
-		//g.fillRect(0, 0, width, height);
+		
+	//	GameController.tickController.okayToRender();
 		this.display.render(g);
 
 		g.dispose();

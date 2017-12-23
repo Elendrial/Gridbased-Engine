@@ -159,6 +159,8 @@ public class Player extends BaseEntity implements IInputUser{
 	public void onDestroy() {}
 
 	@Override
-	public TexturedObject clone() {return null;} // Player entity should not be cloned.
+	public TexturedObject clone() { // Player should not be copied, but instead returned as a placeholder.
+		return new PlayerPlaceHolder(this);
+	}
 
 }

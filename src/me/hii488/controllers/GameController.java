@@ -13,6 +13,7 @@ public class GameController {
 	public static boolean isPaused = false;
 	
 	public static Window[] windows = new Window[1]; // Goal is to modify containers to allow for multiple windows.
+	public static TickController tickController = new TickController();
 	public static Random rand = new Random();
 	
 	public static void setupEngine(){ //This may grow, it may not

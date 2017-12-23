@@ -47,4 +47,14 @@ public class EntityHandler {
 		
 		return false;
 	}
+	
+	public static ArrayList<BaseEntity> deepClone(ArrayList<BaseEntity> in){
+		ArrayList<BaseEntity> out = new ArrayList<BaseEntity>();
+		
+		for(BaseEntity e : in) {
+			out.add((BaseEntity) e.clone());
+		}
+		
+		return out;
+	}
 }

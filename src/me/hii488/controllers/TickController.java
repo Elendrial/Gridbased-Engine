@@ -2,6 +2,7 @@ package me.hii488.controllers;
 
 import java.util.ArrayList;
 
+import me.hii488.graphics.Camera;
 import me.hii488.handlers.ContainerHandler;
 import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Settings;
@@ -10,6 +11,11 @@ import me.hii488.objects.entities.BaseEntity;
 public class TickController implements Runnable {
 	public static ArrayList<ITickable> additionalEarlyTicking = new ArrayList<ITickable>();
 	public static ArrayList<ITickable> additionalLateTicking = new ArrayList<ITickable>();
+	
+	public boolean endOfTick = false;
+	public boolean stillRendering = false;
+	public boolean renderWaiting = false;
+	public boolean tickWaiting = false;
 	
 	public static void updateTickableOnTick(){
 		// Early tickers tick first
@@ -43,13 +49,31 @@ public class TickController implements Runnable {
 		for(ITickable toTick: additionalLateTicking) if(GameController.rand.nextFloat() < toTick.randTickChance()) toTick.updateOnTick();
 	}
 
-	public static void tickClearup(){
+	
+	
+	public synchronized void tickClearup(){
+		endOfTick = true;
 		ContainerHandler.getLoadedContainer().endOfTick();
+		Camera.update();
+		endOfTick = false;
+		if(renderWaiting) notifyAll();
+	}
+	
+	public synchronized void okayToRender() {
+		while(endOfTick) {
+			try {
+				renderWaiting = true;
+				wait();
+			} catch (InterruptedException e) {e.printStackTrace();}
+			finally {renderWaiting = false;}
+		}
 	}
 	
 	
+	
+	
 	public static void start(){
-		new Thread(new TickController()).start();
+		new Thread(GameController.tickController).start();
 	}
 	
 	
