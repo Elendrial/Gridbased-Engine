@@ -46,13 +46,13 @@ public class RenderController implements Runnable{
 	
 	// Might want to use synchronise here
 
-	public void update(){
+	public synchronized void update(){
 		update = true;
 		notifyAll();
 	}
 	
 	private boolean update = false;
-	private void waitForUpdate(){
+	private synchronized void waitForUpdate(){
 		while(!update){
 			try {
 				this.wait();

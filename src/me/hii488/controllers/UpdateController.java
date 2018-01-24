@@ -16,17 +16,17 @@ public class UpdateController implements Runnable{
 		new Thread(instance).start();
 	}
 	
-	public void tickDone(){
+	public synchronized void tickDone(){
 		tickNotify = true;
 		this.notifyAll();
 	}
 	
-	public void renderDone(){
+	public synchronized void renderDone(){
 		renderNotify = true;
 		this.notifyAll();
 	}
 	
-	public void waitForEnd(){
+	public synchronized void waitForEnd(){
 		while(!tickNotify && !renderNotify){
 			try {
 				this.wait();

@@ -54,6 +54,7 @@ public class ContainerHandler {
 	}
 	
 	public static void updateRenderContainer(){
+		renderContainer.getEntities().clear();
 		for(BaseEntity e : getLoadedContainer().getEntities()) renderContainer.getEntities().add(e.createRenderEntity());
 		renderContainer.grid = getLoadedContainer().grid.clone(); // TODO: Change this so only the to be rendered tiles are cloned?
 	}

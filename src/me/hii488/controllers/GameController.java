@@ -22,7 +22,7 @@ public class GameController {
 		loadWindow(new Window(windowTitle, windowWidth, windowHeight));
 	}
 	
-	public static void loadWindow(Window w){ // seperate this
+	public static void loadWindow(Window w){ // Separate this <- current me: separate what? What do you mean past self?! What do you meeaaannnn???!?
 		UpdateController.renderController.window = w;
 	}
 	
