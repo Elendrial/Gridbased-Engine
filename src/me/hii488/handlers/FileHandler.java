@@ -1,4 +1,4 @@
-package me.hii488.saveSystem;
+package me.hii488.handlers;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Formatter;
 
-public class FileIO {
+public class FileHandler {
 
 	public static void serialize(String path, Object obj) throws Exception {
 		FileOutputStream fileOut = new FileOutputStream(path);

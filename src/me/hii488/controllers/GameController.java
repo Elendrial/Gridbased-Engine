@@ -12,8 +12,6 @@ public class GameController {
 	public static boolean isRunning = true;
 	public static boolean isPaused = false;
 	
-	public static Window[] windows = new Window[1]; // Goal is to modify containers to allow for multiple windows.
-	public static TickController tickController = new TickController();
 	public static Random rand = new Random();
 	
 	public static void setupEngine(){ //This may grow, it may not
@@ -25,7 +23,7 @@ public class GameController {
 	}
 	
 	public static void loadWindow(Window w){ // seperate this
-		windows[0] = w;
+		UpdateController.renderController.window = w;
 	}
 	
 	public static void startGame(){
@@ -38,14 +36,16 @@ public class GameController {
 		
 		InitilisationController.initAll();
 		
-		TickController.start();
-		
 		InitilisationController.postInitAll();
 		
-		windows[0].createDisplay();
-		windows[0].start();
+		getWindow().createDisplay();
+		UpdateController.start();
 	}
 	
 	public static void closeGame(){}
+	
+	public static Window getWindow(){
+		return UpdateController.renderController.window;
+	}
 	
 }

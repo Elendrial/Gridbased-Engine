@@ -22,9 +22,9 @@ public class Settings {
 	}
 
 	public static class Logging{
-		// TODO : This.
+		// TODO: This.
 		public static boolean debug = false;
-		public static boolean tpsPrinter = false;
+		public static boolean tpsPrinter = true;
 	}
 
 	public static class Texture{

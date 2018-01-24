@@ -43,7 +43,7 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	
 	public boolean shouldRender() {
 		updateRenderPosition();
-		return (renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0) && (renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0);
+		return (renderPosA.getX() < GameController.getWindow().width && renderPosB.getX() > 0) && (renderPosA.getY() < GameController.getWindow().height && renderPosB.getY() > 0);
 	}
 	
 	public void render(Graphics g) {

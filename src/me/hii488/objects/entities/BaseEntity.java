@@ -51,7 +51,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	
 	public boolean shouldRender() {
 		updateRenderPosition();
-		return (renderPosA.getX() < GameController.windows[0].width && renderPosB.getX() > 0) && (renderPosA.getY() < GameController.windows[0].height && renderPosB.getY() > 0);
+		return (renderPosA.getX() < GameController.getWindow().width && renderPosB.getX() > 0) && (renderPosA.getY() < GameController.getWindow().height && renderPosB.getY() > 0);
 	}
 	
 	protected Vector renderPosA = new Vector(); // Upper left corner
@@ -71,5 +71,9 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 		this.onDestroy();
 		ContainerHandler.containers.get(containerIdentifier).removeEntity(this);
 		notDestroyed = false;
+	}
+	
+	public RenderEntity createRenderEntity(){
+		return new RenderEntity(this);
 	}
 }

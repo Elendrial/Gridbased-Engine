@@ -1,16 +1,12 @@
 package me.hii488.graphics;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-import me.hii488.controllers.GameController;
 import me.hii488.handlers.InputHandler;
 
-public class Window implements Runnable {
+public class Window {
 
 	// Actual window
 	public JFrame frame;
@@ -21,9 +17,6 @@ public class Window implements Runnable {
 
 	// How often we want the game to tick per second
 	public int targetTPS;
-
-	public boolean isRunning;
-	public boolean isWaiting = false;
 
 	public Window(String title, int width, int height) {
 		// Set the variables
@@ -47,64 +40,5 @@ public class Window implements Runnable {
 		display.addMouseListener(InputHandler.instance);
 		this.frame.add(this.display);
 	}
-
-	public void start() {
-		isRunning = true;
-		frame.requestFocus();
-		new Thread(this).start();
-	}
-
-	public void stop() {
-		isRunning = false;
-	}
-
-	private synchronized void render() {
-		BufferStrategy bs = this.display.getBufferStrategy();
-		if (bs == null) {
-			this.display.createBufferStrategy(2);
-			this.display.requestFocus();
-			return;
-		}
-
-		Graphics g = bs.getDrawGraphics();
-
-		g.clearRect(0, 0, width, height);
-		
-	//	GameController.tickController.okayToRender();
-		this.display.render(g);
-
-		g.dispose();
-		bs.show();
-	}
-
-	public int FPS = 0;
-	public void run() {
-		int fps = 0;
-		double fpsTimer = System.currentTimeMillis();
-
-		while (isRunning && GameController.isRunning) {
-
-			// This is NOT to sleep, but to limit the game loop
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-			render();
-			fps++;
-
-			// If the current time is 1 second greater than the last time we
-			// printed
-			if (System.currentTimeMillis() - fpsTimer >= 1000) {
-				FPS = fps;
-				fps = 0;
-				fpsTimer += 1000;
-			}
-		}
-		
-		// When the gameloop is finished running, close the program
-		this.frame.dispatchEvent(new WindowEvent(this.frame, WindowEvent.WINDOW_CLOSING));
-
-	}
+	
 }

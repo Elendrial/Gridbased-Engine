@@ -17,7 +17,7 @@ public class Camera {
 	}
 	
 	public static void smoothMoveTo(Vector v, int speed){
-		//TODO
+		//TODO: Smooth move
 	}
 	
 	public static Vector getPosition() {

@@ -25,7 +25,7 @@ This is designed for only one player, although it would probably take very littl
 
 ### Rendering:
 - Each object that needs rendering has it's own render() method.
-- A proper Gui handler is not implemented yet, but will be shortly (if I'm prodded enough).
+- A Gui handler is implemented, if you want to make a simple button game screw the rest of the engine, use these.
 - Is threaded seperately from Ticking.
 
 ### Initilisation:
@@ -33,9 +33,13 @@ This is designed for only one player, although it would probably take very littl
 - To add a class to the Initilisation queue, it must extend [IInitilisation](../master/src/me/hii488/gameWorld/initilisation/IInitilisation.java) and added to [WorldInitilisation](../master/src/me/hii488/gameWorld/initilisation/WorldInitilisation.java)'s list
 
 ## Examples:
-[Space Invaders](https://github.com/hii488/Space-Invaders)
+- [Space Invaders](https://github.com/hii488/Space-Invaders)
+- [Scrolling Shooter](https://github.com/hii488/Scrolling-Shooter)
+- [Volcano Rush](https://github.com/hii488/VolcanoRush)
+
 ######If you make something with this engine, send me a message and I'll add it here :)
 
 
 TODO:
-- Make the rendering more efficient (if TextureHandler stores all textures anyway, why does each instance of the tile?) 
+- Make the rendering more efficient (if TextureHandler stores all textures anyway, why does each instance of the tile?)
+- Reimplement tickOnSec().
