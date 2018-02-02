@@ -76,8 +76,6 @@ public class TickController implements Runnable {
 		try{updateTickableOnSec();}catch(Exception e){e.printStackTrace();}
 		try{endOfTick();} catch(Exception e){e.printStackTrace();}
 	}
-	
-	// Might want to use synchronise here
 
 	public synchronized void update(){
 		update = true;

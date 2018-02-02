@@ -43,8 +43,6 @@ public class RenderController implements Runnable{
 		g.dispose();
 		bs.show();
 	}
-	
-	// Might want to use synchronise here
 
 	public synchronized void update(){
 		update = true;

@@ -9,9 +9,9 @@ import me.hii488.objects.entities.BaseEntity;
 
 
 public class EntityHandler {
-	@SuppressWarnings("unchecked")
+	
 	public static ArrayList<BaseEntity> getCollidingEntities(BaseEntity toCheck){
-		ArrayList<BaseEntity> all = (ArrayList<BaseEntity>) ContainerHandler.getLoadedContainer().getEntities().clone();
+		ArrayList<BaseEntity> all = (ArrayList<BaseEntity>) ContainerHandler.getLoadedContainer().getEntities();
 		
 		ArrayList<BaseEntity> collidingWith = new ArrayList<BaseEntity>();
 		
@@ -24,9 +24,8 @@ public class EntityHandler {
 		return collidingWith;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static ArrayList<BaseEntity> getEntitiesIntersectingWithRect(Rectangle r){
-		ArrayList<BaseEntity> all = (ArrayList<BaseEntity>) ContainerHandler.getLoadedContainer().getEntities().clone();
+		ArrayList<BaseEntity> all = (ArrayList<BaseEntity>) ContainerHandler.getLoadedContainer().getEntities();
 		
 		ArrayList<BaseEntity> collidingWith = new ArrayList<BaseEntity>();
 		

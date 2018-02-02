@@ -13,6 +13,10 @@ public class InputHandler implements MouseListener, KeyListener{
 	public static InputHandler instance = new InputHandler();
 	public static ArrayList<IInputUser> inputUsers = new ArrayList<IInputUser>();
 	
+	public static void addInputUser(IInputUser i){
+		inputUsers.add(i);
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		ContainerHandler.getLoadedContainer().keyPressed(arg0);

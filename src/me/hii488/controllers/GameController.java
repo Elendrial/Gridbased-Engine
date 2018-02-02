@@ -27,22 +27,24 @@ public class GameController {
 	}
 	
 	public static void startGame(){
-		InitilisationController.preInitAll();
+		InitialisationController.preInitAll();
 		
 		if(EntityRegistry.player == null){
 			System.err.println("No player set, defaulting to base.");
 			EntityRegistry.player = new Player();
 		}
 		
-		InitilisationController.initAll();
+		InitialisationController.initAll();
 		
-		InitilisationController.postInitAll();
+		InitialisationController.postInitAll();
 		
 		getWindow().createDisplay();
 		UpdateController.start();
 	}
 	
-	public static void closeGame(){}
+	public static void closeGame(){
+		isRunning = false;
+	}
 	
 	public static Window getWindow(){
 		return UpdateController.renderController.window;
