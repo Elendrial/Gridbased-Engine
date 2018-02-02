@@ -44,6 +44,10 @@ public class UpdateController implements Runnable{
 		ContainerHandler.updateRenderContainer();
 	}
 	
+	public void updateSecond(){
+		tickController.markForSecTick();
+	}
+	
 	public int TPS = 0;
 	public int actualTPS;
 	
@@ -72,8 +76,7 @@ public class UpdateController implements Runnable{
 			unprocessed += (now - then) / nsPerTick;
 			then = now;
 			while (unprocessed >= 1 && unprocessed < actualTPS) {
-				if(!GameController.isPaused)
-					update();
+				if(!GameController.isPaused) update();
 				
 				tick++;
 				unprocessed--;
@@ -86,6 +89,8 @@ public class UpdateController implements Runnable{
 				TPS = tick;
 				tick = 0;
 				fpsTimer += 1000;
+				
+				if(!GameController.isPaused) updateSecond();
 				
 				if(Settings.Logging.tpsPrinter) System.out.println("TPS: " + TPS);
 				

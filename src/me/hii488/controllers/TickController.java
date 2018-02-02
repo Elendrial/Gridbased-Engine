@@ -92,12 +92,25 @@ public class TickController implements Runnable {
 		update = false;
 	}
 	
+	private boolean updateSecond = false;
+	public void markForSecTick(){
+		updateSecond = true;
+	}
+	
 	@Override
 	public void run() {
 		while (GameController.isRunning) {
 			waitForUpdate();
-			if(isRunning) tick();
+			if(isRunning) {
+				tick();
+				if(updateSecond){
+					sec();
+					updateSecond = false;
+				}
+			}
 			UpdateController.instance.renderDone();
 		}
 	}
+
+	
 }
