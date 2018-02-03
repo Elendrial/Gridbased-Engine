@@ -41,8 +41,11 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 		if(destroyIfOutside && EntityHandler.isOutOfContainer(this)) this.destroy();
 	}
 	
+	public void endOfTick(){
+		textureName = sanitizedName + "_" + currentState;
+	}
+	
 	public void updateRenderPosition() {
-		textureName = sanitizedName + "_" + currentState; // Needs to happen here for texture height&width
 		renderPosA.setX(position.getX() - Camera.getPosition().getX());
 		renderPosA.setY(position.getY() - Camera.getPosition().getY());
 		renderPosB.setX(renderPosA.getAbsX() + (getTexture().getWidth() * Camera.scale));
@@ -63,6 +66,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 			Color c = g.getColor();
 			g.setColor(Color.red);
 			g.drawRect(this.collisionBox.x  - Camera.getPosition().getX(), this.collisionBox.y - Camera.getPosition().getY(), this.collisionBox.width, this.collisionBox.height);
+			g.drawString(this.currentState + ":" + this.textureName, renderPosA.getX(), renderPosA.getY());
 			g.setColor(c);
 		}
 	}

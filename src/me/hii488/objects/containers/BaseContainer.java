@@ -65,7 +65,10 @@ public class BaseContainer implements ITickable, IInputUser{
 	public float randTickChance() {return 0;}
 	
 	public void endOfTick(){
+		for(BaseEntity ge : entities) ge.endOfTick();
+		
 		entities.addAll(entitiesAddedInTick);
+		
 		for(BaseEntity ge: entitiesAddedInTick){
 			ge.containerIdentifier = this.identifier;
 			ge.onLoad();

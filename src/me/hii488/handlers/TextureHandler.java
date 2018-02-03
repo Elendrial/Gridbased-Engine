@@ -55,11 +55,15 @@ public class TextureHandler {
 				System.exit(1);
 			}
 		}
+		
+		if(Settings.Logging.debug) System.out.println("Loading texture: \"" + key + "\" from \"" + path + imageName + "\"");
+		
 		textures.put(key, i);
 	}
 	
 	public static BufferedImage getTexture(String key){
 		if(textures.containsKey(key)) return textures.get(key);
+		System.out.println("Texture \"" + key + "\" not loaded");
 		return textures.get("undefined");
 	}
 	
