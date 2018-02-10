@@ -82,7 +82,6 @@ This is designed for only one player, although it would probably take very littl
 
 
 TODO:
-- Re-implement tickOnSec().
 - Improve how registering is done.
 - Add a way to make layouts of containers with images of some kind? (v low priority)
 - Sounds

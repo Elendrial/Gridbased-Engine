@@ -61,6 +61,13 @@ public class TextureHandler {
 		textures.put(key, i);
 	}
 	
+	public static void loadTextureSet(String path, String imageName, Object obj, String key, int states){
+		String[] im = imageName.split("\\.");
+		int len = im.length;
+		if(len >= 2) for(int i = 0; i < states; i++) loadTexture(path, im[len-2] + "_" + i + "." + im[len-1], obj, key + "_" + i);
+		else for(int i = 0; i < states; i++) loadTexture(path, imageName + "_" + i, obj, key + "_" + i);
+	}
+	
 	public static BufferedImage getTexture(String key){
 		if(textures.containsKey(key)) return textures.get(key);
 		System.out.println("Texture \"" + key + "\" not loaded");
