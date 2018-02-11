@@ -17,4 +17,8 @@ public class EntityRegistry {
 	public static BaseEntity getEntity(String identifier){
 		return (BaseEntity) entities.get(identifier).clone();
 	}
+	
+	public static boolean contains(String identifier){
+		return entities.containsKey(identifier);
+	}
 }

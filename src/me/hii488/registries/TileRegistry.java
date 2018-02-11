@@ -21,4 +21,8 @@ public class TileRegistry{
 		return (BaseTile) tiles.get(identifier).clone();
 	}
 	
+	public static boolean contains(String identifier){
+		return tiles.containsKey(identifier);
+	}
+	
 }
